@@ -1,7 +1,7 @@
 <template>
   <div class="guide-bar">
     <div class="guide-bar__expand" @click="expand = !expand">
-      <div>
+      <!-- <div>
         <v-tooltip right color="black">
           <template v-slot:activator="{ on, attrs }"
             ><v-icon v-bind="attrs" color="#404142" class="guide-bar__sidebar-icon" v-on="on"
@@ -9,9 +9,30 @@
             >
           </template>
           <span>Collapse</span>
-          <!-- <span>Expand</span> -->
+        </v-tooltip>
+      </div> -->
+
+      <div>
+        <v-tooltip right color="black">
+          <template v-slot:activator="{ on, attrs }"
+            ><v-icon v-bind="attrs" color="#404142" class="guide-bar__sidebar-icon" v-on="on"
+              >mdi-chevron-double-left</v-icon
+            >
+          </template>
+          <span>Collapse</span>
         </v-tooltip>
       </div>
+
+      <!-- <div>
+        <v-tooltip right color="black">
+          <template v-slot:activator="{ on, attrs }"
+            ><v-icon v-bind="attrs" color="#404142" class="guide-bar__sidebar-icon" v-on="on"
+              >mdi-chevron-double-right</v-icon
+            >
+          </template>
+          <span>Collapse</span>
+        </v-tooltip>
+      </div> -->
 
       <div>
         <v-tooltip right color="black">
@@ -25,18 +46,41 @@
       </div>
 
       <v-divider />
+
       <div>
         <v-tooltip right color="black">
           <template v-slot:activator="{ on, attrs }"
-            ><v-icon v-bind="attrs" color="orange" class="guide-bar__sidebar-icon" v-on="on"
+            ><v-icon v-bind="attrs" color="blue" class="guide-bar__sidebar-icon" v-on="on"
+              >mdi-transit-connection-variant</v-icon
+            >
+          </template>
+          <span>Program Guide</span>
+        </v-tooltip>
+      </div>
+
+      <div>
+        <v-tooltip right color="black">
+          <template v-slot:activator="{ on, attrs }"
+            ><v-icon v-bind="attrs" color="#404142" class="guide-bar__sidebar-icon" v-on="on"
+              >mdi-rocket</v-icon
+            >
+          </template>
+          <span>Launch Program</span>
+        </v-tooltip>
+      </div>
+
+      <!-- <div>
+        <v-tooltip right color="black">
+          <template v-slot:activator="{ on, attrs }"
+            ><v-icon v-bind="attrs" color="#404142" class="guide-bar__sidebar-icon" v-on="on"
               >mdi-progress-wrench</v-icon
             >
           </template>
           <span>Setup Program</span>
         </v-tooltip>
-      </div>
+      </div> -->
 
-      <div>
+      <!-- <div>
         <v-tooltip right color="black">
           <template v-slot:activator="{ on, attrs }"
             ><v-icon v-bind="attrs" color="#404142" class="guide-bar__sidebar-icon" v-on="on"
@@ -45,9 +89,9 @@
           </template>
           <span>Monitor Program</span>
         </v-tooltip>
-      </div>
+      </div> -->
 
-      <div>
+      <!-- <div>
         <v-tooltip right color="black">
           <template v-slot:activator="{ on, attrs }"
             ><v-icon v-bind="attrs" color="#404142" class="guide-bar__sidebar-icon" v-on="on"
@@ -56,9 +100,9 @@
           </template>
           <span>Manage Participants</span>
         </v-tooltip>
-      </div>
+      </div> -->
 
-      <div>
+      <!-- <div>
         <v-tooltip right color="black">
           <template v-slot:activator="{ on, attrs }"
             ><v-icon v-bind="attrs" color="#404142" class="guide-bar__sidebar-icon" v-on="on"
@@ -67,7 +111,7 @@
           </template>
           <span>Manage Stakeholders</span>
         </v-tooltip>
-      </div>
+      </div> -->
 
       <v-divider />
 
@@ -111,11 +155,11 @@
           <div class="guide-bar__title">Lawrence Berkeley National Laboratory</div>
           <!-- <v-avatar color="grey"></v-avatar> -->
           <!-- ORGANIZER SETUP MODE -->
-          <div class="guide-bar__cta2">
+          <!-- <div class="guide-bar__cta2">
             <v-btn rounded class="guide-bar__cta-button" x-small outlined depressed color="grey"
               ><v-icon x-small left>mdi-file-document-edit</v-icon>Edit Program</v-btn
             >
-          </div>
+          </div> -->
           <!-- ORGANIZER SETUP MODE -->
           <div class="guide-bar__stepper">
             <div class="guide-bar__stepper-content">
@@ -131,14 +175,14 @@
                     <div class="guide-bar__timeline-item">
                       Research
                       <div>
-                        <v-btn
+                        <!-- <v-btn
                           class="guide-bar__timeline-item-setup"
                           color="orange"
                           outlined
                           x-small
                           depressed
                           >Setup</v-btn
-                        >
+                        > -->
                       </div>
                     </div>
                   </v-stepper-step>
@@ -148,19 +192,19 @@
             </div>
           </div>
           <!-- STUDENT VIEW -->
-          <!-- <div class="guide-bar__actions">
+          <div class="guide-bar__actions">
             <div class="guide-bar__actions-list">
               <v-icon v-for="action in actions" :key="action.icon" dark @click="logThis(action.fn)">
                 {{ 'mdi-' + action.icon }}
               </v-icon>
             </div>
-          </div> -->
+          </div>
           <!-- STUDENT VIEW -->
 
           <!-- ORGANIZER SETUP MODE -->
-          <div class="guide-bar__cta1">
+          <!-- <div class="guide-bar__cta1">
             <v-btn rounded depressed outlined color="grey">Finish Setup to Publish</v-btn>
-          </div>
+          </div> -->
           <!-- ORGANIZER SETUP MODE -->
         </div>
       </v-expand-x-transition>
@@ -422,6 +466,7 @@ $stepper-step-step-height: 50px;
 .guide-bar {
   &__container {
     height: 100vh;
+    // border-right: 1px solid #dedede;
     // background-color: transparent !important;
   }
   &__highlight {
@@ -438,7 +483,7 @@ $stepper-step-step-height: 50px;
     font-family: Raleway;
     font-weight: 800;
     margin-top: 12px;
-    margin-bottom: 12px;
+    margin-bottom: 24px;
     // margin-top: 25px;
     // margin-bottom: 25px;
     font-size: 18px;
@@ -512,13 +557,13 @@ $stepper-step-step-height: 50px;
     margin-bottom: 10px;
   }
   &__actions {
-    width: 90%;
+    width: 100%;
 
     display: flex;
     justify-content: center;
     // border: 1px dashed #404142;
     background-color: #3c9dcd;
-    margin: 10px 10px 10px 10px;
+    margin: 15px 10px 10px 10px;
     border-radius: 10px;
     // background-color: #dedede;
     padding: 15px 0 15px 0;
