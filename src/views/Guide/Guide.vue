@@ -3,20 +3,19 @@
     <div class="guide__bar">
       <guide-bar />
     </div>
-    <div class="guide__page">
+    <!-- <div class="guide__page">
       <div class="guide__activity-title-button">
-        <!-- <v-btn rounded small outlined depressed color="blue">Monitor</v-btn> -->
         <v-avatar size="50">
           <v-img
             src="https://cdn.discordapp.com/attachments/692111176129052712/800962947743875102/Screen_Shot_2021-01-18_at_9.40.44_PM.png"
           ></v-img>
         </v-avatar>
       </div>
-      <div class="guide__activity-title">Prajit Saravanan's Progress</div>
-      <div class="guide__table">
-        <component :is="currentUnit" />
-      </div>
+      <div class="guide__activity-title">Prajit Saravanan's Progress</div> -->
+    <div class="guide__table">
+      <component :is="currentUnit" />
     </div>
+    <!-- </div> -->
   </div>
 </template>
 

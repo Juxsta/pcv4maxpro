@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-main>
-      <!-- <Navbar></Navbar> -->
+      <Navbar></Navbar>
       <router-view></router-view>
     </v-main>
   </v-app>
@@ -15,7 +15,7 @@ export default Vue.extend({
   name: 'App',
 
   components: {
-    // Navbar
+    Navbar
   },
 
   data: () => ({

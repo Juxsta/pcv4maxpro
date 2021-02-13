@@ -1,6 +1,6 @@
 <template>
   <div class="guide-bar">
-    <div class="guide-bar__expand" @click="expand = !expand">
+    <!-- <div class="guide-bar__expand" @click="expand = !expand">
       <div>
         <v-tooltip right color="black">
           <template v-slot:activator="{ on, attrs }"
@@ -9,7 +9,6 @@
             >
           </template>
           <span>Collapse</span>
-          <!-- <span>Expand</span> -->
         </v-tooltip>
       </div>
 
@@ -38,17 +37,6 @@
 
       <v-divider />
 
-      <!-- <div>
-        <v-tooltip right color="black">
-          <template v-slot:activator="{ on, attrs }"
-            ><v-icon v-bind="attrs" color="#404142" class="guide-bar__sidebar-icon" v-on="on"
-              >mdi-close</v-icon
-            >
-          </template>
-          <span>Close</span>
-        </v-tooltip>
-      </div> -->
-
       <div>
         <v-tooltip right color="black">
           <template v-slot:activator="{ on, attrs }"
@@ -62,39 +50,30 @@
 
       <div>
         <v-tooltip right color="black">
-          <template v-slot:activator="{ on, attrs }"
-            ><v-icon v-bind="attrs" color="#404142" class="guide-bar__sidebar-icon" v-on="on"
+          <template v-slot:activator="{ on, attrs }">
+            <v-icon v-bind="attrs" color="#404142" class="guide-bar__sidebar-icon" v-on="on"
               >mdi-telegram</v-icon
             >
           </template>
           <span>Explore Programs</span>
         </v-tooltip>
       </div>
-    </div>
+    </div> -->
     <v-card class="program-card">
       <v-expand-x-transition>
         <div v-show="expand" class="guide-bar__container">
           <v-list class="guide-bar__list">
-            <!-- <v-subheader class="guide-bar__monitor-participants-title"
-              >Monitor Participants</v-subheader
-            > -->
-
             <div class="guide-bar__monitor-participants-title">
-              <v-icon large color="black">mdi-monitor-dashboard</v-icon> Monitor Progress
+              <v-icon large color="black">mdi-telegram</v-icon>
+              Explore Programs
             </div>
 
             <v-container fluid>
               <div class="">
                 <v-icon class="mt-1 mb-1" x-small color="black" dark depressed>mdi-gear</v-icon>
-                <!-- <v-subheader>Sort</v-subheader> -->
                 <v-btn class="mt-1 mb-1" x-small color="black" dark depressed
                   >PilotCity Flagship Program</v-btn
                 >
-
-                <!-- <v-btn class="ma-1" color="grey" x-small depressed outlined>School</v-btn
-                ><v-btn class="ma-1" color="grey" x-small depressed outlined>Grade</v-btn
-                ><v-btn class="ma-1" color="grey" x-small depressed outlined>Team</v-btn>
-                <v-btn class="ma-1" color="grey" x-small depressed outlined>Progress</v-btn> -->
               </div>
 
               <v-combobox
@@ -112,14 +91,6 @@
                 outlined
                 class="guide-bar__combobox mt-4 mb-4"
               >
-                <!-- <template v-slot:no-data>
-                  <v-list-item>
-                    <span class="subheading">Create</span>
-                    <v-chip :color="`${colors[nonce - 1]} lighten-3`" label small>
-                      {{ search }}
-                    </v-chip>
-                  </v-list-item>
-                </template> -->
                 <template v-slot:selection="{ attrs, item, parent, selected }">
                   <v-chip
                     v-if="item === Object(item)"
@@ -152,22 +123,9 @@
                     {{ item.text }}
                   </v-chip>
                   <v-spacer></v-spacer>
-                  <!-- <v-list-item-action @click.stop>
-                    <v-btn icon @click.stop.prevent="edit(index, item)">
-                      <v-icon>{{ editing !== item ? 'mdi-pencil' : 'mdi-check' }}</v-icon>
-                    </v-btn>
-                  </v-list-item-action> -->
                 </template>
               </v-combobox>
               <div class="">
-                <!-- <v-subheader>Sort</v-subheader> -->
-                <!-- <v-btn class="mt-1 mb-1" x-small dark depressed>Sort by</v-btn> -->
-
-                <!-- <v-btn class="ma-1" color="grey" x-small depressed outlined>School</v-btn
-                ><v-btn class="ma-1" color="grey" x-small depressed outlined>Grade</v-btn
-                ><v-btn class="ma-1" color="grey" x-small depressed outlined>Team</v-btn>
-                <v-btn class="ma-1" color="grey" x-small depressed outlined>Progress</v-btn> -->
-
                 <template>
                   <div class="">
                     <v-menu offset-y>
@@ -182,9 +140,6 @@
                         </v-list-item>
                       </v-list>
                     </v-menu>
-                    <!-- <v-btn class="mt-1 mb-1 ml-2" color="blue" x-small outlined depressed
-                      >By School<v-icon small right dark> mdi-close</v-icon></v-btn
-                    > -->
                     <v-btn class="mt-1 mb-1 ml-2" color="green" x-small outlined depressed
                       >By Progress<v-icon small right dark> mdi-close</v-icon></v-btn
                     >
@@ -193,16 +148,13 @@
               </div>
             </v-container>
 
-            <v-list-group
+            <!-- <v-list-group
               v-for="item in items2"
               :key="item.title"
               v-model="item.active"
               :prepend-icon="item.action"
               no-action
             >
-              <!-- <v-divider /> -->
-              <!-- <v-list-item outlined class="guide-bar__list-item">All Participants</v-list-item>
-              <v-divider /> -->
               <template v-slot:activator>
                 <v-list-item class="guide-bar__list-item-title">
                   <v-list-item-avatar size="36">
@@ -216,16 +168,6 @@
                       v-text="item.title"
                     ></v-list-item-title
                     ><v-progress-linear color="green" class="mt-2" value="50"></v-progress-linear>
-
-                    <!-- SORTABLE CHIP -->
-                    <!-- <v-chip
-                      class="mt-1 mb-1 guide-bar__sortable-chip"
-                      color="blue lighten-2"
-                      label
-                      dark
-                      x-small
-                      >Irvington High School</v-chip
-                    > -->
                   </v-list-item-content>
                 </v-list-item>
               </template>
@@ -242,7 +184,7 @@
                   ></v-chip
                 ></v-chip-group>
               </div>
-            </v-list-group>
+            </v-list-group> -->
           </v-list>
         </div>
       </v-expand-x-transition>
@@ -778,7 +720,7 @@ $stepper-step-step-height: 50px;
   }
 
   &__list {
-    width: 25vw;
+    width: 24vw;
     overflow-y: auto;
   }
 }
