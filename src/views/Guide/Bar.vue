@@ -13,7 +13,7 @@
         </v-tooltip>
       </div>
 
-      <div>
+      <!-- <div>
         <v-tooltip right color="black">
           <template v-slot:activator="{ on, attrs }"
             ><v-icon v-bind="attrs" color="#404142" class="guide-bar__sidebar-icon" v-on="on"
@@ -22,7 +22,7 @@
           </template>
           <span>Notifications </span>
         </v-tooltip>
-      </div>
+      </div> -->
 
       <v-divider />
       <div>
@@ -33,6 +33,17 @@
             >
           </template>
           <span>Monitor Program</span>
+        </v-tooltip>
+      </div>
+
+      <div>
+        <v-tooltip right color="black">
+          <template v-slot:activator="{ on, attrs }"
+            ><v-icon v-bind="attrs" color="orange" class="guide-bar__sidebar-icon" v-on="on"
+              >mdi-progress-wrench</v-icon
+            >
+          </template>
+          <span>Setup Program</span>
         </v-tooltip>
       </div>
 
@@ -160,7 +171,6 @@
               </v-combobox>
 
               <v-combobox
-                v-model="model3"
                 :filter="filter"
                 :hide-no-data="!search"
                 :items="activities"
@@ -517,10 +527,7 @@ export default {
 
     activities: [
       // { header: 'Filter by programs' },
-      {
-        text: 'All Activities',
-        color: 'grey darken-2'
-      },
+
       {
         text: 'Request for Projects',
         color: 'grey darken-2'
