@@ -104,11 +104,10 @@
                 :items="items"
                 :search-input.sync="search"
                 hide-selected
-                label="Filter by programs"
+                label="Filter by Programs"
                 multiple
                 small-chips
                 hide-details
-                solo
                 outlined
                 class="guide-bar__combobox mt-4 mb-4"
               >
@@ -159,6 +158,67 @@
                   </v-list-item-action> -->
                 </template>
               </v-combobox>
+
+              <v-combobox
+                v-model="model3"
+                :filter="filter"
+                :hide-no-data="!search"
+                :items="activities"
+                :search-input.sync="search"
+                hide-selected
+                label="Filter by Activities"
+                small-chips
+                hide-details
+                outlined
+                class="guide-bar__combobox mt-4 mb-4"
+              >
+                <!-- <template v-slot:no-data>
+                  <v-list-item>
+                    <span class="subheading">Create</span>
+                    <v-chip :color="`${colors[nonce - 1]} lighten-3`" label small>
+                      {{ search }}
+                    </v-chip>
+                  </v-list-item>
+                </template> -->
+                <template v-slot:selection="{ attrs, item, parent, selected }">
+                  <v-chip
+                    v-if="item === Object(item)"
+                    v-bind="attrs"
+                    :color="`${item.color} lighten-2`"
+                    :input-value="selected"
+                    label
+                    small
+                    dark
+                  >
+                    <span class="pr-2">
+                      {{ item.text }}
+                    </span>
+                    <!-- <v-icon small @click="parent.selectItem(item)"> mdi-close </v-icon> -->
+                  </v-chip>
+                </template>
+
+                <template v-slot:item="{ index, item }">
+                  <v-text-field
+                    v-if="editing === item"
+                    v-model="editing.text"
+                    autofocus
+                    flat
+                    background-color="transparent"
+                    hide-details
+                    solo
+                    @keyup.enter="edit(index, item)"
+                  ></v-text-field>
+                  <v-chip v-else :color="`${item.color} lighten-2`" dark label small>
+                    {{ item.text }}
+                  </v-chip>
+                  <v-spacer></v-spacer>
+                  <!-- <v-list-item-action @click.stop>
+                    <v-btn icon @click.stop.prevent="edit(index, item)">
+                      <v-icon>{{ editing !== item ? 'mdi-pencil' : 'mdi-check' }}</v-icon>
+                    </v-btn>
+                  </v-list-item-action> -->
+                </template>
+              </v-combobox>
               <div class="">
                 <!-- <v-subheader>Sort</v-subheader> -->
                 <!-- <v-btn class="mt-1 mb-1" x-small dark depressed>Sort by</v-btn> -->
@@ -173,7 +233,7 @@
                     <v-menu offset-y>
                       <template v-slot:activator="{ on, attrs }">
                         <v-btn class="mt-1 mb-1" x-small outlined depressed v-bind="attrs" v-on="on"
-                          >Sort</v-btn
+                          >Sort by Name</v-btn
                         >
                       </template>
                       <v-list>
@@ -182,12 +242,32 @@
                         </v-list-item>
                       </v-list>
                     </v-menu>
+
+                    <v-menu offset-y>
+                      <template v-slot:activator="{ on, attrs }">
+                        <v-btn
+                          class="mt-1 mb-1 ml-2"
+                          x-small
+                          outlined
+                          depressed
+                          v-bind="attrs"
+                          v-on="on"
+                          >Sort by Person</v-btn
+                        >
+                      </template>
+                      <v-list>
+                        <v-list-item v-for="(item, index) in sortitems2" :key="index" link small>
+                          <v-list-item-title>{{ item.title }}</v-list-item-title>
+                        </v-list-item>
+                      </v-list>
+                    </v-menu>
+
                     <!-- <v-btn class="mt-1 mb-1 ml-2" color="blue" x-small outlined depressed
                       >By School<v-icon small right dark> mdi-close</v-icon></v-btn
                     > -->
-                    <v-btn class="mt-1 mb-1 ml-2" color="green" x-small outlined depressed
+                    <!-- <v-btn class="mt-1 mb-1 ml-2" color="green" x-small outlined depressed
                       >By Progress<v-icon small right dark> mdi-close</v-icon></v-btn
-                    >
+                    > -->
                   </div>
                 </template>
               </div>
@@ -263,11 +343,13 @@ export default {
     editing: null,
     editingIndex: -1,
     sortitems: [
+      { title: 'Name' },
       { title: 'School' },
       { title: 'Grade' },
-      { title: 'Team' },
       { title: 'Completion' }
     ],
+    sortitems2: [{ title: 'Person' }, { title: 'Team' }],
+
     items2: [
       {
         items: [
@@ -398,6 +480,13 @@ export default {
       }
     ],
 
+    model3: [
+      {
+        text: 'All Activities',
+        color: 'grey darken-2'
+      }
+    ],
+
     items: [
       // { header: 'Filter by programs' },
       {
@@ -423,6 +512,70 @@ export default {
       {
         text: 'Typeform',
         color: 'cyan'
+      }
+    ],
+
+    activities: [
+      // { header: 'Filter by programs' },
+      {
+        text: 'All Activities',
+        color: 'grey darken-2'
+      },
+      {
+        text: 'Request for Projects',
+        color: 'grey darken-2'
+      },
+      {
+        text: 'Team',
+        color: 'grey darken-2'
+      },
+      {
+        text: 'Train',
+        color: 'grey darken-2'
+      },
+      {
+        text: 'Research',
+        color: 'grey darken-2'
+      },
+      {
+        text: 'Practice',
+        color: 'grey darken-2'
+      },
+      {
+        text: 'Ideate',
+        color: 'grey darken-2'
+      },
+      {
+        text: 'Pitches',
+        color: 'grey darken-2'
+      },
+      {
+        text: 'Forum',
+        color: 'grey darken-2'
+      },
+      {
+        text: 'Design & Prototype',
+        color: 'grey darken-2'
+      },
+      {
+        text: 'Demonstrate',
+        color: 'grey darken-2'
+      },
+      {
+        text: 'Present',
+        color: 'grey darken-2'
+      },
+      {
+        text: 'Auto-Apply',
+        color: 'grey darken-2'
+      },
+      {
+        text: 'Interview',
+        color: 'grey darken-2'
+      },
+      {
+        text: 'Offer',
+        color: 'grey darken-2'
       }
     ],
     nonce: 1,
@@ -647,12 +800,12 @@ $stepper-step-step-height: 50px;
   box-shadow: none !important;
 }
 
-.v-text-field.v-text-field--enclosed:not(.v-text-field--rounded)
-  > .v-input__control
-  > .v-input__slot,
-.v-text-field.v-text-field--enclosed .v-text-field__details {
-  padding: 10px !important;
-}
+// .v-text-field.v-text-field--enclosed:not(.v-text-field--rounded)
+//   > .v-input__control
+//   > .v-input__slot,
+// .v-text-field.v-text-field--enclosed .v-text-field__details {
+//   padding: 10px !important;
+// }
 
 .v-list-item__content {
   display: inline !important;
