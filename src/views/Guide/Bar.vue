@@ -63,32 +63,284 @@
       <v-expand-x-transition>
         <div v-show="expand" class="guide-bar__container">
           <v-list class="guide-bar__list">
-            <div class="guide-bar__monitor-participants-title">
-              <v-icon large color="black">mdi-telegram</v-icon>
-              Explore Programs
-            </div>
-
             <v-container fluid>
-              <div class="">
-                <v-icon class="mt-1 mb-1" x-small color="black" dark depressed>mdi-gear</v-icon>
-                <v-btn class="mt-1 mb-1" x-small color="black" dark depressed
-                  >PilotCity Flagship Program</v-btn
+              <div class="pl-3">
+                <v-btn
+                  class="guide-bar__activities-chips"
+                  x-small
+                  rounded
+                  outlined
+                  color="black"
+                  dark
+                  depressed
+                  >Build projects to win internships</v-btn
+                >
+              </div>
+              <!-- <div class="pl-3">
+                <v-btn disabled class="guide-bar__activities-chips" rounded depressed x-small
+                  >Build projects to win internships</v-btn
+                >
+              </div> -->
+              <div class="guide-bar__monitor-participants-title">
+                <!-- <v-icon large color="black">mdi-telegram</v-icon> -->
+                Explore Employers
+              </div>
+
+              <div class="pl-3 pb-3">
+                <v-tooltip bottom>
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-btn v-bind="attrs" icon v-on="on">
+                      <v-icon color="#6fc284">mdi-umbrella</v-icon>
+                    </v-btn>
+                  </template>
+                  <span>All</span>
+                </v-tooltip>
+
+                <v-tooltip bottom>
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-btn v-bind="attrs" icon v-on="on">
+                      <v-icon color="#eda1bf">mdi-heart</v-icon>
+                    </v-btn>
+                  </template>
+                  <span>Loved</span>
+                </v-tooltip>
+
+                <v-tooltip bottom>
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-btn v-bind="attrs" icon v-on="on">
+                      <v-icon color="#fdd35a">mdi-bookmark</v-icon>
+                    </v-btn>
+                  </template>
+                  <span>Bookmarks</span>
+                </v-tooltip>
+              </div>
+
+              <div class="pl-3">
+                <v-btn
+                  class="guide-bar__activities-chips"
+                  x-small
+                  rounded
+                  outlined
+                  color="black"
+                  dark
+                  depressed
+                  >Program Activities</v-btn
+                >
+              </div>
+              <div class="pl-3">
+                <v-btn disabled class="guide-bar__activities-chips" rounded depressed x-small
+                  >Start</v-btn
+                >
+                <v-btn disabled class="guide-bar__activities-chips" rounded depressed x-small
+                  >Request for Projects</v-btn
+                >
+                <v-btn class="guide-bar__activities-chips" rounded disabled depressed x-small
+                  >Team</v-btn
+                >
+                <v-btn class="guide-bar__activities-chips" rounded disabled depressed x-small
+                  >Discord</v-btn
+                >
+                <v-btn class="guide-bar__activities-chips" rounded disabled depressed x-small
+                  >Train</v-btn
+                >
+                <v-btn class="guide-bar__activities-chips" rounded disabled depressed x-small
+                  >Research</v-btn
+                >
+                <v-btn class="guide-bar__activities-chips" rounded disabled depressed x-small
+                  >Practice</v-btn
+                >
+                <v-btn class="guide-bar__activities-chips" rounded disabled depressed x-small
+                  >Ideate</v-btn
+                >
+                <v-btn class="guide-bar__activities-chips" rounded disabled depressed x-small
+                  >Pitch</v-btn
+                >
+                <v-btn class="guide-bar__activities-chips" rounded disabled depressed x-small
+                  >Forum</v-btn
+                >
+                <v-btn class="guide-bar__activities-chips" rounded disabled depressed x-small
+                  >Design & Prototype</v-btn
+                >
+                <v-btn class="guide-bar__activities-chips" rounded disabled depressed x-small
+                  >Demonstrate</v-btn
+                >
+                <v-btn class="guide-bar__activities-chips" rounded disabled depressed x-small
+                  >Present</v-btn
+                >
+                <v-btn class="guide-bar__activities-chips" rounded disabled depressed x-small
+                  >Auto-Apply</v-btn
+                >
+                <v-btn class="guide-bar__activities-chips" rounded disabled depressed x-small
+                  >Interview</v-btn
+                >
+                <v-btn class="guide-bar__activities-chips" rounded disabled depressed x-small
+                  >Offer</v-btn
+                >
+                <v-btn disabled class="guide-bar__activities-chips" rounded depressed x-small
+                  >Results</v-btn
                 >
               </div>
 
               <v-combobox
-                v-model="model2"
+                v-model="citizenStandard"
                 :filter="filter"
                 :hide-no-data="!search"
-                :items="items"
+                hide-selected
+                :items="citizen"
+                :search-input.sync="search"
+                label="Filter by Citizen"
+                small-chips
+                hide-details
+                outlined
+                dense
+                class="guide-bar__combobox mt-4 mb-4"
+              >
+                <template v-slot:selection="{ attrs, item, parent, selected }">
+                  <v-chip
+                    v-if="item === Object(item)"
+                    v-bind="attrs"
+                    :color="`${item.color} lighten-2`"
+                    :input-value="selected"
+                    label
+                    small
+                    dark
+                  >
+                    <span class="pr-2">
+                      {{ item.text }}
+                    </span>
+                    <!-- <v-icon small @click="parent.selectItem(item)"> mdi-close </v-icon> -->
+                  </v-chip>
+                </template>
+
+                <template v-slot:item="{ index, item }">
+                  <v-text-field
+                    v-if="editing === item"
+                    v-model="editing.text"
+                    autofocus
+                    flat
+                    background-color="transparent"
+                    hide-details
+                    solo
+                    @keyup.enter="edit(index, item)"
+                  ></v-text-field>
+                  <v-chip v-else :color="`${item.color} lighten-2`" dark label small>
+                    {{ item.text }}
+                  </v-chip>
+                  <v-spacer></v-spacer>
+                </template>
+              </v-combobox>
+
+              <v-combobox
+                v-model="cityStandard"
+                :filter="filter"
+                :hide-no-data="!search"
+                :items="city"
                 :search-input.sync="search"
                 hide-selected
-                label="Filter by programs"
+                label="Filter by Residence"
+                small-chips
+                hide-details
+                outlined
+                dense
+                class="guide-bar__combobox mt-4 mb-4"
+              >
+                <template v-slot:selection="{ attrs, item, parent, selected }">
+                  <v-chip
+                    v-if="item === Object(item)"
+                    v-bind="attrs"
+                    :color="`${item.color} lighten-2`"
+                    :input-value="selected"
+                    label
+                    small
+                    dark
+                  >
+                    <span class="pr-2">
+                      {{ item.text }}
+                    </span>
+                    <!-- <v-icon small @click="parent.selectItem(item)"> mdi-close </v-icon> -->
+                  </v-chip>
+                </template>
+
+                <template v-slot:item="{ index, item }">
+                  <v-text-field
+                    v-if="editing === item"
+                    v-model="editing.text"
+                    autofocus
+                    flat
+                    background-color="transparent"
+                    hide-details
+                    solo
+                    @keyup.enter="edit(index, item)"
+                  ></v-text-field>
+                  <v-chip v-else :color="`${item.color} lighten-2`" dark label small>
+                    {{ item.text }}
+                  </v-chip>
+                  <v-spacer></v-spacer>
+                </template>
+              </v-combobox>
+
+              <v-combobox
+                v-model="ageStandard"
+                :filter="filter"
+                :hide-no-data="!search"
+                :items="age"
+                :search-input.sync="search"
+                hide-selected
+                label="Filter by Age"
+                small-chips
+                hide-details
+                outlined
+                dense
+                class="guide-bar__combobox mt-4 mb-4"
+              >
+                <template v-slot:selection="{ attrs, item, parent, selected }">
+                  <v-chip
+                    v-if="item === Object(item)"
+                    v-bind="attrs"
+                    :color="`${item.color} lighten-2`"
+                    :input-value="selected"
+                    label
+                    small
+                    dark
+                  >
+                    <span class="pr-2">
+                      {{ item.text }}
+                    </span>
+                    <!-- <v-icon small @click="parent.selectItem(item)"> mdi-close </v-icon> -->
+                  </v-chip>
+                </template>
+
+                <template v-slot:item="{ index, item }">
+                  <v-text-field
+                    v-if="editing === item"
+                    v-model="editing.text"
+                    autofocus
+                    flat
+                    background-color="transparent"
+                    hide-details
+                    solo
+                    @keyup.enter="edit(index, item)"
+                  ></v-text-field>
+                  <v-chip v-else :color="`${item.color} lighten-2`" dark label small>
+                    {{ item.text }}
+                  </v-chip>
+                  <v-spacer></v-spacer>
+                </template>
+              </v-combobox>
+
+              <v-combobox
+                v-model="pathwaysStandard"
+                :filter="filter"
+                :hide-no-data="!search"
+                :items="pathways"
+                :search-input.sync="search"
+                hide-selected
+                label="Filter by Pathways"
                 multiple
                 small-chips
                 hide-details
-                solo
                 outlined
+                dense
                 class="guide-bar__combobox mt-4 mb-4"
               >
                 <template v-slot:selection="{ attrs, item, parent, selected }">
@@ -125,7 +377,8 @@
                   <v-spacer></v-spacer>
                 </template>
               </v-combobox>
-              <div class="">
+
+              <!-- <div class="">
                 <template>
                   <div class="">
                     <v-menu offset-y>
@@ -145,7 +398,7 @@
                     >
                   </div>
                 </template>
-              </div>
+              </div> -->
             </v-container>
 
             <!-- <v-list-group
@@ -333,40 +586,250 @@ export default {
       }
     ],
 
-    model2: [
+    // citizenStandard: [
+    //   {
+    //     text: 'Student',
+    //     color: 'grey darken-1'
+    //   }
+    // ],
+
+    // cityStandard: [
+    //   {
+    //     text: 'None',
+    //     color: 'grey darken-1'
+    //   }
+    // ],
+    // ageStandard: [
+    //   {
+    //     text: 'All',
+    //     color: 'grey darken-1'
+    //   }
+    // ],
+
+    pathwaysStandard: [
       {
-        text: 'All Programs',
-        color: 'blue'
+        text: 'All',
+        color: 'grey darken-1'
       }
     ],
 
-    items: [
+    citizen: [
       // { header: 'Filter by programs' },
       {
-        text: 'All Programs',
-        color: 'blue'
+        text: 'Student',
+        color: 'grey darken-1'
       },
       {
-        text: 'Lawrence Berkeley National Laboratory',
-        color: 'blue'
+        text: 'Teacher',
+        color: 'grey darken-1'
       },
       {
-        text: 'Alan AI',
-        color: 'indigo'
+        text: 'Parent',
+        color: 'grey darken-1'
       },
       {
-        text: 'Office of Congresswoman Barbara Lee',
-        color: 'teal'
+        text: 'School',
+        color: 'grey darken-1'
       },
       {
-        text: 'Kaiser Permanente',
-        color: 'orange'
+        text: 'Employer',
+        color: 'grey darken-1'
       },
       {
-        text: 'Typeform',
-        color: 'cyan'
+        text: 'Sponsor',
+        color: 'grey darken-1'
       }
     ],
+
+    city: [
+      // { header: 'Filter by programs' },
+      {
+        text: 'None',
+        color: 'grey darken-1'
+      },
+      {
+        text: 'Alameda County, CA',
+        color: 'grey darken-1'
+      },
+      {
+        text: 'Alameda, CA',
+        color: 'grey darken-1'
+      },
+      {
+        text: 'Albany, CA',
+        color: 'grey darken-1'
+      },
+      {
+        text: 'Berkeley, CA',
+        color: 'grey darken-1'
+      },
+      {
+        text: 'Contra Costa County, CA',
+        color: 'grey darken-1'
+      },
+      {
+        text: 'East Palo Alto, CA',
+        color: 'grey darken-1'
+      },
+      {
+        text: 'Emeryville, CA',
+        color: 'grey darken-1'
+      },
+      {
+        text: 'Hayward, CA',
+        color: 'grey darken-1'
+      },
+      {
+        text: 'Marin County, CA',
+        color: 'grey darken-1'
+      },
+      {
+        text: 'Oakland, CA',
+        color: 'grey darken-1'
+      },
+      {
+        text: 'Piedmont, CA',
+        color: 'grey darken-1'
+      },
+      {
+        text: 'San Leandro, CA',
+        color: 'grey darken-1'
+      },
+      {
+        text: 'San Lorenzo, CA',
+        color: 'grey darken-1'
+      },
+
+      {
+        text: 'San Mateo County, Ca',
+        color: 'grey darken-1'
+      },
+      {
+        text: 'Santa Clara County, CA',
+        color: 'grey darken-1'
+      }
+    ],
+
+    age: [
+      // { header: 'Filter by programs' },
+      {
+        text: 'All',
+        color: 'grey darken-1'
+      },
+      {
+        text: '12',
+        color: 'grey darken-1'
+      },
+      {
+        text: '13',
+        color: 'grey darken-1'
+      },
+      {
+        text: '14',
+        color: 'grey darken-1'
+      },
+      {
+        text: '15',
+        color: 'grey darken-1'
+      },
+      {
+        text: '16',
+        color: 'grey darken-1'
+      },
+      {
+        text: '17',
+        color: 'grey darken-1'
+      },
+      {
+        text: '18',
+        color: 'grey darken-1'
+      },
+      {
+        text: '19',
+        color: 'grey darken-1'
+      },
+      {
+        text: '20',
+        color: 'grey darken-1'
+      },
+      {
+        text: '21',
+        color: 'grey darken-1'
+      },
+      {
+        text: '22',
+        color: 'grey darken-1'
+      }
+    ],
+
+    pathways: [
+      // { header: 'Filter by programs' },
+      {
+        text: 'All',
+        color: 'grey darken-1'
+      },
+      {
+        text: 'Agriculture & Natural Resources',
+        color: 'grey darken-1'
+      },
+      {
+        text: 'Arts Media & Entertainment',
+        color: 'grey darken-1'
+      },
+      {
+        text: 'Building & Construction Trades',
+        color: 'grey darken-1'
+      },
+      {
+        text: 'Business & Finance',
+        color: 'grey darken-1'
+      },
+      {
+        text: 'Education Child Development & Family Services',
+        color: 'grey darken-1'
+      },
+      {
+        text: 'Energy Environment & Utilities',
+        color: 'grey darken-1'
+      },
+      {
+        text: 'Engineering & Architecture',
+        color: 'grey darken-1'
+      },
+      {
+        text: 'Fashion & Interior Design',
+        color: 'grey darken-1'
+      },
+      {
+        text: 'Health Science & Medical Technology',
+        color: 'grey darken-1'
+      },
+      {
+        text: 'Hospitality Tourism & Recreation',
+        color: 'grey darken-1'
+      },
+      {
+        text: 'Information & Communication Technologies',
+        color: 'grey darken-1'
+      },
+      {
+        text: 'Manufacturing & Product Design',
+        color: 'grey darken-1'
+      },
+      {
+        text: 'Marketing Sales & Services',
+        color: 'grey darken-1'
+      },
+      {
+        text: 'Public Services',
+        color: 'grey darken-1'
+      },
+      {
+        text: 'Transportation',
+        color: 'grey darken-1'
+      }
+    ],
+
     nonce: 1,
     menu: false,
     model: [
@@ -589,12 +1052,12 @@ $stepper-step-step-height: 50px;
   box-shadow: none !important;
 }
 
-.v-text-field.v-text-field--enclosed:not(.v-text-field--rounded)
-  > .v-input__control
-  > .v-input__slot,
-.v-text-field.v-text-field--enclosed .v-text-field__details {
-  padding: 10px !important;
-}
+// .v-text-field.v-text-field--enclosed:not(.v-text-field--rounded)
+//   > .v-input__control
+//   > .v-input__slot,
+// .v-text-field.v-text-field--enclosed .v-text-field__details {
+//   padding: 10px !important;
+// }
 
 .v-list-item__content {
   display: inline !important;
@@ -609,6 +1072,10 @@ $stepper-step-step-height: 50px;
   display: flex;
   height: 95vh;
   // background-color: transparent;
+
+  &__activities-chips {
+    margin: 5px;
+  }
   &__monitor-participants-title {
     font-family: Raleway;
     font-size: 28px;
@@ -694,7 +1161,7 @@ $stepper-step-step-height: 50px;
     height: 100vh;
     max-height: 100vh;
     background-color: transparent;
-    border-right: 1px solid #dedede;
+    // border-right: 1px solid #dedede;
     // border-right: none;
   }
 
@@ -720,7 +1187,7 @@ $stepper-step-step-height: 50px;
   }
 
   &__list {
-    width: 24vw;
+    width: 22vw;
     overflow-y: auto;
   }
 }

@@ -1,14 +1,14 @@
 <template>
-  <v-toolbar class="">
+  <v-toolbar flat color="grey darken-3" class="">
     <v-btn icon depressed>
       <img src="@/assets/Pilotcity_logo.png" class="signup__image" />
     </v-btn>
 
-    <v-toolbar-title
+    <!-- <v-toolbar-title
       ><span class="text-h5 signup__header font-weight-black text-sm-h4"
         >PilotCity</span
       ></v-toolbar-title
-    >
+    > -->
 
     <v-progress-linear
       v-if="loading"
@@ -21,7 +21,7 @@
 
     <v-spacer></v-spacer>
 
-    <v-btn v-if="!getUser" depressed color="white" outlined :to="{ name: 'login' }" :ripple="false">
+    <!-- <v-btn v-if="!getUser" depressed color="white" outlined :to="{ name: 'login' }" :ripple="false">
       <span class="font-weight-black">Login</span>
     </v-btn>
     <v-btn
@@ -36,7 +36,7 @@
     </v-btn>
     <v-btn v-if="getUser" depressed color="#828282" :ripple="false" @click="logout">
       <span class="font-weight-black">Logout</span>
-    </v-btn>
+    </v-btn> -->
   </v-toolbar>
 </template>
 <script lang="ts">

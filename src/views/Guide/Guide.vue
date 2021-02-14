@@ -9,9 +9,10 @@
           <v-img
             src="https://cdn.discordapp.com/attachments/692111176129052712/800962947743875102/Screen_Shot_2021-01-18_at_9.40.44_PM.png"
           ></v-img>
-        </v-avatar>
+        </v-avatar> 
       </div>
       <div class="guide__activity-title">Prajit Saravanan's Progress</div> -->
+
     <div class="guide__table">
       <component :is="currentUnit" />
     </div>
@@ -108,6 +109,7 @@ export default {
     display: flex;
     justify-content: center;
     align-items: start;
+    overflow-y: scroll;
   }
 }
 </style>
