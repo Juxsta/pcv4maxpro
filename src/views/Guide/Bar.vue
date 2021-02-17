@@ -115,74 +115,9 @@
                 </v-tooltip>
               </div>
 
-              <div class="pl-3">
-                <v-btn
-                  class="guide-bar__activities-chips"
-                  x-small
-                  rounded
-                  outlined
-                  color="black"
-                  dark
-                  depressed
-                  >Program Activities</v-btn
-                >
-              </div>
-              <div class="pl-3">
-                <v-btn disabled class="guide-bar__activities-chips" rounded depressed x-small
-                  >Start</v-btn
-                >
-                <v-btn disabled class="guide-bar__activities-chips" rounded depressed x-small
-                  >Request for Projects</v-btn
-                >
-                <v-btn class="guide-bar__activities-chips" rounded disabled depressed x-small
-                  >Team</v-btn
-                >
-                <v-btn class="guide-bar__activities-chips" rounded disabled depressed x-small
-                  >Discord</v-btn
-                >
-                <v-btn class="guide-bar__activities-chips" rounded disabled depressed x-small
-                  >Train</v-btn
-                >
-                <v-btn class="guide-bar__activities-chips" rounded disabled depressed x-small
-                  >Research</v-btn
-                >
-                <v-btn class="guide-bar__activities-chips" rounded disabled depressed x-small
-                  >Practice</v-btn
-                >
-                <v-btn class="guide-bar__activities-chips" rounded disabled depressed x-small
-                  >Ideate</v-btn
-                >
-                <v-btn class="guide-bar__activities-chips" rounded disabled depressed x-small
-                  >Pitch</v-btn
-                >
-                <v-btn class="guide-bar__activities-chips" rounded disabled depressed x-small
-                  >Forum</v-btn
-                >
-                <v-btn class="guide-bar__activities-chips" rounded disabled depressed x-small
-                  >Design & Prototype</v-btn
-                >
-                <v-btn class="guide-bar__activities-chips" rounded disabled depressed x-small
-                  >Demonstrate</v-btn
-                >
-                <v-btn class="guide-bar__activities-chips" rounded disabled depressed x-small
-                  >Present</v-btn
-                >
-                <v-btn class="guide-bar__activities-chips" rounded disabled depressed x-small
-                  >Auto-Apply</v-btn
-                >
-                <v-btn class="guide-bar__activities-chips" rounded disabled depressed x-small
-                  >Interview</v-btn
-                >
-                <v-btn class="guide-bar__activities-chips" rounded disabled depressed x-small
-                  >Offer</v-btn
-                >
-                <v-btn disabled class="guide-bar__activities-chips" rounded depressed x-small
-                  >Results</v-btn
-                >
-              </div>
-
               <v-combobox
                 v-model="citizenStandard"
+                rounded
                 :filter="filter"
                 :hide-no-data="!search"
                 hide-selected
@@ -232,6 +167,7 @@
 
               <v-combobox
                 v-model="cityStandard"
+                rounded
                 :filter="filter"
                 :hide-no-data="!search"
                 :items="city"
@@ -281,6 +217,7 @@
 
               <v-combobox
                 v-model="ageStandard"
+                rounded
                 :filter="filter"
                 :hide-no-data="!search"
                 :items="age"
@@ -337,6 +274,7 @@
                 hide-selected
                 label="Filter by Pathways"
                 multiple
+                rounded
                 small-chips
                 hide-details
                 outlined
@@ -377,6 +315,174 @@
                   <v-spacer></v-spacer>
                 </template>
               </v-combobox>
+
+              <div class="pl-3">
+                <v-btn
+                  class="guide-bar__activities-chips"
+                  x-small
+                  rounded
+                  outlined
+                  color="black"
+                  dark
+                  depressed
+                  >Program Activities</v-btn
+                >
+              </div>
+              <div class="pl-3">
+                <v-chip
+                  class="guide-bar__activities-chips font-weight-bold"
+                  rounded
+                  dark
+                  color="grey"
+                  depressed
+                  small
+                  >Start</v-chip
+                >
+                <v-chip
+                  class="guide-bar__activities-chips font-weight-bold"
+                  rounded
+                  dark
+                  color="grey"
+                  depressed
+                  small
+                  >Request for Projects</v-chip
+                >
+                <v-chip
+                  class="guide-bar__activities-chips font-weight-bold"
+                  rounded
+                  dark
+                  color="grey"
+                  depressed
+                  small
+                  >Team</v-chip
+                >
+                <v-chip
+                  class="guide-bar__activities-chips font-weight-bold"
+                  rounded
+                  dark
+                  color="grey"
+                  depressed
+                  small
+                  >Discord</v-chip
+                >
+                <v-chip
+                  class="guide-bar__activities-chips font-weight-bold"
+                  rounded
+                  dark
+                  color="grey"
+                  depressed
+                  small
+                  >Train</v-chip
+                >
+                <v-chip
+                  class="guide-bar__activities-chips font-weight-bold"
+                  rounded
+                  dark
+                  color="grey"
+                  depressed
+                  small
+                  >Research</v-chip
+                >
+                <v-chip
+                  class="guide-bar__activities-chips font-weight-bold"
+                  rounded
+                  dark
+                  color="grey"
+                  depressed
+                  small
+                  >Practice</v-chip
+                >
+                <v-chip
+                  class="guide-bar__activities-chips font-weight-bold"
+                  rounded
+                  dark
+                  color="grey"
+                  depressed
+                  small
+                  >Ideate</v-chip
+                >
+                <v-chip
+                  class="guide-bar__activities-chips font-weight-bold"
+                  rounded
+                  dark
+                  color="grey"
+                  depressed
+                  small
+                  >Pitch</v-chip
+                >
+                <v-chip
+                  class="guide-bar__activities-chips font-weight-bold"
+                  rounded
+                  dark
+                  color="grey"
+                  depressed
+                  small
+                  >Forum</v-chip
+                >
+                <v-chip
+                  class="guide-bar__activities-chips font-weight-bold"
+                  rounded
+                  dark
+                  color="grey"
+                  depressed
+                  small
+                  >Design & Prototype</v-chip
+                >
+                <v-chip
+                  class="guide-bar__activities-chips font-weight-bold"
+                  rounded
+                  dark
+                  color="grey"
+                  depressed
+                  small
+                  >Demonstrate</v-chip
+                >
+                <v-chip
+                  class="guide-bar__activities-chips font-weight-bold"
+                  rounded
+                  dark
+                  color="grey"
+                  depressed
+                  small
+                  >Present</v-chip
+                >
+                <v-chip
+                  class="guide-bar__activities-chips font-weight-bold"
+                  rounded
+                  dark
+                  color="grey"
+                  depressed
+                  small
+                  >Auto-Apply</v-chip
+                >
+                <v-chip
+                  class="guide-bar__activities-chips font-weight-bold"
+                  rounded
+                  dark
+                  color="grey"
+                  depressed
+                  small
+                  >Interview</v-chip
+                >
+                <v-chip
+                  class="guide-bar__activities-chips font-weight-bold"
+                  rounded
+                  dark
+                  color="grey"
+                  depressed
+                  small
+                  >Offer</v-chip
+                >
+                <v-chip
+                  class="guide-bar__activities-chips font-weight-bold"
+                  rounded
+                  dark
+                  color="grey"
+                  depressed
+                  small
+                  >Results</v-chip
+                >
+              </div>
 
               <!-- <div class="">
                 <template>
