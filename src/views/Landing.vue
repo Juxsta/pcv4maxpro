@@ -2,7 +2,7 @@
   <div class="landing__container">
     <v-parallax
       dark
-      height="600"
+      height="625"
       src="https://f.hubspotusercontent00.net/hubfs/2480959/pilotcitypaperplanes_grey.png"
       class="landing__hero"
     >
@@ -18,6 +18,10 @@
         <v-spacer></v-spacer>
 
         <div class="nav__actions">
+          <v-btn class="ml-5 mr-5" depressed color="white" outlined large rounded>
+            <span class="font-weight-black">Explore Employers</span>
+          </v-btn>
+
           <v-btn
             v-if="!user"
             depressed
@@ -63,12 +67,12 @@
         <div class="d-flex flex-row landing__hero-cta justify-center">
           <!-- <v-select class="ma-2" dark x-large rounded outlined label="Citizen"></v-select> -->
 
-          <v-menu offset-y transparent>
+          <v-menu class="d-flex align-center" offset-y transparent>
             <template v-slot:activator="{ on, attrs }">
-              <div class="d-flex align-center landing__i-am-a">I am a</div>
+              <div class="d-flex align-start mt-5 landing__i-am-a">I am a</div>
               <v-btn
                 rounded
-                class="ma-2"
+                class="ma-2 d-flex align-center"
                 x-large
                 v-bind="attrs"
                 dark
@@ -94,6 +98,7 @@
           <v-select class="ma-2"  dark x-large rounded outlined label="Age"></v-select> -->
           <!-- <v-select class="ma-2" dark x-large rounded outlined label="Interests"></v-select> -->
 
+          <!-- STUDENT COMBOBOX -->
           <v-combobox
             v-model="pathwayPresets"
             rounded
@@ -112,11 +117,7 @@
             <template v-slot:no-data>
               <v-list-item>
                 <v-list-item-content>
-                  <v-list-item-title>
-                    Press <kbd>enter</kbd> to add reward
-                    <!-- <strong>{{ rewardSearch }}</strong
-                    >". -->
-                  </v-list-item-title>
+                  <v-list-item-title> Press <kbd>enter</kbd> to add reward </v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
             </template>
@@ -126,6 +127,98 @@
                 :input-value="selected"
                 label
                 small
+                rounded
+                dark
+                @click="parent.selectItem(item)"
+              >
+                <span class="pr-2">
+                  {{ item }}
+                </span>
+                <v-icon small> mdi-close </v-icon>
+              </v-chip>
+            </template>
+          </v-combobox>
+          <v-btn class="ma-2 d-flex align-center" x-large rounded dark depressed
+            >Explore Employers</v-btn
+          >
+
+          <!-- TEACHER COMBOBOX -->
+
+          <!-- <v-combobox
+            v-model="pathwayPresets"
+            rounded
+            :items="pathwayOptions"
+            :search-input="pathwaySearch"
+            :error-messages="errors"
+            hide-selected
+            label="What pathways do you teach in your class?"
+            multiple
+            small-chips
+            hide-details
+            outlined
+            dark
+            class="d-flex align-center module-setup__combobox"
+          >
+            <template v-slot:no-data>
+              <v-list-item>
+                <v-list-item-content>
+                  <v-list-item-title> Press <kbd>enter</kbd> to add reward </v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </template>
+            <template v-slot:selection="{ attrs, item, parent, selected }">
+              <v-chip
+                v-bind="attrs"
+                :input-value="selected"
+                label
+                small
+                rounded
+                dark
+                @click="parent.selectItem(item)"
+              >
+                <span class="pr-2">
+                  {{ item }}
+                </span>
+                <v-icon small> mdi-close </v-icon>
+              </v-chip>
+            </template>
+          </v-combobox>
+          <v-btn class="ma-2 d-flex align-center" x-large rounded dark depressed
+            >Explore Employers</v-btn
+          > -->
+
+          <!-- SCHOOL COMBOBOX -->
+
+          <!-- <v-combobox
+            v-model="pathwayPresets"
+            rounded
+            :items="pathwayOptions"
+            :search-input="pathwaySearch"
+            :error-messages="errors"
+            hide-selected
+            label="What pathways do you teach at your school?"
+            multiple
+            small-chips
+            hide-details
+            outlined
+            dark
+            class="d-flex align-center module-setup__combobox"
+          >
+            <template v-slot:no-data>
+              <v-list-item>
+                <v-list-item-content>
+                  <v-list-item-title> Press <kbd>enter</kbd> to add reward </v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </template>
+            <template v-slot:selection="{ attrs, item, parent, selected }">
+              <v-chip
+                v-bind="attrs"
+                :input-value="selected"
+                label
+                small
+                rounded
+                dark
                 @click="parent.selectItem(item)"
               >
                 <span class="pr-2">
@@ -136,7 +229,103 @@
             </template>
           </v-combobox>
 
-          <v-btn class="ma-2" x-large rounded dark depressed>Explore Employers</v-btn>
+          <v-btn class="ma-2 d-flex align-center" x-large rounded dark depressed
+            >Explore Employers</v-btn
+          >
+        </div> -->
+
+          <!-- PARENT COMBOBOX -->
+
+          <!-- <v-combobox
+            v-model="pathwayPresets"
+            rounded
+            :items="pathwayOptions"
+            :search-input="pathwaySearch"
+            :error-messages="errors"
+            hide-selected
+            label="What careers do you want your student to explore?"
+            multiple
+            small-chips
+            hide-details
+            outlined
+            dark
+            class="d-flex align-center module-setup__combobox"
+          >
+            <template v-slot:no-data>
+              <v-list-item>
+                <v-list-item-content>
+                  <v-list-item-title> Press <kbd>enter</kbd> to add reward </v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </template>
+            <template v-slot:selection="{ attrs, item, parent, selected }">
+              <v-chip
+                v-bind="attrs"
+                :input-value="selected"
+                label
+                small
+                rounded
+                dark
+                @click="parent.selectItem(item)"
+              >
+                <span class="pr-2">
+                  {{ item }}
+                </span>
+                <v-icon small> mdi-close </v-icon>
+              </v-chip>
+            </template>
+          </v-combobox>
+
+          <v-btn class="ma-2 d-flex align-center" x-large rounded dark depressed
+            >Explore Employers</v-btn
+          >
+        </div> -->
+
+          <!-- SPONSOR COMBOBOX -->
+
+          <!-- <v-combobox
+            v-model="pathwayPresets"
+            rounded
+            :items="pathwayOptions"
+            :search-input="pathwaySearch"
+            :error-messages="errors"
+            hide-selected
+            label="What workforce initiatives do you want to fund?"
+            multiple
+            small-chips
+            hide-details
+            outlined
+            dark
+            class="d-flex align-center module-setup__combobox"
+          >
+            <template v-slot:no-data>
+              <v-list-item>
+                <v-list-item-content>
+                  <v-list-item-title> Press <kbd>enter</kbd> to add reward </v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </template>
+            <template v-slot:selection="{ attrs, item, parent, selected }">
+              <v-chip
+                v-bind="attrs"
+                :input-value="selected"
+                label
+                small
+                rounded
+                dark
+                @click="parent.selectItem(item)"
+              >
+                <span class="pr-2">
+                  {{ item }}
+                </span>
+                <v-icon small> mdi-close </v-icon>
+              </v-chip>
+            </template>
+          </v-combobox>
+
+          <v-btn class="ma-2 d-flex align-center" x-large rounded dark depressed
+            >Explore Employers</v-btn
+          > -->
         </div>
 
         <!-- <validation-observer>
@@ -165,7 +354,7 @@
         </validation-observer> -->
       </div>
 
-      <div class="text-center mb-8">
+      <div class="text-center mb-8 mt-auto">
         <a href="#student">
           <v-btn class="ma-2" rounded dark depressed small color="green"
             ><v-icon left>mdi-clover</v-icon>Students</v-btn
@@ -1214,6 +1403,7 @@ export default {
     return {
       e6: 1,
       pathway: [
+        { text: 'All Projects', color: 'grey darken-2' },
         { text: 'Agriculture & Natural Resources', color: 'grey darken-2' },
         { text: 'Arts, Media & Entertainment', color: 'grey darken-2' },
         { text: 'Building & Construction Trades', color: 'grey darken-2' },
@@ -1232,6 +1422,7 @@ export default {
       ],
 
       pathwayOptions: [
+        'All',
         'Agriculture & Natural Resources',
         'Arts, Media & Entertainment',
         'Building & Construction Trades',
@@ -1280,12 +1471,14 @@ html {
     font-family: Raleway;
     font-weight: 800;
     font-size: 18px;
+    white-space: nowrap;
   }
   &__hero {
     justify-content: flex-start;
     align-items: flex-start;
     display: block;
     margin-bottom: auto;
+    // margin-top: auto;
   }
 
   &__app-bar {
@@ -1349,6 +1542,7 @@ html {
 
   &__hero-body {
     margin-bottom: auto;
+    // margin-top: auto;
   }
   &__hero-title {
     font-family: Montserrat;
@@ -1421,7 +1615,7 @@ html {
     // align-items: center;
     // flex-grow: 1;
     padding-left: 100px;
-    margin-top: auto;
+    // margin-top: auto;
     margin-bottom: auto;
   }
 
@@ -1450,7 +1644,7 @@ html {
   }
 
   &__testimonial-logo {
-    margin-top: auto;
+    // margin-top: auto;
     margin-bottom: auto;
   }
 
