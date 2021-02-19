@@ -30,7 +30,7 @@
     "apollo-link-context": "^1.0.20",
     "apollo-link-http": "^1.5.17",
     "aws-sdk": "^2.747.0",
-    "axios": "^0.20.0",
+    "axios": "^0.21.1",
     "babel-jest": "26.3.0",
     "bson": "^4.2.2",
     "core-js": "^3.6.5",
