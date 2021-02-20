@@ -2707,6 +2707,70 @@
   dependencies:
     any-observable "^0.3.0"
 
+"@sentry/browser@6.2.0":
+  version "6.2.0"
+  resolved "https://registry.yarnpkg.com/@sentry/browser/-/browser-6.2.0.tgz#4113a92bc82f55e63f30cb16a94f717bd0b95817"
+  integrity sha512-4r3paHcHXLemj471BtNDhUs2kvJxk5XDRplz1dbC/LHXN5PWEXP4anhGILxOlxqi4y33r53PIZu3xXFjznaVZA==
+  dependencies:
+    "@sentry/core" "6.2.0"
+    "@sentry/types" "6.2.0"
+    "@sentry/utils" "6.2.0"
+    tslib "^1.9.3"
+
+"@sentry/core@6.2.0":
+  version "6.2.0"
+  resolved "https://registry.yarnpkg.com/@sentry/core/-/core-6.2.0.tgz#be1c33854fc94e1a4d867f7c2c311cf1cefb8ee9"
+  integrity sha512-oTr2b25l+0bv/+d6IgMamPuGleWV7OgJb0NFfd+WZhw6UDRgr7CdEJy2gW6tK8SerwXgPHdn4ervxsT3WIBiXw==
+  dependencies:
+    "@sentry/hub" "6.2.0"
+    "@sentry/minimal" "6.2.0"
+    "@sentry/types" "6.2.0"
+    "@sentry/utils" "6.2.0"
+    tslib "^1.9.3"
+
+"@sentry/hub@6.2.0":
+  version "6.2.0"
+  resolved "https://registry.yarnpkg.com/@sentry/hub/-/hub-6.2.0.tgz#e7502652bc9608cf8fb63e43cd49df9019a28f29"
+  integrity sha512-BDTEFK8vlJydWXp/KMX0stvv73V7od224iLi+w3k7BcPwMKXBuURBXPU8d5XIC4G8nwg8X6cnDvwL+zBBlBbkg==
+  dependencies:
+    "@sentry/types" "6.2.0"
+    "@sentry/utils" "6.2.0"
+    tslib "^1.9.3"
+
+"@sentry/minimal@6.2.0":
+  version "6.2.0"
+  resolved "https://registry.yarnpkg.com/@sentry/minimal/-/minimal-6.2.0.tgz#718b70babb55912eeb38babaf7823d1bcdd77d1e"
+  integrity sha512-haxsx8/ZafhZUaGeeMtY7bJt9HbDlqeiaXrRMp1CxGtd0ZRQwHt60imEjl6IH1I73SEWxNfqScGsX2s3HzztMg==
+  dependencies:
+    "@sentry/hub" "6.2.0"
+    "@sentry/types" "6.2.0"
+    tslib "^1.9.3"
+
+"@sentry/types@6.2.0":
+  version "6.2.0"
+  resolved "https://registry.yarnpkg.com/@sentry/types/-/types-6.2.0.tgz#ca020ff42913c6b9f88a9d0c375b5ee3965a2590"
+  integrity sha512-vN4P/a+QqAuVfWFB9G3nQ7d6bgnM9jd/RLVi49owMuqvM24pv5mTQHUk2Hk4S3k7ConrHFl69E7xH6Dv5VpQnQ==
+
+"@sentry/utils@6.2.0":
+  version "6.2.0"
+  resolved "https://registry.yarnpkg.com/@sentry/utils/-/utils-6.2.0.tgz#39c81ad5ba92cec54d690e3fa8ea4e777d8e9c2b"
+  integrity sha512-YToUC7xYf2E/pIluI7upYTlj8fKXOtdwoOBkcQZifHgX/dP+qDaHibbBFe5PyZwdmU2UiLnWFsBr0gjo0QFo1g==
+  dependencies:
+    "@sentry/types" "6.2.0"
+    tslib "^1.9.3"
+
+"@sentry/vue@^6.2.0":
+  version "6.2.0"
+  resolved "https://registry.yarnpkg.com/@sentry/vue/-/vue-6.2.0.tgz#2565581003b449687909f4ca80e51968346ac005"
+  integrity sha512-t/65nQp5wz7zEG/eSisIDOhmrXHgrocrtD86P4u1cuvQ18gIGlEprdzUqyY1BvZ7PsldtsOgLcwMI0CPAFLWfA==
+  dependencies:
+    "@sentry/browser" "6.2.0"
+    "@sentry/core" "6.2.0"
+    "@sentry/minimal" "6.2.0"
+    "@sentry/types" "6.2.0"
+    "@sentry/utils" "6.2.0"
+    tslib "^1.9.3"
+
 "@sindresorhus/is@^0.14.0":
   version "0.14.0"
   resolved "https://registry.yarnpkg.com/@sindresorhus/is/-/is-0.14.0.tgz#9fb3a3cf3132328151f353de4632e01e52102bea"
@@ -9199,10 +9263,10 @@ developer-adk-research@^1.0.7:
     vue-apollo "^3.0.4y"
     vuetify "^2.3.14"
 
-developer-adk-rfp@^1.0.8:
-  version "1.0.9"
-  resolved "https://registry.yarnpkg.com/developer-adk-rfp/-/developer-adk-rfp-1.0.9.tgz#488aa847e825cb5b31571d10f10f1d15170966ee"
-  integrity sha512-OL0CLgCwanvuMT2XISmrJ0MaxTLbtnbKO7rrppai4XUO/v7mIfFRTYNiE6DrB9WAvoVI4W0MGbbykK21gFlszw==
+developer-adk-rfp@^1.0.9:
+  version "1.0.10"
+  resolved "https://registry.yarnpkg.com/developer-adk-rfp/-/developer-adk-rfp-1.0.10.tgz#7c60b7c5bd4110e5140832084750b7a918b5960e"
+  integrity sha512-nHtHFgWoZkIKrhEKIEw+KetVCTjmVnQv7eJVG0VZJcBpYT/WsRvd4Jmh6agH11YLZZdhevFE+1617UToP2rdMQ==
   dependencies:
     "@mdi/font" "^3.6.95"
     "@rollup/plugin-buble" "^0.21.3"

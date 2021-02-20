@@ -8,6 +8,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import * as Sentry from '@sentry/vue';
 // import Navbar from '@/components/Navbar.vue';
 import Navbar from '@/components/Navbar.vue';
 import '@/styles/main.scss';
@@ -15,6 +16,12 @@ import { computed } from '@vue/composition-api';
 import { useToolGetters, useAuthGetters } from '@/store';
 // import Profile from 'src/views/Portfolio/Profile.vue';
 /* eslint-disable */
+Sentry.init({
+  Vue,
+  environment: process.env.NODE_ENV  === "production" ? process.env.NODE_ENV : "development",
+  dsn: process.env.NODE_ENV  === "production" ? process.env.SENTRY_PROD_DSN : process.env.SENTRY_DEV_DSN,
+  logErrors: true,
+});
 
 export default Vue.extend({
   name: 'App',
