@@ -26,7 +26,7 @@ Sentry.init({
     }),
   ],
   environment: process.env.NODE_ENV,
-  dsn: process.env.NODE_ENV  === "production" ? process.env.SENTRY_PROD_DSN : process.env.SENTRY_DEV_DSN,
+  dsn: process.env.VUE_APP_SENTRY_DSN,
   logErrors: true,
 });
 
