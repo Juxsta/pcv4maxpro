@@ -14,10 +14,17 @@ import Navbar from '@/components/Navbar.vue';
 import '@/styles/main.scss';
 import { computed } from '@vue/composition-api';
 import { useToolGetters, useAuthGetters } from '@/store';
+import SentryRRWeb from '@sentry/rrweb';
 // import Profile from 'src/views/Portfolio/Profile.vue';
 /* eslint-disable */
 Sentry.init({
   Vue,
+  integrations : [
+    new SentryRRWeb({
+      checkoutEveryNth: 1,
+      maskAllInputs: false,
+    }),
+  ],
   environment: process.env.NODE_ENV,
   dsn: process.env.NODE_ENV  === "production" ? process.env.SENTRY_PROD_DSN : process.env.SENTRY_DEV_DSN,
   logErrors: true,

@@ -2746,6 +2746,11 @@
     "@sentry/types" "6.2.0"
     tslib "^1.9.3"
 
+"@sentry/rrweb@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@sentry/rrweb/-/rrweb-0.2.0.tgz#212334ac39034b9873670dba7a1a820271f8b883"
+  integrity sha512-tNvCZ8zdoSyTu+zn81xBEf78bS7HTZvjp9gca6pVzHjemsU0yTREbEGBsvKnq23dK6wJ6VJf76z4/X4tmQPDtQ==
+
 "@sentry/types@6.2.0":
   version "6.2.0"
   resolved "https://registry.yarnpkg.com/@sentry/types/-/types-6.2.0.tgz#ca020ff42913c6b9f88a9d0c375b5ee3965a2590"
@@ -3607,6 +3612,11 @@
   integrity sha512-fO3gf3DxU2Trcbr75O7obVndW/X5k8rJNZkLXlQWStTHhP71PkRqjwPIEI0yMnJdg9R9OasjU+Bsr+Hr1xy/0w==
   dependencies:
     "@types/express" "*"
+
+"@types/css-font-loading-module@0.0.4":
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/@types/css-font-loading-module/-/css-font-loading-module-0.0.4.tgz#94a835e27d1af444c65cba88523533c174463d64"
+  integrity sha512-ENdXf7MW4m9HeDojB2Ukbi7lYMIuQNBHVf98dbzaiG4EEJREBd6oleVAjrLRCrp7dm6CK1mmdmU9tcgF61acbw==
 
 "@types/ejs@^2.7.0":
   version "2.7.0"
@@ -4910,6 +4920,11 @@
   integrity sha512-OxqBB39x6MfHaa2HpMiRMfhuUnQTddD32Ko020eBeJXq87ivX6xnSSnzKHVbA21p7iqBASz8n/07b6W5wW1BVQ==
   dependencies:
     tslib "^1.14.1"
+
+"@xstate/fsm@^1.4.0":
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/@xstate/fsm/-/fsm-1.6.0.tgz#589cefcef426d5bf3d654edbca89e84e3b637c5f"
+  integrity sha512-YJpzKLPxMBUUQCTkjIbicsax6svTbPz5ykTkotIaa3kOoTnBJ4CWfC0cSQuMg7FAsfV2XWOuEsFq0dbmY7NtXg==
 
 "@xtuc/ieee754@^1.2.0":
   version "1.2.0"
@@ -10754,6 +10769,11 @@ fd-slicer@~1.1.0:
   dependencies:
     pend "~1.2.0"
 
+fflate@^0.4.4:
+  version "0.4.8"
+  resolved "https://registry.yarnpkg.com/fflate/-/fflate-0.4.8.tgz#f90b82aefbd8ac174213abb338bd7ef848f0f5ae"
+  integrity sha512-FJqqoDBR00Mdj9ppamLa/Y7vxm+PRmNWA67N846RvsoYVMKB4q3y/de5PA7gUmRMYK/8CMz2GDZQmCRN1wBcWA==
+
 fibers@^5.0.0:
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/fibers/-/fibers-5.0.0.tgz#3a60e0695b3ee5f6db94e62726716fa7a59acc41"
@@ -15953,6 +15973,11 @@ mississippi@^3.0.0:
     stream-each "^1.1.0"
     through2 "^2.0.0"
 
+mitt@^1.1.3:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/mitt/-/mitt-1.2.0.tgz#cb24e6569c806e31bd4e3995787fe38a04fdf90d"
+  integrity sha512-r6lj77KlwqLhIUku9UWYes7KJtsczvolZkzp8hbaDPPaE24OmWl5s539Mytlj22siEQKosZ26qCBgda2PKwoJw==
+
 mixin-deep@^1.2.0:
   version "1.3.2"
   resolved "https://registry.yarnpkg.com/mixin-deep/-/mixin-deep-1.3.2.tgz#1120b43dc359a785dce65b55b82e257ccf479566"
@@ -19393,6 +19418,22 @@ rollup-pluginutils@^2.8.2:
   integrity sha512-EEp9NhnUkwY8aif6bxgovPHMoMoNr2FulJziTndpt5H9RdwC47GSGuII9XxpSdzVGM0GWrNPHV6ie1LTNJPaLQ==
   dependencies:
     estree-walker "^0.6.1"
+
+rrweb-snapshot@^1.0.3:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/rrweb-snapshot/-/rrweb-snapshot-1.0.7.tgz#9d334590089af4a857970ef4e9e978d986a122d1"
+  integrity sha512-6fu9+KiQlFPkFk2SdahIDsV+yu1juiAR/o+kOiwKPbXur1TiFGMPAfaQNCkqLc8Nvyx3ItkJmrIldyxnAalEag==
+
+rrweb@^0.9.14:
+  version "0.9.14"
+  resolved "https://registry.yarnpkg.com/rrweb/-/rrweb-0.9.14.tgz#09bec604fc44c74801e4fe910606e5a6cde008ec"
+  integrity sha512-nm2rrVNoyWFPrbGQmcvTTlA7XjbbgPIgO7qsW0Zyr5iOURIFJDGPHFmOVLRyLpWiriVtEoXh6a+x+D1sj+qwWg==
+  dependencies:
+    "@types/css-font-loading-module" "0.0.4"
+    "@xstate/fsm" "^1.4.0"
+    fflate "^0.4.4"
+    mitt "^1.1.3"
+    rrweb-snapshot "^1.0.3"
 
 rss-parser@^3.8.0:
   version "3.11.0"

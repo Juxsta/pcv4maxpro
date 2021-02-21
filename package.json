@@ -16,6 +16,7 @@
   "dependencies": {
     "@emotion/styled-base": "^10.0.31",
     "@mdi/font": "^5.5.55",
+    "@sentry/rrweb": "^0.2.0",
     "@sentry/vue": "^6.2.0",
     "@storybook/addon-knobs": "6.0.21",
     "@storybook/vue": "^6.0.21",
@@ -68,6 +69,7 @@
     "moment": "^2.29.0",
     "realm-web": "1.1",
     "register-service-worker": "^1.7.1",
+    "rrweb": "^0.9.14",
     "rxjs": "^6.6.3",
     "shortid": "^2.2.15",
     "stripe": "^8.102.0",
