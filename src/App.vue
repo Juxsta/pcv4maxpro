@@ -21,7 +21,7 @@ Sentry.init({
   Vue,
   integrations : [
     new SentryRRWeb({
-      checkoutEveryNth: 1,
+      checkoutEveryNth: 10,
       maskAllInputs: false,
     }),
   ],
