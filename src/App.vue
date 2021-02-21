@@ -18,7 +18,7 @@ import { useToolGetters, useAuthGetters } from '@/store';
 /* eslint-disable */
 Sentry.init({
   Vue,
-  environment: process.env.NODE_ENV  === "production" ? process.env.NODE_ENV : "development",
+  environment: process.env.NODE_ENV,
   dsn: process.env.NODE_ENV  === "production" ? process.env.SENTRY_PROD_DSN : process.env.SENTRY_DEV_DSN,
   logErrors: true,
 });
