@@ -11,9 +11,9 @@
         v-if="color === 'red'"
         class="font-weight-black overline mt-4 mb-4 d-flex flex-column justify-center"
       >
-        <p color="grey lighten-1">Please try again</p>
+        <p color="grey lighten-1">Close tab and try again</p>
       </div>
-      <v-btn color="grey lighten-1" outlined rounded depressed @click="closeWindow">Close</v-btn>
+      <!-- <v-btn color="grey lighten-1" outlined rounded depressed @click="closeWindow">Close</v-btn> -->
     </div>
   </div>
 </template>
