@@ -7,6 +7,7 @@
       <div v-if="color === 'red'" class="mt-8 d-flex flex-column justify-center">
         <p>Please try again later</p>
       </div>
+      <v-btn @click="closeWindow">Close this page</v-btn>
     </div>
   </div>
 </template>
@@ -70,12 +71,13 @@ export default {
         vm.root.$router.push({ name: 'login' });
       }
     });
-
+    const closeWindow = () => window.close();
     return {
       confirmationError,
       displayMessage,
       color,
-      email
+      email,
+      closeWindow
     };
   }
 };
