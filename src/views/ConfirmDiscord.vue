@@ -1,13 +1,19 @@
 <template>
-  <div class="confirmemail__background">
-    <div class="confirmemail__box accent">
-      <div :class="`${color}--text`" class="confirmemail__title text-h4 font-weight-black">
+  <div class="confirmdiscord__background d-flex justify-center align-center mt-12">
+    <div class="confirmdiscord__box d-flex justify-center align-center flex-column mt-12">
+      <div class="d-flex justify-center align-center mt-12">
+        <v-icon color="grey lighten-1" x-large>mdi-discord</v-icon>
+      </div>
+      <div :class="`${color}--text`" class="headline d-flex justify-center align-center mt-6">
         <div>{{ displayMessage }}</div>
       </div>
-      <div v-if="color === 'red'" class="mt-8 d-flex flex-column justify-center">
-        <p>Please try again later</p>
+      <div
+        v-if="color === 'red'"
+        class="font-weight-black overline mt-4 mb-4 d-flex flex-column justify-center"
+      >
+        <p color="grey lighten-1">Please try again</p>
       </div>
-      <v-btn @click="closeWindow">Close this page</v-btn>
+      <v-btn color="grey lighten-1" outlined rounded depressed @click="closeWindow">Close</v-btn>
     </div>
   </div>
 </template>
@@ -29,9 +35,9 @@ export default {
     const { update } = useDbActions(['update']);
 
     // *Confirm Signup
-    const color = ref('blue');
+    const color = ref('grey');
     const email = ref('');
-    const displayMessage = ref('Hang on while we talk with discord');
+    const displayMessage = ref('..... Earth to Discord');
     const confirmationError = ref(false);
     const loading = ref(false);
     const verifyToken = async () => {
@@ -64,7 +70,7 @@ export default {
       await setLinearLoader({ func: verifyToken });
       if (confirmationError.value) {
         color.value = 'red';
-        displayMessage.value = 'Something went wrong verifying your discord acccount';
+        displayMessage.value = 'Uh oh... We got discombobulated';
       } else {
         color.value = 'green';
         displayMessage.value = 'Your account has been linked, close this tab.';
@@ -84,34 +90,34 @@ export default {
 </script>
 
 <style lang="scss">
-.confirmemail {
+.confirdiscordl {
   &__background {
-    height: 100%;
-    background-color: #4f4f4f;
-    display: flex;
-    justify-content: center;
+    // height: 100%;
+    // background-color: #4f4f4f;
+    // display: flex;
+    // justify-content: center;
   }
 
   &__box {
-    width: 40%;
-    height: 40%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 10%;
-    margin-bottom: 20%;
-    background: #c4c4c4;
-    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
-    border-radius: 25px;
+    // width: 40%;
+    // height: 40%;
+    // display: flex;
+    // flex-direction: column;
+    // align-items: center;
+    // margin-top: 30%;
+    // margin-bottom: 30%;
+    // background: #c4c4c4;
+    // box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    // border-radius: 25px;
   }
 
   &__title {
-    display: flex;
-    flex: column;
-    color: #3c9dcd;
+    // display: flex;
+    // flex: column;
+    // color: #ffffff;
     margin-top: 15%;
-    width: 70%;
-    text-align: center;
+    // width: 70%;
+    // text-align: center;
   }
 }
 </style>
