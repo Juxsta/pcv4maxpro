@@ -15,6 +15,7 @@ import { useAuthGetters } from '@/store';
 import ErrorLogin from '@/views/ErrorLogin.vue';
 import apolloProvider from '@/vue-apollo';
 import Landing from '@/views/Landing.vue';
+import ConfirmDiscord from '@/views/ConfirmDiscord.vue';
 import { CreateProgramRoutes } from '../views/CreateProgram';
 import { routes as ManageProgramRoutes } from '../views/ManageProgram';
 import { UserQueryInput, User } from '../generated/graphql';

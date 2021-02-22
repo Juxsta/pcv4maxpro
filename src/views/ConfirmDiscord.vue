@@ -1,11 +1,18 @@
 <template>
   <div class="confirmemail__background">
-    <h2>Hang on while we verify your Discord</h2>
+    <div class="confirmemail__box accent">
+      <div :class="`${color}--text`" class="confirmemail__title text-h4 font-weight-black">
+        <div>{{ displayMessage }}</div>
+      </div>
+      <div v-if="color === 'red'" class="mt-8 d-flex flex-column justify-center">
+        <p>Please try again later</p>
+      </div>
+    </div>
   </div>
 </template>
 <script lang="ts">
 import { ref, onMounted } from '@vue/composition-api';
-import { useAuthActions, useToolActions } from '@/store';
+import { useAuthGetters, useDbActions, useToolActions } from '@/store';
 import axios from 'axios';
 
 export default {
@@ -17,49 +24,49 @@ export default {
     }
   },
   setup(props, vm) {
+    const { getObjectId } = useAuthGetters(['user']);
+    const { update } = useDbActions(['update']);
+
     // *Confirm Signup
     const color = ref('blue');
     const email = ref('');
+    const displayMessage = ref('Hang on while we talk with discord');
     const confirmationError = ref(false);
-    const displayMessage = ref('Hang on while we verify your email');
-    const resendConfirmation = async () => {
-      const { resendEmailConfirmation } = useAuthActions(['resendEmailConfirmation']);
-      await resendEmailConfirmation(email.value);
-    };
+    const loading = ref(false);
     const verifyToken = async () => {
       const API_ENDPOINT = 'https://discord.com/api/v8';
       try {
-           url: API_ENDPOINT,
-        data: {
+        const resp = await axios.post(API_ENDPOINT, {
           client_id: process.env.CLIENT_ID,
           client_secret: process.env.CLIENT_SECRET,
           grant_type: 'refresh_token',
           code: props.code,
           redirect_uri: '',
           scope: 'identify email connections'
-        },
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        }
-        await axios.post(API_ENDPOINT,{
-                    client_id: process.env.CLIENT_ID,
-          client_secret: process.env.CLIENT_SECRET,
-          grant_type: 'refresh_token',
-          code: props.code,
-          redirect_uri: '',
-          scope: 'identify email connections'
-        })
+        });
+        await update({
+          collection: 'User',
+          payload: {
+            discordAccessToken: resp.data.access_token,
+            discordRefreshToken: resp.data.refresh_token
+          },
+          filter: {
+            _id: getObjectId.value
+          }
+        });
+      } catch (err) {
+        confirmationError.value = true;
       }
     };
     const { setLinearLoader } = useToolActions(['setLinearLoader']);
     onMounted(async () => {
-      await setLinearLoader({ func: verifyUser });
+      await setLinearLoader({ func: verifyToken });
       if (confirmationError.value) {
         color.value = 'red';
-        displayMessage.value = 'We could not verify your email at this time';
+        displayMessage.value = 'Something went wrong verifying your discord acccount';
       } else {
         color.value = 'green';
-        displayMessage.value = 'Your email has been verified, you will be redirected shortly';
+        displayMessage.value = 'Your account has been linked, close this tab.';
         vm.root.$router.push({ name: 'login' });
       }
     });
@@ -68,8 +75,7 @@ export default {
       confirmationError,
       displayMessage,
       color,
-      email,
-      resendConfirmation
+      email
     };
   }
 };
