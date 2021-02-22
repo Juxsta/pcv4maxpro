@@ -68,6 +68,17 @@ const routes: Array<RouteConfig> = [
     })
   },
   {
+    path: '/discordconfirmation',
+    name: 'confirmDiscord',
+    component: ConfirmDiscord,
+    props: route => ({
+      code: route.query.code
+    }),
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
     path: '/password-reset',
     name: 'resetPassword',
     component: ResetPassword,

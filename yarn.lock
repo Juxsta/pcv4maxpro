@@ -9199,10 +9199,10 @@ developer-adk-research@^1.0.7:
     vue-apollo "^3.0.4y"
     vuetify "^2.3.14"
 
-developer-adk-rfp@^1.0.8:
-  version "1.0.9"
-  resolved "https://registry.yarnpkg.com/developer-adk-rfp/-/developer-adk-rfp-1.0.9.tgz#488aa847e825cb5b31571d10f10f1d15170966ee"
-  integrity sha512-OL0CLgCwanvuMT2XISmrJ0MaxTLbtnbKO7rrppai4XUO/v7mIfFRTYNiE6DrB9WAvoVI4W0MGbbykK21gFlszw==
+developer-adk-rfp@^1.0.9:
+  version "1.0.10"
+  resolved "https://registry.yarnpkg.com/developer-adk-rfp/-/developer-adk-rfp-1.0.10.tgz#7c60b7c5bd4110e5140832084750b7a918b5960e"
+  integrity sha512-nHtHFgWoZkIKrhEKIEw+KetVCTjmVnQv7eJVG0VZJcBpYT/WsRvd4Jmh6agH11YLZZdhevFE+1617UToP2rdMQ==
   dependencies:
     "@mdi/font" "^3.6.95"
     "@rollup/plugin-buble" "^0.21.3"
