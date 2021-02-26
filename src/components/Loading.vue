@@ -4,7 +4,7 @@
   </div>
 </template>
 <script lang="ts">
-import { ref, defineComponent } from '@vue/composition-api';
+import { ref, defineComponent, onMounted } from '@vue/composition-api';
 import { useToolActions } from '@/store';
 
 export default defineComponent({
@@ -15,6 +15,9 @@ export default defineComponent({
     },
     linearLoader: {
       type: Boolean
+    },
+    processNow: {
+      default: false
     }
   },
   setup(props) {
@@ -28,12 +31,17 @@ export default defineComponent({
         try {
           await (props.callback as Function)();
         } catch (err) {
+          // eslint-disable-next-line no-console
           console.error(err);
         }
         loading.value = false;
       };
     // });
-
+    onMounted(() => {
+      if (props.processNow) {
+        process();
+      }
+    });
     return {
       loading,
       process: props.linearLoader
