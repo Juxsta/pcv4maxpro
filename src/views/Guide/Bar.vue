@@ -109,7 +109,7 @@
               </div>
 
               <v-combobox
-                v-model="model2"
+                v-model="programFilter"
                 :filter="filter"
                 :hide-no-data="!search"
                 :items="items"
@@ -181,6 +181,7 @@
                 hide-details
                 outlined
                 class="guide-bar__combobox mt-4 mb-4"
+                @input="val => $emit('update:activityFilter', val)"
               >
                 <!-- <template v-slot:no-data>
                   <v-list-item>
@@ -243,12 +244,14 @@
                     <v-menu offset-y>
                       <template v-slot:activator="{ on, attrs }">
                         <v-btn class="mt-1 mb-1" x-small outlined depressed v-bind="attrs" v-on="on"
-                          >Sort by Name</v-btn
+                          >Sort by {{ sortByStudentData }}</v-btn
                         >
                       </template>
                       <v-list>
                         <v-list-item v-for="(item, index) in sortitems" :key="index" link small>
-                          <v-list-item-title>{{ item.title }}</v-list-item-title>
+                          <v-list-item-title @click="sortByStudentData = item.title">{{
+                            item.title
+                          }}</v-list-item-title>
                         </v-list-item>
                       </v-list>
                     </v-menu>
@@ -262,12 +265,14 @@
                           depressed
                           v-bind="attrs"
                           v-on="on"
-                          >Sort by Person</v-btn
+                          >Sort by {{ sortByPersonTeam }}</v-btn
                         >
                       </template>
                       <v-list>
                         <v-list-item v-for="(item, index) in sortitems2" :key="index" link small>
-                          <v-list-item-title>{{ item.title }}</v-list-item-title>
+                          <v-list-item-title @click="sortByPersonTeam = item.title">{{
+                            item.title
+                          }}</v-list-item-title>
                         </v-list-item>
                       </v-list>
                     </v-menu>
@@ -284,11 +289,12 @@
             </v-container>
 
             <v-list-group
-              v-for="item in items2"
-              :key="item.title"
-              v-model="item.active"
-              :prepend-icon="item.action"
+              v-for="student in sortedStudents"
+              :key="student.title"
+              v-model="student.active"
+              :prepend-icon="student.action"
               no-action
+              @click="$emit('input', student)"
             >
               <!-- <v-divider /> -->
               <!-- <v-list-item outlined class="guide-bar__list-item">All Participants</v-list-item>
@@ -296,40 +302,38 @@
               <template v-slot:activator>
                 <v-list-item class="guide-bar__list-item-title">
                   <v-list-item-avatar size="36">
-                    <v-img
-                      src="https://media-exp1.licdn.com/dms/image/C5603AQEq9BL9NuOBAQ/profile-displayphoto-shrink_200_200/0?e=1608768000&v=beta&t=XLeDuOV5B9rNOG4CrSQLh1sKeftfzBUwHd3M-y_CRKM"
-                    ></v-img>
+                    <v-img src="https://picsum.photos/510/300?random"></v-img>
                   </v-list-item-avatar>
                   <v-list-item-content>
                     <v-list-item-title
                       class="guide-bar__list-item-title"
-                      v-text="item.title"
-                    ></v-list-item-title
-                    ><v-progress-linear color="green" class="mt-2" value="50"></v-progress-linear>
-
-                    <!-- SORTABLE CHIP -->
-                    <!-- <v-chip
+                      v-text="student.name"
+                    ></v-list-item-title>
+                    <v-progress-linear
+                      v-if="sortByStudentData === 'Name' || sortByStudentData === 'Completion'"
+                      color="green"
+                      class="mt-2"
+                      value="50"
+                    ></v-progress-linear>
+                    <v-chip
+                      v-if="sortByStudentData === 'School' || sortByStudentData === 'Grade'"
                       class="mt-1 mb-1 guide-bar__sortable-chip"
                       color="blue lighten-2"
                       label
                       dark
                       x-small
-                      >Irvington High School</v-chip
-                    > -->
+                      >{{
+                        (sortByStudentData === 'School' && student.school.name) ||
+                        formatStudentGrade(student.grade)
+                      }}</v-chip
+                    >
                   </v-list-item-content>
                 </v-list-item>
               </template>
 
-              <div v-for="child in item.items" :key="child.title" class="guide-bar__sub">
+              <div v-for="info in studentInfo(student)" :key="info" class="guide-bar__sub">
                 <v-chip-group
-                  ><v-chip
-                    x-small
-                    disabled
-                    label
-                    color="black"
-                    outlined
-                    v-text="child.title"
-                  ></v-chip
+                  ><v-chip x-small disabled label color="black" outlined v-text="info"></v-chip
                 ></v-chip-group>
               </div>
             </v-list-group>
@@ -341,295 +345,132 @@
 </template>
 
 <script lang="ts">
-import { ref, reactive } from '@vue/composition-api';
+import { toRefs, reactive, PropType, computed, defineComponent } from '@vue/composition-api';
+import { ACTIVITIES } from './components/ListView/const';
 
-export default {
+export default defineComponent({
   name: 'Bar',
+  props: {
+    students: {
+      required: true,
+      type: Array as PropType<Array<Record<string, any>>>
+    }
+  },
+  setup(props) {
+    const state = reactive({
+      activator: null,
+      attach: null,
+      expand: true,
+      sortByStudentData: 'Name',
+      sortByPersonTeam: 'Person',
+      colors: ['green', 'purple', 'indigo', 'cyan', 'teal', 'orange'],
+      editing: null,
+      editingIndex: -1,
+      sortitems: [
+        { title: 'Name' },
+        { title: 'School' },
+        { title: 'Grade' },
+        { title: 'Completion' }
+      ],
+      sortitems2: [{ title: 'Person' }, { title: 'Team' }],
+      programFilter: [
+        {
+          text: 'All Programs',
+          color: 'blue'
+        }
+      ],
+      model3: [
+        {
+          text: 'All Activities',
+          color: 'grey darken-2'
+        }
+      ],
 
-  data: () => ({
-    activator: null,
-    attach: null,
-    colors: ['green', 'purple', 'indigo', 'cyan', 'teal', 'orange'],
-    editing: null,
-    editingIndex: -1,
-    sortitems: [
-      { title: 'Name' },
-      { title: 'School' },
-      { title: 'Grade' },
-      { title: 'Completion' }
-    ],
-    sortitems2: [{ title: 'Person' }, { title: 'Team' }],
+      items: [
+        // { header: 'Filter by programs' },
+        {
+          text: 'All Programs',
+          color: 'blue'
+        },
+        {
+          text: 'Lawrence Berkeley National Laboratory',
+          color: 'blue'
+        },
+        {
+          text: 'Alan AI',
+          color: 'indigo'
+        },
+        {
+          text: 'Office of Congresswoman Barbara Lee',
+          color: 'teal'
+        },
+        {
+          text: 'Kaiser Permanente',
+          color: 'orange'
+        },
+        {
+          text: 'Typeform',
+          color: 'cyan'
+        }
+      ],
+      nonce: 1,
+      menu: false,
+      model: [
+        // {
+        //   text: 'Foo',
+        //   color: 'blue'
+        // }
+      ],
+      x: 0,
+      search: null,
+      y: 0
+    });
 
-    items2: [
-      {
-        items: [
-          { title: 'Irvington High School' },
-          { title: '9th Grade' },
-          { title: 'City of Fremont' }
-        ],
-        title: 'Prajit Saravanan'
-      },
-      {
-        items: [{ title: 'Arroyo High School' }, { title: '12th Grade' }, { title: 'Team Drones' }],
-        title: 'Eric Reyes'
-      },
-      {
-        items: [
-          { title: 'Irvington High School' },
-          { title: '12th Grade' },
-          { title: 'City of Fremont' }
-        ],
-        title: 'Akheel Shaik'
-      },
-      {
-        items: [{ title: 'Hillsdale High School' }, { title: '10th Grade' }, { title: 'Typeform' }],
-        title: 'Noah MacLean'
-      },
-      {
-        items: [
-          { title: 'Irvington High School' },
-          { title: '12th Grade' },
-          { title: 'Kaiser Permanente' }
-        ],
-        title: 'Eric Xie'
-      },
-      {
-        items: [
-          { title: 'Washington High School' },
-          { title: '11th Grade' },
-          { title: 'Strategy of Things' }
-        ],
-        title: 'Maya Campos'
-      },
-      {
-        items: [
-          { title: 'Irvington High School' },
-          { title: '9th Grade' },
-          { title: 'City of Fremont' }
-        ],
-        title: 'Prajit Saravanan'
-      },
-      {
-        items: [{ title: 'Arroyo High School' }, { title: '12th Grade' }, { title: 'Team Drones' }],
-        title: 'Eric Reyes'
-      },
-      {
-        items: [
-          { title: 'Irvington High School' },
-          { title: '12th Grade' },
-          { title: 'City of Fremont' }
-        ],
-        title: 'Akheel Shaik'
-      },
-      {
-        items: [{ title: 'Hillsdale High School' }, { title: '10th Grade' }, { title: 'Typeform' }],
-        title: 'Noah MacLean'
-      },
-      {
-        items: [
-          { title: 'Irvington High School' },
-          { title: '12th Grade' },
-          { title: 'Kaiser Permanente' }
-        ],
-        title: 'Eric Xie'
-      },
-      {
-        items: [
-          { title: 'Washington High School' },
-          { title: '11th Grade' },
-          { title: 'Strategy of Things' }
-        ],
-        title: 'Maya Campos'
-      },
-      {
-        items: [
-          { title: 'Irvington High School' },
-          { title: '9th Grade' },
-          { title: 'City of Fremont' }
-        ],
-        title: 'Prajit Saravanan'
-      },
-      {
-        items: [{ title: 'Arroyo High School' }, { title: '12th Grade' }, { title: 'Team Drones' }],
-        title: 'Eric Reyes'
-      },
-      {
-        items: [
-          { title: 'Irvington High School' },
-          { title: '12th Grade' },
-          { title: 'City of Fremont' }
-        ],
-        title: 'Akheel Shaik'
-      },
-      {
-        items: [{ title: 'Hillsdale High School' }, { title: '10th Grade' }, { title: 'Typeform' }],
-        title: 'Noah MacLean'
-      },
-      {
-        items: [
-          { title: 'Irvington High School' },
-          { title: '12th Grade' },
-          { title: 'Kaiser Permanente' }
-        ],
-        title: 'Eric Xie'
-      },
-      {
-        items: [
-          { title: 'Washington High School' },
-          { title: '11th Grade' },
-          { title: 'Strategy of Things' }
-        ],
-        title: 'Maya Campos'
-      }
-    ],
+    const sortAlphabetically = (a, b, key) => {
+      const textA = key === 'school' ? a.school.name.toUpperCase() : a[key].toUpperCase();
+      const textB = key === 'school' ? b.school.name.toUpperCase() : b[key].toUpperCase();
+      if (textA < textB) return -1;
+      if (textA > textB) return 1;
+      return 0;
+    };
 
-    model2: [
-      {
-        text: 'All Programs',
-        color: 'blue'
-      }
-    ],
+    const filteredStudents = computed(() => {
+      const filters = state.programFilter.map(obj => obj.text);
+      return props.students.filter(
+        student =>
+          filters.some(filter => filter === 'All Programs') || filters.includes(student.program)
+      );
+    });
 
-    model3: [
-      {
-        text: 'All Activities',
-        color: 'grey darken-2'
-      }
-    ],
+    const sortedStudents = computed(() => {
+      if (state.sortByStudentData === 'School')
+        return filteredStudents.value.slice().sort((a, b) => sortAlphabetically(a, b, 'school'));
+      if (state.sortByStudentData === 'Grade')
+        return filteredStudents.value
+          .slice()
+          .sort((a, b) => parseInt(a.grade, 10) - parseInt(b.grade, 10));
+      return filteredStudents.value.slice().sort((a, b) => sortAlphabetically(a, b, 'name'));
+    });
 
-    items: [
-      // { header: 'Filter by programs' },
-      {
-        text: 'All Programs',
-        color: 'blue'
-      },
-      {
-        text: 'Lawrence Berkeley National Laboratory',
-        color: 'blue'
-      },
-      {
-        text: 'Alan AI',
-        color: 'indigo'
-      },
-      {
-        text: 'Office of Congresswoman Barbara Lee',
-        color: 'teal'
-      },
-      {
-        text: 'Kaiser Permanente',
-        color: 'orange'
-      },
-      {
-        text: 'Typeform',
-        color: 'cyan'
-      }
-    ],
+    const formatStudentGrade = grade => `${grade}th Grade`;
 
-    activities: [
-      // { header: 'Filter by programs' },
+    const studentInfo = student => [
+      student.school.name,
+      formatStudentGrade(student.grade),
+      student.program
+    ];
 
-      {
-        text: 'Request for Projects',
-        color: 'grey darken-2'
-      },
-      {
-        text: 'Team',
-        color: 'grey darken-2'
-      },
-      {
-        text: 'Train',
-        color: 'grey darken-2'
-      },
-      {
-        text: 'Research',
-        color: 'grey darken-2'
-      },
-      {
-        text: 'Practice',
-        color: 'grey darken-2'
-      },
-      {
-        text: 'Ideate',
-        color: 'grey darken-2'
-      },
-      {
-        text: 'Pitches',
-        color: 'grey darken-2'
-      },
-      {
-        text: 'Forum',
-        color: 'grey darken-2'
-      },
-      {
-        text: 'Design & Prototype',
-        color: 'grey darken-2'
-      },
-      {
-        text: 'Demonstrate',
-        color: 'grey darken-2'
-      },
-      {
-        text: 'Present',
-        color: 'grey darken-2'
-      },
-      {
-        text: 'Auto-Apply',
-        color: 'grey darken-2'
-      },
-      {
-        text: 'Interview',
-        color: 'grey darken-2'
-      },
-      {
-        text: 'Offer',
-        color: 'grey darken-2'
-      }
-    ],
-    nonce: 1,
-    menu: false,
-    model: [
-      // {
-      //   text: 'Foo',
-      //   color: 'blue'
-      // }
-    ],
-    x: 0,
-    search: null,
-    y: 0
-  }),
-
-  // watch: {
-  //   model(val, prev) {
-  //     if (val.length === prev.length) return;
-
-  //     this.model = val.map(v => {
-  //       if (typeof v === 'string') {
-  //         v = {
-  //           text: v,
-  //           color: this.colors[this.nonce - 1]
-  //         };
-
-  //         this.items.push(v);
-
-  //         this.nonce++;
-  //       }
-
-  //       return v;
-  //     });
-  //   }
-  // },
-
-  methods: {
-    edit(index, item) {
-      if (!this.editing) {
-        this.editing = item;
-        this.editingIndex = index;
+    const edit = (index, item) => {
+      if (!state.editing) {
+        state.editing = item;
+        state.editingIndex = index;
       } else {
-        this.editing = null;
-        this.editingIndex = -1;
+        state.editing = null;
+        state.editingIndex = -1;
       }
-    },
-    filter(item, queryText, itemText) {
+    };
+
+    const filter = (item, queryText, itemText) => {
       if (item.header) return false;
 
       const hasValue = val => (val != null ? val : '');
@@ -638,91 +479,18 @@ export default {
       const query = hasValue(queryText);
 
       return text.toString().toLowerCase().indexOf(query.toString().toLowerCase()) > -1;
-    }
-  },
-
-  setup() {
-    function logThis(val: string) {
-      console.log(val);
-    }
-    const vertical = ref(true);
-    const expand = ref(true); // open or closed sidebar
-    const steps = ref(15); // number of lines
-    const activeStep = ref(1); // open line
-    const actions = ref([
-      {
-        icon: 'account-group',
-        fn: 'my-portfolio'
-      },
-      {
-        icon: 'message-outline',
-        fn: 'my-chat'
-      },
-      {
-        icon: 'square-edit-outline',
-        fn: 'my-post'
-      },
-      {
-        icon: 'cog',
-        fn: 'my-settings'
-      }
-    ]);
-    const sequence = ref({
-      Project: {
-        icon: '',
-        color: 'green',
-        submodule: [
-          {
-            title: 'Launch Day'
-          },
-          {
-            title: 'Cowork'
-          },
-          {
-            title: 'Research & Practice'
-          },
-          {
-            title: 'Ideate'
-          },
-          {
-            title: 'Hack Day'
-          },
-          {
-            title: 'Reflection'
-          },
-          {
-            title: 'Design & Prototype'
-          },
-          {
-            title: 'Package'
-          },
-          {
-            title: 'Demo Day'
-          },
-          {
-            title: 'Finish Lane'
-          }
-        ]
-      },
-      Internship: {
-        icon: '',
-        color: 'purple',
-        submodule: [
-          {
-            title: 'Auto-App'
-          },
-          {
-            title: 'Interviews'
-          },
-          {
-            title: 'Offers'
-          }
-        ]
-      }
-    });
-    return { steps, expand, activeStep, sequence, actions, logThis, vertical };
+    };
+    return {
+      ...toRefs(state),
+      sortedStudents,
+      studentInfo,
+      formatStudentGrade,
+      edit,
+      filter,
+      activities: ACTIVITIES
+    };
   }
-};
+});
 </script>
 
 <style lang="scss">

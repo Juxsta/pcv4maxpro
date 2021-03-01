@@ -1,7 +1,11 @@
 <template>
   <div class="guide__container">
     <div class="guide__bar">
-      <guide-bar />
+      <guide-bar
+        v-model="selectedStudent"
+        :students="students"
+        :activity-filter.sync="activityFilter"
+      />
     </div>
     <div class="guide__page">
       <div class="guide__activity-title-button">
@@ -12,24 +16,31 @@
           ></v-img>
         </v-avatar>
       </div>
-      <div class="guide__activity-title">Prajit Saravanan's Progress</div>
+      <div class="guide__activity-title">{{ selectedStudent.name }}'s Progress</div>
       <div class="guide__table">
-        <component :is="currentUnit" />
+        <component :is="currentUnit" :activity-filter="activityFilter" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import Test from '@/components/Test.vue';
-import { ref } from '@vue/composition-api';
+import { reactive, ref, toRefs } from '@vue/composition-api';
 import Bar from './Bar.vue';
 import ListView from './components/ListView/TableView.vue';
+import { dummyStudentData } from './components/ListView/const';
 
 export default {
   setup() {
     const currentUnit = ref(ListView);
+    const state = reactive({
+      students: dummyStudentData,
+      selectedStudent: null,
+      activityFilter: null
+    });
+    [state.selectedStudent] = state.students;
     return {
+      ...toRefs(state),
       currentUnit
     };
   },

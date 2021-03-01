@@ -3,10 +3,10 @@
     <v-data-table
       dense
       :headers="header"
-      :items="items"
+      :items="filteredActivities"
       sort-by="resource"
-      items-per-page="100"
-      hide-default-footer="true"
+      :items-per-page="100"
+      :hide-default-footer="true"
     >
       <template v-slot:item.click>
         <v-btn outlined depressed x-small :ripple="false">Monitor Activity</v-btn>
@@ -16,11 +16,12 @@
         <v-progress-linear color="green" value="90"></v-progress-linear>
       </template>
 
-      <template v-slot:item.status>
-        <v-icon color="green" dark>mdi-checkbox-marked-circle</v-icon>
-
-        <!-- <v-icon color="orange" dark>mdi-alert-circle</v-icon> -->
-        <!-- <v-icon color="grey" dark>mdi-close-circle</v-icon> -->
+      <template v-slot:item.status="{ item }">
+        <v-icon v-if="item.completion === 100" color="green" dark
+          >mdi-checkbox-marked-circle</v-icon
+        >
+        <v-icon v-if="item.completion === 0" color="orange" dark>mdi-alert-circle</v-icon>
+        <v-icon v-if="item.completion === -1" color="grey" dark>mdi-close-circle</v-icon>
       </template>
 
       <template v-slot:item.type>
@@ -37,15 +38,26 @@
 </template>
 
 <script lang="ts">
-import { ref } from '@vue/composition-api';
+import { computed, defineComponent, ref } from '@vue/composition-api';
 import { items, HEADER } from './const';
 
-export default {
+export default defineComponent({
   name: 'TableView',
-  setup() {
-    return { header: ref(HEADER), items };
+  props: {
+    activityFilter: {
+      required: true,
+      type: Object
+    }
+  },
+  setup(props) {
+    const filteredActivities = computed(() => {
+      if (!props.activityFilter) return items;
+      const index = items.findIndex(item => item.activity === props.activityFilter.text) + 1;
+      return items.slice(0, index >= 0 ? index : items.length - 1);
+    });
+    return { header: ref(HEADER), items, filteredActivities };
   }
-};
+});
 </script>
 
 <style lang="scss">
