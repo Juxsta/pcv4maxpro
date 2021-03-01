@@ -89,8 +89,15 @@
               <div class="pl-3 pb-3">
                 <v-tooltip bottom>
                   <template v-slot:activator="{ on, attrs }">
-                    <v-btn v-bind="attrs" icon v-on="on">
-                      <v-icon color="#6fc284">mdi-umbrella</v-icon>
+                    <v-btn
+                      v-bind="attrs"
+                      icon
+                      v-on="on"
+                      @click="$emit('update:programFilter', 'All')"
+                    >
+                      <v-icon :color="programFilter === 'All' ? '#6fc284' : 'grey'"
+                        >mdi-umbrella</v-icon
+                      >
                     </v-btn>
                   </template>
                   <span>All</span>
@@ -98,8 +105,15 @@
 
                 <v-tooltip bottom>
                   <template v-slot:activator="{ on, attrs }">
-                    <v-btn v-bind="attrs" icon v-on="on">
-                      <v-icon color="#eda1bf">mdi-heart</v-icon>
+                    <v-btn
+                      v-bind="attrs"
+                      icon
+                      v-on="on"
+                      @click="$emit('update:programFilter', 'Loved')"
+                    >
+                      <v-icon :color="programFilter === 'Loved' ? '#eda1bf' : 'grey'"
+                        >mdi-heart</v-icon
+                      >
                     </v-btn>
                   </template>
                   <span>Loved</span>
@@ -107,8 +121,15 @@
 
                 <v-tooltip bottom>
                   <template v-slot:activator="{ on, attrs }">
-                    <v-btn v-bind="attrs" icon v-on="on">
-                      <v-icon color="#fdd35a">mdi-bookmark</v-icon>
+                    <v-btn
+                      v-bind="attrs"
+                      icon
+                      v-on="on"
+                      @click="$emit('update:programFilter', 'Bookmarked')"
+                    >
+                      <v-icon :color="programFilter === 'Bookmarked' ? '#fdd35a' : 'grey'"
+                        >mdi-bookmark</v-icon
+                      >
                     </v-btn>
                   </template>
                   <span>Bookmarks</span>
@@ -128,6 +149,7 @@
                 hide-details
                 outlined
                 dense
+                readonly
                 class="guide-bar__combobox mt-4 mb-4"
               >
                 <template v-slot:selection="{ attrs, item, parent, selected }">
@@ -179,6 +201,7 @@
                 outlined
                 dense
                 class="guide-bar__combobox mt-4 mb-4"
+                @input="val => $emit('update:residenceFilter', val.text)"
               >
                 <template v-slot:selection="{ attrs, item, parent, selected }">
                   <v-chip
@@ -216,7 +239,6 @@
               </v-combobox>
 
               <v-combobox
-                v-model="ageStandard"
                 rounded
                 :filter="filter"
                 :hide-no-data="!search"
@@ -229,6 +251,7 @@
                 outlined
                 dense
                 class="guide-bar__combobox mt-4 mb-4"
+                @input="val => $emit('update:ageFilter', val.text)"
               >
                 <template v-slot:selection="{ attrs, item, parent, selected }">
                   <v-chip
@@ -280,6 +303,7 @@
                 outlined
                 dense
                 class="guide-bar__combobox mt-4 mb-4"
+                @input="val => $emit('update:pathwaysFilter', val)"
               >
                 <template v-slot:selection="{ attrs, item, parent, selected }">
                   <v-chip
@@ -556,7 +580,12 @@ import { ref, reactive } from '@vue/composition-api';
 
 export default {
   name: 'Bar',
-
+  props: {
+    programFilter: {
+      required: true,
+      type: String
+    }
+  },
   data: () => ({
     activator: null,
     attach: null,
@@ -746,6 +775,10 @@ export default {
         color: 'grey darken-1'
       }
     ],
+    citizenStandard: {
+      text: 'Student',
+      color: 'grey darken-1'
+    },
 
     city: [
       // { header: 'Filter by programs' },
@@ -1123,7 +1156,7 @@ $stepper-step-step-height: 50px;
   margin-left: 5px;
 }
 
-.v-application .green {
+/* .v-application .green {
   // background-color: #4caf50 !important;
   background-color: #6eba7f !important;
   // background-color: #ffffff !important;
@@ -1133,7 +1166,7 @@ $stepper-step-step-height: 50px;
   min-width: 16px;
   width: 16px;
   margin-left: 5px;
-}
+} */
 
 .mdi-check::before {
   font-size: 10px;
@@ -1169,9 +1202,9 @@ $stepper-step-step-height: 50px;
   display: inline !important;
 }
 
-.v-application .green {
+/* .v-application .green {
   margin-left: 0px;
-}
+} */
 
 .guide-bar {
   // height: fit-content;
