@@ -64,9 +64,9 @@
         <div v-show="expand" class="guide-bar__container">
           <v-list class="guide-bar__list">
             <v-container fluid>
-              <div class="pl-3">
+              <div class="">
                 <v-btn
-                  class="guide-bar__activities-chips"
+                  class="font-weight-bold guide-bar__activities-chips"
                   x-small
                   rounded
                   outlined
@@ -81,9 +81,9 @@
                   >Build projects to win internships</v-btn
                 >
               </div> -->
-              <div class="guide-bar__monitor-participants-title">
+              <div class="pl-4 guide-bar__monitor-participants-title mt-5 mb-3">
                 <!-- <v-icon large color="black">mdi-telegram</v-icon> -->
-                Explore Employers
+                Explore <br />Employers
               </div>
 
               <div class="pl-2 pb-2 mb-3">
@@ -155,156 +155,302 @@
                   class="guide-bar__activities-chips font-weight-bold"
                   rounded
                   dark
-                  color="grey"
-                  depressed
-                  outlined
-                  small
-                  >Program Activities</v-chip
-                >
-                <v-chip
-                  class="guide-bar__activities-chips font-weight-bold"
-                  rounded
-                  dark
-                  color="grey"
+                  color="grey darken-4"
                   depressed
                   small
-                  >Start Program</v-chip
+                  >Activities include</v-chip
                 >
-                <v-chip
-                  class="guide-bar__activities-chips font-weight-bold"
-                  rounded
-                  dark
-                  color="grey"
-                  depressed
-                  small
-                  >Request for Projects</v-chip
-                >
-                <v-chip
-                  class="guide-bar__activities-chips font-weight-bold"
-                  rounded
-                  dark
-                  color="grey"
-                  depressed
-                  small
-                  >Team</v-chip
-                >
-                <v-chip
-                  class="guide-bar__activities-chips font-weight-bold"
-                  rounded
-                  dark
-                  color="grey"
-                  depressed
-                  small
-                  >Discord</v-chip
-                >
-                <v-chip
-                  class="guide-bar__activities-chips font-weight-bold"
-                  rounded
-                  dark
-                  color="grey"
-                  depressed
-                  small
-                  >Train</v-chip
-                >
-                <v-chip
-                  class="guide-bar__activities-chips font-weight-bold"
-                  rounded
-                  dark
-                  color="grey"
-                  depressed
-                  small
-                  >Research</v-chip
-                >
-                <v-chip
-                  class="guide-bar__activities-chips font-weight-bold"
-                  rounded
-                  dark
-                  color="grey"
-                  depressed
-                  small
-                  >Practice</v-chip
-                >
-                <v-chip
-                  class="guide-bar__activities-chips font-weight-bold"
-                  rounded
-                  dark
-                  color="grey"
-                  depressed
-                  small
-                  >Ideate</v-chip
-                >
-                <v-chip
-                  class="guide-bar__activities-chips font-weight-bold"
-                  rounded
-                  dark
-                  color="grey"
-                  depressed
-                  small
-                  >Pitch</v-chip
-                >
-                <v-chip
-                  class="guide-bar__activities-chips font-weight-bold"
-                  rounded
-                  dark
-                  color="grey"
-                  depressed
-                  small
-                  >Forum</v-chip
-                >
-                <v-chip
-                  class="guide-bar__activities-chips font-weight-bold"
-                  rounded
-                  dark
-                  color="grey"
-                  depressed
-                  small
-                  >Make</v-chip
-                >
-                <v-chip
-                  class="guide-bar__activities-chips font-weight-bold"
-                  rounded
-                  dark
-                  color="grey"
-                  depressed
-                  small
-                  >Demonstrate</v-chip
-                >
-                <v-chip
-                  class="guide-bar__activities-chips font-weight-bold"
-                  rounded
-                  dark
-                  color="grey"
-                  depressed
-                  small
-                  >Auto-Apply</v-chip
-                >
-                <v-chip
-                  class="guide-bar__activities-chips font-weight-bold"
-                  rounded
-                  dark
-                  color="grey"
-                  depressed
-                  small
-                  >Interview</v-chip
-                >
-                <v-chip
-                  class="guide-bar__activities-chips font-weight-bold"
-                  rounded
-                  dark
-                  color="grey"
-                  depressed
-                  small
-                  >Offer</v-chip
-                >
-                <v-chip
-                  class="guide-bar__activities-chips font-weight-bold"
-                  rounded
-                  dark
-                  color="grey"
-                  depressed
-                  small
-                  >Results</v-chip
-                >
+
+                <v-tooltip right color="black">
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-chip
+                      v-bind="attrs"
+                      class="guide-bar__activities-chips font-weight-bold"
+                      rounded
+                      dark
+                      outlined
+                      color="grey darken-2"
+                      depressed
+                      small
+                      v-on="on"
+                      ><v-icon left small>mdi-rocket-outline</v-icon>Start Program</v-chip
+                    >
+                  </template>
+                  <span class="d-flex font-weight-bold">Qualify, checkout and start program</span>
+                </v-tooltip>
+
+                <v-tooltip right color="black">
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-chip
+                      v-bind="attrs"
+                      class="guide-bar__activities-chips font-weight-bold"
+                      rounded
+                      dark
+                      color="#3c9dcd"
+                      depressed
+                      small
+                      v-on="on"
+                      ><v-icon small left>mdi-book-open</v-icon>Request for Projects</v-chip
+                    >
+                  </template>
+                  <span class="d-flex font-weight-bold">Review project scope</span>
+                </v-tooltip>
+
+                <v-tooltip right color="black">
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-chip
+                      v-bind="attrs"
+                      class="guide-bar__activities-chips font-weight-bold"
+                      rounded
+                      dark
+                      color="#6eba80"
+                      depressed
+                      small
+                      v-on="on"
+                      ><v-icon small left>mdi-account-supervisor-circle</v-icon>Team</v-chip
+                    >
+                  </template>
+                  <span class="d-flex font-weight-bold">Join, create or manage project teams</span>
+                </v-tooltip>
+
+                <v-tooltip right color="black">
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-chip
+                      v-bind="attrs"
+                      class="guide-bar__activities-chips font-weight-bold"
+                      rounded
+                      dark
+                      color="#ae90b0"
+                      depressed
+                      small
+                      v-on="on"
+                      ><v-icon small left>mdi-discord</v-icon>Discord</v-chip
+                    >
+                  </template>
+                  <span class="d-flex font-weight-bold"
+                    >Join and engage in our online student community</span
+                  >
+                </v-tooltip>
+
+                <v-tooltip right color="black">
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-chip
+                      v-bind="attrs"
+                      class="guide-bar__activities-chips font-weight-bold"
+                      rounded
+                      dark
+                      color="#6eba80"
+                      depressed
+                      small
+                      v-on="on"
+                      ><v-icon small left>mdi-teach</v-icon>Train</v-chip
+                    >
+                  </template>
+                  <span class="d-flex font-weight-bold">Watch employer-made video content</span>
+                </v-tooltip>
+
+                <v-tooltip right color="black">
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-chip
+                      v-bind="attrs"
+                      class="guide-bar__activities-chips font-weight-bold"
+                      rounded
+                      dark
+                      color="#ea6764"
+                      depressed
+                      small
+                      v-on="on"
+                      ><v-icon small left>mdi-bookmark-multiple</v-icon>Research</v-chip
+                    >
+                  </template>
+                  <span class="d-flex font-weight-bold">Research employer-provided resources</span>
+                </v-tooltip>
+
+                <v-tooltip right color="black">
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-chip
+                      v-bind="attrs"
+                      class="guide-bar__activities-chips font-weight-bold"
+                      rounded
+                      dark
+                      color="#f79961"
+                      depressed
+                      small
+                      v-on="on"
+                      ><v-icon small left>mdi-timetable</v-icon>Practice</v-chip
+                    >
+                  </template>
+                  <span class="d-flex font-weight-bold"
+                    >Tinker, practice and log time spent on project</span
+                  >
+                </v-tooltip>
+
+                <v-tooltip right color="black">
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-chip
+                      v-bind="attrs"
+                      class="guide-bar__activities-chips font-weight-bold"
+                      rounded
+                      dark
+                      color="#fec34b"
+                      depressed
+                      small
+                      v-on="on"
+                      ><v-icon small left>mdi-head-flash-outline</v-icon>Ideate</v-chip
+                    >
+                  </template>
+                  <span class="d-flex font-weight-bold"
+                    >Brainstorm, answer and iterate on your project idea</span
+                  >
+                </v-tooltip>
+                <v-tooltip right color="black">
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-chip
+                      v-bind="attrs"
+                      class="guide-bar__activities-chips font-weight-bold"
+                      rounded
+                      dark
+                      color="#3c9dcd"
+                      depressed
+                      small
+                      v-on="on"
+                      ><v-icon small left>mdi-elevator-passenger</v-icon>Pitch</v-chip
+                    >
+                  </template>
+                  <span class="d-flex font-weight-bold"
+                    >Write your one sentence and elevator pitches</span
+                  >
+                </v-tooltip>
+                <v-tooltip right color="black">
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-chip
+                      v-bind="attrs"
+                      class="guide-bar__activities-chips font-weight-bold"
+                      rounded
+                      dark
+                      color="#ea6764"
+                      depressed
+                      small
+                      v-on="on"
+                      ><v-icon small left>mdi-comment-text-multiple-outline</v-icon>Forum</v-chip
+                    >
+                  </template>
+                  <span class="d-flex font-weight-bold"
+                    >Ask and answer questions with your program peers</span
+                  >
+                </v-tooltip>
+
+                <v-tooltip right color="black">
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-chip
+                      v-bind="attrs"
+                      class="guide-bar__activities-chips font-weight-bold"
+                      rounded
+                      dark
+                      color="#6eba80"
+                      depressed
+                      small
+                      v-on="on"
+                      ><v-icon small left>mdi-feather</v-icon>Make</v-chip
+                    >
+                  </template>
+                  <span class="d-flex font-weight-bold"
+                    >Design, prototype and log your project milestones</span
+                  >
+                </v-tooltip>
+                <v-tooltip right color="black">
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-chip
+                      v-bind="attrs"
+                      class="guide-bar__activities-chips font-weight-bold"
+                      rounded
+                      dark
+                      color="#eda1bf"
+                      depressed
+                      small
+                      v-on="on"
+                      ><v-icon small left>mdi-telegram</v-icon>Demonstrate</v-chip
+                    >
+                  </template>
+                  <span class="d-flex font-weight-bold"
+                    >Demonstrate and present your project by recording a video</span
+                  >
+                </v-tooltip>
+
+                <v-tooltip right color="black">
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-chip
+                      v-bind="attrs"
+                      class="guide-bar__activities-chips font-weight-bold"
+                      rounded
+                      dark
+                      color="#f79961"
+                      depressed
+                      small
+                      v-on="on"
+                      ><v-icon small left>mdi-check-all</v-icon>Auto-Apply</v-chip
+                    >
+                  </template>
+                  <span class="d-flex font-weight-bold"
+                    >Review completed activities and auto-apply for internship</span
+                  >
+                </v-tooltip>
+                <v-tooltip right color="black">
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-chip
+                      v-bind="attrs"
+                      class="guide-bar__activities-chips font-weight-bold"
+                      rounded
+                      dark
+                      color="#3c9dcd"
+                      depressed
+                      small
+                      v-on="on"
+                      ><v-icon small left>mdi-account-supervisor-circle-outline</v-icon
+                      >Interview</v-chip
+                    >
+                  </template>
+                  <span class="d-flex font-weight-bold"
+                    >Interview asynchronously with employer</span
+                  >
+                </v-tooltip>
+
+                <v-tooltip right color="black">
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-chip
+                      v-bind="attrs"
+                      class="guide-bar__activities-chips font-weight-bold"
+                      rounded
+                      dark
+                      color="purple"
+                      depressed
+                      small
+                      v-on="on"
+                      ><v-icon small left>mdi-offer</v-icon>Offer</v-chip
+                    >
+                  </template>
+                  <span class="d-flex font-weight-bold"
+                    >Accept or decline anticipated position offer</span
+                  >
+                </v-tooltip>
+
+                <v-tooltip right color="black">
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-chip
+                      v-bind="attrs"
+                      class="guide-bar__activities-chips font-weight-bold"
+                      rounded
+                      dark
+                      outlined
+                      color="grey darken-2"
+                      depressed
+                      small
+                      v-on="on"
+                      ><v-icon small left>mdi-balloon</v-icon>Program Results</v-chip
+                    >
+                  </template>
+                  <span class="d-flex font-weight-bold">View your end of program results</span>
+                </v-tooltip>
               </div>
 
               <!-- <v-combobox
@@ -364,7 +510,8 @@
                 :items="city"
                 :search-input.sync="search"
                 hide-selected
-                label="Filter by Residence"
+                prepend-inner-icon="mdi-map-marker"
+                label="Where are you from?"
                 small-chips
                 hide-details
                 outlined
@@ -413,7 +560,8 @@
                 :items="age"
                 :search-input.sync="search"
                 hide-selected
-                label="Filter by Age"
+                prepend-inner-icon="mdi-cake-variant"
+                label="What is your age?"
                 small-chips
                 hide-details
                 outlined
@@ -462,8 +610,9 @@
                 :items="pathways"
                 :search-input.sync="search"
                 hide-selected
-                label="Filter by Pathways"
+                label="What are your interests?"
                 multiple
+                prepend-inner-icon="mdi-sign-direction"
                 rounded
                 small-chips
                 hide-details
@@ -1215,9 +1364,9 @@ $stepper-step-step-height: 50px;
   }
   &__monitor-participants-title {
     font-family: Raleway;
-    font-size: 28px;
+    font-size: 36px;
     font-weight: 800;
-    padding: 12px 0px 8px 0px;
+    line-height: 42px;
   }
   &__combobox {
   }
@@ -1324,7 +1473,7 @@ $stepper-step-step-height: 50px;
   }
 
   &__list {
-    width: 22vw;
+    width: 24vw;
     overflow-y: auto;
   }
 }
