@@ -10,7 +10,30 @@
         v-on="$listeners"
       />
     </v-container>
-    <div v-if="!employers.length" class="explore-program__no-programs">No programs</div>
+    <!-- <v-dialog v-if="!employers.length"></v-dialog> -->
+    <v-container
+      v-if="!employers.length"
+      class="mt-12 justify-center align-center d-flex flex-column"
+    >
+      <v-sparkline
+        class="mt-10"
+        :value="value"
+        :gradient="gradient"
+        :smooth="radius || false"
+        :padding="padding"
+        :line-width="width"
+        :stroke-linecap="lineCap"
+        :gradient-direction="gradientDirection"
+        :fill="fill"
+        :type="type"
+        :auto-line-width="autoLineWidth"
+        auto-draw
+      ></v-sparkline>
+
+      <div class="explore-program__no-programs mt-10 d-flex flex-column align-center">
+        No programs on the menu yet
+      </div></v-container
+    >
   </v-container>
 </template>
 
@@ -18,6 +41,15 @@
 import { ref, PropType } from '@vue/composition-api';
 import { items, HEADER } from './const';
 import ExploreCard from './ExploreCard.vue';
+
+const gradients = [
+  ['#222'],
+  ['#42b3f4'],
+  ['red', 'orange', 'yellow'],
+  ['purple', 'pink'],
+  ['#00c6ff', '#F0F', '#FF0'],
+  ['#f72047', '#ffd200', '#1feaea']
+];
 
 export default {
   name: 'TableView',
@@ -38,8 +70,24 @@ export default {
       type: Array as PropType<Array<Record<string, any>>>
     }
   },
+
   setup() {
-    return { header: ref(HEADER), items };
+    return {
+      header: ref(HEADER),
+      items,
+
+      width: 2,
+      radius: 10,
+      padding: 8,
+      lineCap: 'round',
+      gradient: gradients[5],
+      value: [0, 2, 5, 9, 5, 10, 3, 5, 0, 0, 1, 8, 2, 15, 0],
+      gradientDirection: 'top',
+      gradients,
+      fill: false,
+      type: 'trend',
+      autoLineWidth: false
+    };
   }
 };
 </script>
@@ -53,16 +101,23 @@ export default {
 
 .explore-program {
   &__no-programs {
-    border-radius: 5px;
-    width: 50%;
-    margin: auto;
-    height: 100px;
-    text-align: center;
-    background-color: #dedede;
-    font-weight: 700;
-    color: #ffffff;
-    font-size: 18px;
-    padding-top: 35px;
+    // height: 50vh;
+    // width: 50vw;
+
+    // border-radius: 5px;
+    // width: 250px;
+    // margin: auto;
+    // height: 400px;
+    // text-align: center;
+    color: #dedede;
+    font-size: 32px;
+    font-style: italic;
+    font-weight: 400;
+    // border-radius: 15px;
+    // font-weight: 700;
+    // color: #ffffff;
+    // font-size: 18px;
+    // padding-top: 35px;
   }
   &__entire-body {
     width: 100%;

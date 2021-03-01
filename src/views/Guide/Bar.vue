@@ -86,17 +86,18 @@
                 Explore Employers
               </div>
 
-              <div class="pl-3 pb-3">
+              <div class="pl-2 pb-2 mb-3">
                 <v-tooltip bottom>
                   <template v-slot:activator="{ on, attrs }">
                     <v-btn
                       v-bind="attrs"
                       icon
+                      x-large
                       v-on="on"
                       @click="$emit('update:programFilter', 'All')"
                     >
                       <v-icon :color="programFilter === 'All' ? '#6fc284' : 'grey'"
-                        >mdi-umbrella</v-icon
+                        >mdi-sign-direction</v-icon
                       >
                     </v-btn>
                   </template>
@@ -108,6 +109,7 @@
                     <v-btn
                       v-bind="attrs"
                       icon
+                      x-large
                       v-on="on"
                       @click="$emit('update:programFilter', 'Loved')"
                     >
@@ -119,7 +121,7 @@
                   <span>Loved</span>
                 </v-tooltip>
 
-                <v-tooltip bottom>
+                <!-- <v-tooltip bottom>
                   <template v-slot:activator="{ on, attrs }">
                     <v-btn
                       v-bind="attrs"
@@ -133,214 +135,10 @@
                     </v-btn>
                   </template>
                   <span>Bookmarks</span>
-                </v-tooltip>
+                </v-tooltip> -->
               </div>
 
-              <v-combobox
-                v-model="citizenStandard"
-                rounded
-                :filter="filter"
-                :hide-no-data="!search"
-                hide-selected
-                :items="citizen"
-                :search-input.sync="search"
-                label="Filter by Citizen"
-                small-chips
-                hide-details
-                outlined
-                dense
-                readonly
-                class="guide-bar__combobox mt-4 mb-4"
-              >
-                <template v-slot:selection="{ attrs, item, parent, selected }">
-                  <v-chip
-                    v-if="item === Object(item)"
-                    v-bind="attrs"
-                    :color="`${item.color} lighten-2`"
-                    :input-value="selected"
-                    label
-                    small
-                    dark
-                  >
-                    <span class="pr-2">
-                      {{ item.text }}
-                    </span>
-                    <!-- <v-icon small @click="parent.selectItem(item)"> mdi-close </v-icon> -->
-                  </v-chip>
-                </template>
-
-                <template v-slot:item="{ index, item }">
-                  <v-text-field
-                    v-if="editing === item"
-                    v-model="editing.text"
-                    autofocus
-                    flat
-                    background-color="transparent"
-                    hide-details
-                    solo
-                    @keyup.enter="edit(index, item)"
-                  ></v-text-field>
-                  <v-chip v-else :color="`${item.color} lighten-2`" dark label small>
-                    {{ item.text }}
-                  </v-chip>
-                  <v-spacer></v-spacer>
-                </template>
-              </v-combobox>
-
-              <v-combobox
-                v-model="cityStandard"
-                rounded
-                :filter="filter"
-                :hide-no-data="!search"
-                :items="city"
-                :search-input.sync="search"
-                hide-selected
-                label="Filter by Residence"
-                small-chips
-                hide-details
-                outlined
-                dense
-                class="guide-bar__combobox mt-4 mb-4"
-                @input="val => $emit('update:residenceFilter', val.text)"
-              >
-                <template v-slot:selection="{ attrs, item, parent, selected }">
-                  <v-chip
-                    v-if="item === Object(item)"
-                    v-bind="attrs"
-                    :color="`${item.color} lighten-2`"
-                    :input-value="selected"
-                    label
-                    small
-                    dark
-                  >
-                    <span class="pr-2">
-                      {{ item.text }}
-                    </span>
-                    <!-- <v-icon small @click="parent.selectItem(item)"> mdi-close </v-icon> -->
-                  </v-chip>
-                </template>
-
-                <template v-slot:item="{ index, item }">
-                  <v-text-field
-                    v-if="editing === item"
-                    v-model="editing.text"
-                    autofocus
-                    flat
-                    background-color="transparent"
-                    hide-details
-                    solo
-                    @keyup.enter="edit(index, item)"
-                  ></v-text-field>
-                  <v-chip v-else :color="`${item.color} lighten-2`" dark label small>
-                    {{ item.text }}
-                  </v-chip>
-                  <v-spacer></v-spacer>
-                </template>
-              </v-combobox>
-
-              <v-combobox
-                rounded
-                :filter="filter"
-                :hide-no-data="!search"
-                :items="age"
-                :search-input.sync="search"
-                hide-selected
-                label="Filter by Age"
-                small-chips
-                hide-details
-                outlined
-                dense
-                class="guide-bar__combobox mt-4 mb-4"
-                @input="val => $emit('update:ageFilter', val.text)"
-              >
-                <template v-slot:selection="{ attrs, item, parent, selected }">
-                  <v-chip
-                    v-if="item === Object(item)"
-                    v-bind="attrs"
-                    :color="`${item.color} lighten-2`"
-                    :input-value="selected"
-                    label
-                    small
-                    dark
-                  >
-                    <span class="pr-2">
-                      {{ item.text }}
-                    </span>
-                    <!-- <v-icon small @click="parent.selectItem(item)"> mdi-close </v-icon> -->
-                  </v-chip>
-                </template>
-
-                <template v-slot:item="{ index, item }">
-                  <v-text-field
-                    v-if="editing === item"
-                    v-model="editing.text"
-                    autofocus
-                    flat
-                    background-color="transparent"
-                    hide-details
-                    solo
-                    @keyup.enter="edit(index, item)"
-                  ></v-text-field>
-                  <v-chip v-else :color="`${item.color} lighten-2`" dark label small>
-                    {{ item.text }}
-                  </v-chip>
-                  <v-spacer></v-spacer>
-                </template>
-              </v-combobox>
-
-              <v-combobox
-                v-model="pathwaysStandard"
-                :filter="filter"
-                :hide-no-data="!search"
-                :items="pathways"
-                :search-input.sync="search"
-                hide-selected
-                label="Filter by Pathways"
-                multiple
-                rounded
-                small-chips
-                hide-details
-                outlined
-                dense
-                class="guide-bar__combobox mt-4 mb-4"
-                @input="val => $emit('update:pathwaysFilter', val)"
-              >
-                <template v-slot:selection="{ attrs, item, parent, selected }">
-                  <v-chip
-                    v-if="item === Object(item)"
-                    v-bind="attrs"
-                    :color="`${item.color} lighten-2`"
-                    :input-value="selected"
-                    label
-                    small
-                    dark
-                  >
-                    <span class="pr-2">
-                      {{ item.text }}
-                    </span>
-                    <v-icon small @click="parent.selectItem(item)"> mdi-close </v-icon>
-                  </v-chip>
-                </template>
-
-                <template v-slot:item="{ index, item }">
-                  <v-text-field
-                    v-if="editing === item"
-                    v-model="editing.text"
-                    autofocus
-                    flat
-                    background-color="transparent"
-                    hide-details
-                    solo
-                    @keyup.enter="edit(index, item)"
-                  ></v-text-field>
-                  <v-chip v-else :color="`${item.color} lighten-2`" dark label small>
-                    {{ item.text }}
-                  </v-chip>
-                  <v-spacer></v-spacer>
-                </template>
-              </v-combobox>
-
-              <div class="pl-3">
+              <!-- <div class="pl-3">
                 <v-btn
                   class="guide-bar__activities-chips"
                   x-small
@@ -351,8 +149,18 @@
                   depressed
                   >Program Activities</v-btn
                 >
-              </div>
-              <div class="pl-3">
+              </div> -->
+              <div class="pl-3 mb-12">
+                <v-chip
+                  class="guide-bar__activities-chips font-weight-bold"
+                  rounded
+                  dark
+                  color="grey"
+                  depressed
+                  outlined
+                  small
+                  >Program Activities</v-chip
+                >
                 <v-chip
                   class="guide-bar__activities-chips font-weight-bold"
                   rounded
@@ -360,7 +168,7 @@
                   color="grey"
                   depressed
                   small
-                  >Start</v-chip
+                  >Start Program</v-chip
                 >
                 <v-chip
                   class="guide-bar__activities-chips font-weight-bold"
@@ -450,7 +258,7 @@
                   color="grey"
                   depressed
                   small
-                  >Design & Prototype</v-chip
+                  >Make</v-chip
                 >
                 <v-chip
                   class="guide-bar__activities-chips font-weight-bold"
@@ -460,15 +268,6 @@
                   depressed
                   small
                   >Demonstrate</v-chip
-                >
-                <v-chip
-                  class="guide-bar__activities-chips font-weight-bold"
-                  rounded
-                  dark
-                  color="grey"
-                  depressed
-                  small
-                  >Present</v-chip
                 >
                 <v-chip
                   class="guide-bar__activities-chips font-weight-bold"
@@ -507,6 +306,205 @@
                   >Results</v-chip
                 >
               </div>
+
+              <!-- <v-combobox
+                v-model="citizenStandard"
+                rounded
+                :filter="filter"
+                :hide-no-data="!search"
+                hide-selected
+                :items="citizen"
+                :search-input.sync="search"
+                label="Filter by Citizen"
+                small-chips
+                hide-details
+                outlined
+                readonly
+                class="guide-bar__combobox mt-4 mb-4"
+              >
+                <template v-slot:selection="{ attrs, item, parent, selected }">
+                  <v-chip
+                    v-if="item === Object(item)"
+                    v-bind="attrs"
+                    :color="`${item.color} lighten-2`"
+                    :input-value="selected"
+                    label
+                    small
+                    dark
+                  >
+                    <span class="pr-2">
+                      {{ item.text }}
+                    </span>
+                  </v-chip>
+                </template>
+
+                <template v-slot:item="{ index, item }">
+                  <v-text-field
+                    v-if="editing === item"
+                    v-model="editing.text"
+                    autofocus
+                    flat
+                    background-color="transparent"
+                    hide-details
+                    solo
+                    @keyup.enter="edit(index, item)"
+                  ></v-text-field>
+                  <v-chip v-else :color="`${item.color} lighten-2`" dark label small>
+                    {{ item.text }}
+                  </v-chip>
+                  <v-spacer></v-spacer>
+                </template>
+              </v-combobox> -->
+
+              <v-combobox
+                v-model="cityStandard"
+                rounded
+                :filter="filter"
+                :hide-no-data="!search"
+                :items="city"
+                :search-input.sync="search"
+                hide-selected
+                label="Filter by Residence"
+                small-chips
+                hide-details
+                outlined
+                class="guide-bar__combobox mt-4 mb-4"
+                @input="val => $emit('update:residenceFilter', val.text)"
+              >
+                <template v-slot:selection="{ attrs, item, parent, selected }">
+                  <v-chip
+                    v-if="item === Object(item)"
+                    v-bind="attrs"
+                    :color="`${item.color} lighten-2`"
+                    :input-value="selected"
+                    label
+                    small
+                    dark
+                  >
+                    <span class="pr-2">
+                      {{ item.text }}
+                    </span>
+                    <!-- <v-icon small @click="parent.selectItem(item)"> mdi-close </v-icon> -->
+                  </v-chip>
+                </template>
+
+                <template v-slot:item="{ index, item }">
+                  <v-text-field
+                    v-if="editing === item"
+                    v-model="editing.text"
+                    autofocus
+                    flat
+                    background-color="transparent"
+                    hide-details
+                    solo
+                    @keyup.enter="edit(index, item)"
+                  ></v-text-field>
+                  <v-chip v-else :color="`${item.color} lighten-2`" dark label small>
+                    {{ item.text }}
+                  </v-chip>
+                  <v-spacer></v-spacer>
+                </template>
+              </v-combobox>
+
+              <v-combobox
+                rounded
+                :filter="filter"
+                :hide-no-data="!search"
+                :items="age"
+                :search-input.sync="search"
+                hide-selected
+                label="Filter by Age"
+                small-chips
+                hide-details
+                outlined
+                class="guide-bar__combobox mt-4 mb-4"
+                @input="val => $emit('update:ageFilter', val.text)"
+              >
+                <template v-slot:selection="{ attrs, item, parent, selected }">
+                  <v-chip
+                    v-if="item === Object(item)"
+                    v-bind="attrs"
+                    :color="`${item.color} lighten-2`"
+                    :input-value="selected"
+                    label
+                    small
+                    dark
+                  >
+                    <span class="pr-2">
+                      {{ item.text }}
+                    </span>
+                    <!-- <v-icon small @click="parent.selectItem(item)"> mdi-close </v-icon> -->
+                  </v-chip>
+                </template>
+
+                <template v-slot:item="{ index, item }">
+                  <v-text-field
+                    v-if="editing === item"
+                    v-model="editing.text"
+                    autofocus
+                    flat
+                    background-color="transparent"
+                    hide-details
+                    solo
+                    @keyup.enter="edit(index, item)"
+                  ></v-text-field>
+                  <v-chip v-else :color="`${item.color} lighten-2`" dark label small>
+                    {{ item.text }}
+                  </v-chip>
+                  <v-spacer></v-spacer>
+                </template>
+              </v-combobox>
+
+              <v-combobox
+                v-model="pathwaysStandard"
+                :filter="filter"
+                :hide-no-data="!search"
+                :items="pathways"
+                :search-input.sync="search"
+                hide-selected
+                label="Filter by Pathways"
+                multiple
+                rounded
+                small-chips
+                hide-details
+                outlined
+                class="guide-bar__combobox mt-4 mb-4"
+                @input="val => $emit('update:pathwaysFilter', val)"
+              >
+                <template v-slot:selection="{ attrs, item, parent, selected }">
+                  <v-chip
+                    v-if="item === Object(item)"
+                    v-bind="attrs"
+                    :color="`${item.color} lighten-2`"
+                    :input-value="selected"
+                    label
+                    small
+                    dark
+                  >
+                    <span class="pr-2">
+                      {{ item.text }}
+                    </span>
+                    <v-icon small @click="parent.selectItem(item)"> mdi-close </v-icon>
+                  </v-chip>
+                </template>
+
+                <template v-slot:item="{ index, item }">
+                  <v-text-field
+                    v-if="editing === item"
+                    v-model="editing.text"
+                    autofocus
+                    flat
+                    background-color="transparent"
+                    hide-details
+                    solo
+                    @keyup.enter="edit(index, item)"
+                  ></v-text-field>
+                  <v-chip v-else :color="`${item.color} lighten-2`" dark label small>
+                    {{ item.text }}
+                  </v-chip>
+                  <v-spacer></v-spacer>
+                </template>
+              </v-combobox>
 
               <!-- <div class="">
                 <template>
@@ -1213,13 +1211,13 @@ $stepper-step-step-height: 50px;
   // background-color: transparent;
 
   &__activities-chips {
-    margin: 5px;
+    margin: 3px;
   }
   &__monitor-participants-title {
     font-family: Raleway;
     font-size: 28px;
     font-weight: 800;
-    padding: 12px;
+    padding: 12px 0px 8px 0px;
   }
   &__combobox {
   }

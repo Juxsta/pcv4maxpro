@@ -21,14 +21,14 @@
         <span>Love</span>
       </v-tooltip>
 
-      <v-tooltip top>
+      <!-- <v-tooltip top>
         <template v-slot:activator="{ on, attrs }">
           <v-btn v-bind="attrs" icon v-on="on" @click="bookmarkProgram">
             <v-icon :color="bookmarked ? '#fdd35a' : 'grey'">mdi-bookmark</v-icon>
           </v-btn>
         </template>
         <span>Bookmark</span>
-      </v-tooltip>
+      </v-tooltip> -->
 
       <v-tooltip top>
         <template v-slot:activator="{ on, attrs }">
@@ -43,17 +43,18 @@
     <v-list-item class="justify-end">
       <v-btn
         class="explore-card__button font-weight-bold ml-1 mr-1"
+        rounded
         small
         disabled
         depressed
         :ripple="false"
-        >{{ employer.tokens }} Tokens</v-btn
+        ><v-icon left>mdi-set-none</v-icon>{{ employer.tokens }} Token</v-btn
       >
 
       <v-btn
         class="explore-card__button font-weight-bold ml-1 mr-1"
-        small
         outlined
+        rounded
         depressed
         :ripple="false"
         >Start Program</v-btn
@@ -115,19 +116,14 @@
         <span>Specific Skills Required</span>
       </v-tooltip>
 
-      <v-tooltip bottom>
+      <!-- <v-tooltip bottom>
         <template v-slot:activator="{ on, attrs }">
-          <!-- <v-btn color="#6fba7f" icon v-bind="attrs" v-on="on">
-                <v-icon small>mdi-laptop-windows</v-icon>
-              </v-btn> -->
-
           <v-btn color="#fdd35a" icon v-bind="attrs" v-on="on">
             <v-icon small>mdi-laptop-windows</v-icon>
           </v-btn>
         </template>
-        <!-- <span>No Specific Tech Required</span> -->
         <span>Specific Tech Required</span>
-      </v-tooltip>
+      </v-tooltip> -->
 
       <v-tooltip bottom>
         <template v-slot:activator="{ on, attrs }">
@@ -186,3 +182,77 @@ export default defineComponent({
   }
 });
 </script>
+
+<style lang="scss">
+.explore-card {
+  &__employer-title-red {
+    font-family: Raleway;
+    font-size: 22px;
+    line-height: 30px;
+    font-weight: 700;
+    color: #ea6764;
+    letter-spacing: 0.0125em;
+    padding: 15px;
+  }
+  &__employer-title-green {
+    font-family: Raleway;
+    font-size: 22px;
+    line-height: 30px;
+    font-weight: 700;
+    color: #6eba80;
+    letter-spacing: 0.0125em;
+    padding: 15px;
+  }
+
+  &__employer-title-blue {
+    font-family: Raleway;
+    font-size: 22px;
+    line-height: 30px;
+    font-weight: 700;
+    color: #3c9dcd;
+    letter-spacing: 0.0125em;
+    padding: 15px;
+  }
+
+  &__employer-title-orange {
+    font-family: Raleway;
+    font-size: 22px;
+    line-height: 30px;
+    font-weight: 700;
+    color: #f79961;
+
+    letter-spacing: 0.0125em;
+    padding: 15px;
+  }
+
+  &__employer-title-yellow {
+    font-family: Raleway;
+    font-size: 22px;
+    line-height: 30px;
+    font-weight: 700;
+    color: #fec34b;
+    letter-spacing: 0.0125em;
+    padding: 15px;
+  }
+
+  &__employer-title-purple {
+    font-family: Raleway;
+    font-size: 22px;
+    line-height: 30px;
+    font-weight: 700;
+    color: #ae92b0;
+    letter-spacing: 0.0125em;
+    padding: 15px;
+  }
+
+  &__employer-title-pink {
+    font-family: Raleway;
+    font-size: 22px;
+    line-height: 30px;
+    font-weight: 700;
+    color: #eda1bf;
+    letter-spacing: 0.0125em;
+    padding: 15px;
+  }
+}
+</style>
