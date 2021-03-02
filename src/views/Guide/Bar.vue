@@ -203,14 +203,16 @@
                       class="guide-bar__activities-chips font-weight-bold"
                       rounded
                       dark
-                      color="#6eba80"
+                      color="#ae90b0"
                       depressed
                       small
                       v-on="on"
-                      ><v-icon small left>mdi-account-supervisor-circle</v-icon>Team</v-chip
+                      ><v-icon small left>mdi-discord</v-icon>Community</v-chip
                     >
                   </template>
-                  <span class="d-flex font-weight-bold">Join, create or manage project teams</span>
+                  <span class="d-flex font-weight-bold"
+                    >Join and engage in our online student community</span
+                  >
                 </v-tooltip>
 
                 <v-tooltip right color="black">
@@ -220,16 +222,14 @@
                       class="guide-bar__activities-chips font-weight-bold"
                       rounded
                       dark
-                      color="#ae90b0"
+                      color="#eda1bf"
                       depressed
                       small
                       v-on="on"
-                      ><v-icon small left>mdi-discord</v-icon>Discord</v-chip
+                      ><v-icon small left>mdi-account-supervisor-circle</v-icon>Team</v-chip
                     >
                   </template>
-                  <span class="d-flex font-weight-bold"
-                    >Join and engage in our online student community</span
-                  >
+                  <span class="d-flex font-weight-bold">Join, create or manage project teams</span>
                 </v-tooltip>
 
                 <v-tooltip right color="black">
@@ -277,7 +277,7 @@
                       depressed
                       small
                       v-on="on"
-                      ><v-icon small left>mdi-timetable</v-icon>Practice</v-chip
+                      ><v-icon small left>mdi-timetable</v-icon>Tinker</v-chip
                     >
                   </template>
                   <span class="d-flex font-weight-bold"
@@ -1265,6 +1265,8 @@ $stepper-step-step-height: 50px;
   // height: 100vh;
   // width: 25vw;
   max-width: 25vw;
+  background-color: #dedede !important;
+  color: #dedede !important;
 }
 .v-application--is-ltr .guide-bar .v-stepper--vertical .v-stepper__content {
   margin: -16px -12px -24px 12px;
@@ -1358,6 +1360,7 @@ $stepper-step-step-height: 50px;
   display: flex;
   height: 95vh;
   // background-color: transparent;
+  background-color: black;
 
   &__activities-chips {
     margin: 3px;
