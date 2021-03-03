@@ -169,11 +169,191 @@
             >
           </div> -->
 
+          <v-dialog v-model="addOrganizers" persistent max-width="600px">
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn
+                v-bind="attrs"
+                class="mt-3 mb-3"
+                small
+                rounded
+                color="transparent"
+                depressed
+                v-on="on"
+                ><v-icon left>mdi-account-plus</v-icon>Add Organizers</v-btn
+              >
+            </template>
+            <v-card>
+              <v-card-title>
+                <div class="overline font-weight-bold">Add Organizers</div>
+
+                <div class="ml-auto">
+                  <v-btn icon @click="addOrganizers = false"><v-icon>mdi-close</v-icon></v-btn>
+                </div>
+              </v-card-title>
+
+              <v-card-subtitle
+                >Allow co-organizers to setup, monitor and manage your program</v-card-subtitle
+              >
+
+              <v-card-text>
+                <v-container class="d-flex flex-row">
+                  <v-text-field hide-details outlined label="Enter email address"></v-text-field>
+                  <v-btn class="ml-4 mr-4" disabled depressed>Send Invite</v-btn>
+                  <!-- <v-btn class="ml-4 mr-4" color="blue" dark depressed>Send Invite</v-btn> -->
+                </v-container>
+              </v-card-text>
+
+              <v-divider></v-divider>
+
+              <v-card-text>
+                <v-row
+                  ><v-col cols="1" class="d-flex align-center"
+                    ><v-avatar size="32">
+                      <v-img src="https://picsum.photos/510/300?random"></v-img></v-avatar></v-col
+                  ><v-col class="d-flex align-center" cols="7"
+                    >Mai-Ling Chan<v-chip class="ml-2" dark disabled x-small
+                      >Employer</v-chip
+                    ></v-col
+                  ><v-col class="" cols="4"
+                    ><v-select
+                      value="Owner"
+                      :items="organizerRoles"
+                      hide-details
+                      dense
+                      outlined
+                    ></v-select></v-col
+                ></v-row>
+
+                <v-row
+                  ><v-col cols="1" class="d-flex align-center"
+                    ><v-avatar size="32">
+                      <v-img src="https://picsum.photos/510/300?random"></v-img></v-avatar></v-col
+                  ><v-col class="d-flex align-center" cols="7"
+                    >Meaghan Azlein<v-chip class="ml-2" dark disabled x-small
+                      >Employer</v-chip
+                    ></v-col
+                  ><v-col class="" cols="4"
+                    ><v-select
+                      value="Organizer"
+                      :items="organizerRoles"
+                      hide-details
+                      dense
+                      outlined
+                    ></v-select></v-col
+                ></v-row>
+
+                <v-row
+                  ><v-col cols="1" class="d-flex align-center"
+                    ><v-avatar size="32">
+                      <v-img src="https://picsum.photos/510/300?random"></v-img></v-avatar></v-col
+                  ><v-col class="d-flex align-center" cols="7"
+                    >Lucas Steuber<v-chip class="ml-2" dark disabled x-small
+                      >Employer</v-chip
+                    ></v-col
+                  ><v-col class="" cols="4"
+                    ><v-select
+                      value="Organizer"
+                      :items="organizerRoles"
+                      hide-details
+                      dense
+                      outlined
+                    ></v-select></v-col
+                ></v-row>
+
+                <v-row
+                  ><v-col cols="1" class="d-flex align-center"
+                    ><v-avatar color="grey lighten-2" size="32"> </v-avatar></v-col
+                  ><v-col class="d-flex align-center" cols="7">andreas@cognixion.com</v-col
+                  ><v-col class="" cols="4"
+                    ><v-select
+                      value="Organizer"
+                      :items="organizerRoles"
+                      hide-details
+                      dense
+                      outlined
+                    ></v-select></v-col
+                ></v-row>
+              </v-card-text>
+
+              <v-divider></v-divider>
+              <!-- <v-card-text>
+                  <v-container>
+                    <v-row>
+                      <v-col cols="12" sm="6" md="4">
+                        <v-text-field label="Legal first name*" required></v-text-field>
+                      </v-col>
+                      <v-col cols="12" sm="6" md="4">
+                        <v-text-field
+                          label="Legal middle name"
+                          hint="example of helper text only on focus"
+                        ></v-text-field>
+                      </v-col>
+                      <v-col cols="12" sm="6" md="4">
+                        <v-text-field
+                          label="Legal last name*"
+                          hint="example of persistent helper text"
+                          persistent-hint
+                          required
+                        ></v-text-field>
+                      </v-col>
+                      <v-col cols="12">
+                        <v-text-field label="Email*" required></v-text-field>
+                      </v-col>
+                      <v-col cols="12">
+                        <v-text-field label="Password*" type="password" required></v-text-field>
+                      </v-col>
+                      <v-col cols="12" sm="6">
+                        <v-select
+                          :items="['0-17', '18-29', '30-54', '54+']"
+                          label="Age*"
+                          required
+                        ></v-select>
+                      </v-col>
+                      <v-col cols="12" sm="6">
+                        <v-autocomplete
+                          :items="[
+                            'Skiing',
+                            'Ice hockey',
+                            'Soccer',
+                            'Basketball',
+                            'Hockey',
+                            'Reading',
+                            'Writing',
+                            'Coding',
+                            'Basejump'
+                          ]"
+                          label="Interests"
+                          multiple
+                        ></v-autocomplete>
+                      </v-col>
+                    </v-row>
+                  </v-container>
+                  <small>*indicates required field</small>
+                </v-card-text> -->
+              <v-card-actions>
+                <!-- <v-spacer></v-spacer> -->
+                <v-container class="d-flex justify-end">
+                  <v-btn color="grey darken-1" text @click="addOrganizers = false"> Close </v-btn>
+                  <v-btn color="grey darken-1" text @click="addOrganizers = false">
+                    Save
+                  </v-btn></v-container
+                >
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
+
           <!-- READY TO PUBLISH PROGRAM BUTTON -->
           <v-dialog v-model="dialog" persistent max-width="500px">
             <template v-slot:activator="{ on, attrs }">
               <div class="d-flex justify-center">
-                <v-btn min-width="225px" v-bind="attrs" disabled rounded depressed v-on="on"
+                <v-btn
+                  class="d-flex font-weight-bold"
+                  min-width="225px"
+                  v-bind="attrs"
+                  rounded
+                  disabled
+                  depressed
+                  v-on="on"
                   >Publish Program</v-btn
                 >
               </div>
@@ -380,6 +560,8 @@ export default defineComponent({
       vertical,
       dialog: ref(false),
       dialog2: ref(false),
+      addOrganizers: false,
+      organizerRoles: ['Owner', 'Organizer', 'Remove'],
       unlockedStep
     };
   }
