@@ -243,7 +243,6 @@
               </v-chip>
             </template>
           </v-combobox>
-
           <v-btn class="ma-2 d-flex align-center" x-large rounded dark depressed
             >Explore Employers</v-btn
           >
@@ -290,7 +289,6 @@
               </v-chip>
             </template>
           </v-combobox>
-
           <v-btn class="ma-2 d-flex align-center" x-large rounded dark depressed
             >Explore Employers</v-btn
           >
@@ -337,7 +335,6 @@
               </v-chip>
             </template>
           </v-combobox>
-
           <v-btn class="ma-2 d-flex align-center" x-large rounded dark depressed
             >Explore Employers</v-btn
           > -->
@@ -355,7 +352,6 @@
                 label="Signup with email"
               ></v-text-field>
             </validation-provider>
-
             <v-btn
               class="landing__hero-cta-button"
               x-large
@@ -657,13 +653,10 @@
               <!-- <v-timeline-item small>Practice Log</v-timeline-item> -->
               <!-- <v-timeline-item small>Business Model Canvas</v-timeline-item>
             <v-timeline-item small>Your One Sentence Pitch</v-timeline-item>
-
             <v-timeline-item small>Write Your 60-Second Elevator Pitch</v-timeline-item>
             <v-timeline-item small>Hack Day</v-timeline-item>
             <v-timeline-item small>Post-Hack Reflection</v-timeline-item>
-
             <v-timeline-item small>Design & Prototype Process Log</v-timeline-item>
-
             <v-timeline-item small>Enter Prototype Demonstration Video</v-timeline-item>
             <v-timeline-item small>Enter Link to Presentation Deck</v-timeline-item>
             <v-timeline-item small>Demo Day</v-timeline-item>
@@ -866,7 +859,6 @@
       class="landing__hero-default"
     >
       <div class="landing__primary-title">Subject Areas</div>
-
       <v-btn outlined color="white" rounded class="landing__primary-subtitle"
         >Classes that find our program amplifying</v-btn
       >
@@ -883,7 +875,6 @@
           <v-chip dark class="landing__content-grid-combo" large>Healthcare</v-chip>
         </v-chip-group>
       </div>
-
       <div class="landing__content-grid">
         <div class="landing__content-grid-combo">
           <v-icon dark x-large>mdi-telegram</v-icon>Computer Science
@@ -895,7 +886,6 @@
           <v-icon dark x-large>mdi-telegram</v-icon>Digital Media
         </div>
       </div>
-
       <div class="landing__content-grid">
         <div class="landing__content-grid-combo">
           <v-icon dark x-large>mdi-telegram</v-icon>Public Service
@@ -907,7 +897,6 @@
           <v-icon dark x-large>mdi-telegram</v-icon>Business & Finance
         </div>
       </div>
-
       <div class="landing__content-grid">
         <div class="landing__content-grid-combo">
           <v-icon dark x-large>mdi-telegram</v-icon>Education & Family
@@ -1193,7 +1182,6 @@
       class="landing__hero-default"
     >
       <div class="landing__primary-title">Deliverables</div>
-
       <v-btn outlined color="white" rounded class="landing__primary-subtitle"
         >Prototypes, pilots and products for employer goals</v-btn
       >
@@ -1435,7 +1423,6 @@ export default {
         { text: 'Public Services', color: 'grey darken-2' },
         { text: 'Transportation', color: 'grey darken-2' }
       ],
-
       pathwayOptions: [
         'All',
         'Agriculture & Natural Resources',
@@ -1495,18 +1482,15 @@ html {
     margin-bottom: auto;
     // margin-top: auto;
   }
-
   &__app-bar {
     margin-bottom: 0px;
     padding-bottom: 0px;
   }
-
   &__footer {
     flex-direction: row;
     display: flex;
     margin-left: auto;
   }
-
   &__footer-text {
     font-family: Montserrat;
     font-weight: 700;
@@ -1516,7 +1500,6 @@ html {
     // font-style: none;
     text-decoration: none;
   }
-
   &__footer-text-secondary {
     font-family: Montserrat;
     font-weight: 700;
@@ -1526,7 +1509,6 @@ html {
     // font-style: none;
     text-decoration: none;
   }
-
   &__hero-default {
     background-color: #404142;
     // padding-top: 50px;
@@ -1540,7 +1522,6 @@ html {
     // height: fit-content;
     // width: fit-content;
   }
-
   &__hero-default-padded {
     background-color: #404142;
     padding-top: 50px;
@@ -1554,7 +1535,6 @@ html {
     // height: fit-content;
     // width: fit-content;
   }
-
   &__hero-body {
     margin-bottom: auto;
     // margin-top: auto;
@@ -1564,11 +1544,9 @@ html {
     font-weight: 700;
     font-size: 52px;
     text-align: center;
-
     letter-spacing: -1px;
     line-height: 65px;
   }
-
   &__hero-logo {
     width: 65px;
     margin-left: auto;
@@ -1576,7 +1554,6 @@ html {
     padding-top: 70px;
     margin-bottom: 50px;
   }
-
   &__hero-cta {
     width: 65%;
     margin-left: auto;
@@ -1584,14 +1561,12 @@ html {
     padding-top: 75px;
     display: flex;
   }
-
   &__hero-cta-button {
     margin-left: 10px;
     margin-right: 10px;
     font-family: Montserrat;
     font-weight: 700;
   }
-
   &__hero-citizenchips {
     width: 75%;
     padding-top: 50px;
@@ -1603,7 +1578,6 @@ html {
     // align-items: center;
     // display: block;
   }
-
   &__hero-citizenchips-group {
     // justify-content: center;
     // align-items: center;
@@ -1611,7 +1585,6 @@ html {
     font-weight: 800;
     text-decoration: none;
   }
-
   &__hero-citizenchips-group1 {
     // justify-content: center;
     // align-items: center;
@@ -1619,12 +1592,10 @@ html {
     font-weight: 800;
     text-decoration: none;
   }
-
   &__2-column {
     display: flex;
     flex-direction: row;
   }
-
   &__left {
     // justify-content: center;
     // align-items: center;
@@ -1633,14 +1604,12 @@ html {
     // margin-top: auto;
     margin-bottom: auto;
   }
-
   &__timeline-card {
     border: 1px solid #6fbb81;
     border-radius: 25px;
     padding-right: 25px;
     margin-top: 15px;
   }
-
   &__timeline-card-step {
     font-family: Montserrat;
     font-weight: 800;
@@ -1648,7 +1617,6 @@ html {
     text-transform: uppercase;
     letter-spacing: 1px;
   }
-
   &__right {
     justify-content: flex-end;
     flex-grow: 0.25;
@@ -1657,54 +1625,46 @@ html {
     font-size: 42px;
     padding-left: 50px;
   }
-
   &__testimonial-logo {
     // margin-top: auto;
     margin-bottom: auto;
   }
-
   &__text-subtitle-pink {
     font-family: Montserrat;
     font-weight: 800;
     font-size: 42px;
     color: #eda1bf;
   }
-
   &__text-subtitle-purple {
     font-family: Montserrat;
     font-weight: 800;
     font-size: 42px;
     color: #ae92b1;
   }
-
   &__text-subtitle-red {
     font-family: Montserrat;
     font-weight: 800;
     font-size: 42px;
     color: #ea6764;
   }
-
   &__text-subtitle-blue {
     font-family: Montserrat;
     font-weight: 800;
     font-size: 42px;
     color: #3c9dcd;
   }
-
   &__text-subtitle-yellow {
     font-family: Montserrat;
     font-weight: 800;
     font-size: 42px;
     color: #fdd35a;
   }
-
   &__text-subtitle-green {
     font-family: Montserrat;
     font-weight: 800;
     font-size: 42px;
     color: #6fba7f;
   }
-
   &__text-testimonial {
     font-family: Montserrat;
     font-weight: 700;
@@ -1717,7 +1677,6 @@ html {
     display: flex;
     align-items: flex-start;
   }
-
   &__text-testimonial-green {
     font-family: Montserrat;
     font-weight: 700;
@@ -1730,7 +1689,6 @@ html {
     display: flex;
     align-items: flex-start;
   }
-
   &__text-testimonial-yellow {
     font-family: Montserrat;
     font-weight: 700;
@@ -1743,7 +1701,6 @@ html {
     display: flex;
     align-items: flex-start;
   }
-
   &__text-testimonial-black {
     font-family: Montserrat;
     font-weight: 700;
@@ -1756,61 +1713,52 @@ html {
     display: flex;
     align-items: flex-start;
   }
-
   &__text-testimonial-body {
     flex-direction: row;
     display: flex;
     margin-bottom: 100px;
   }
-
   &__text-testimonial-title {
     flex-direction: column;
     display: flex;
     justify-content: center;
     padding-left: 25px;
   }
-
   &__text-testimonial-name {
     font-family: Montserrat;
     font-weight: 700;
     font-size: 15px;
     color: #ffffff;
   }
-
   &__text-testimonial-name-green {
     font-family: Montserrat;
     font-weight: 700;
     font-size: 15px;
     color: #6fba7f;
   }
-
   &__text-testimonial-name-yellow {
     font-family: Montserrat;
     font-weight: 700;
     font-size: 15px;
     color: #fec34b;
   }
-
   &__text-testimonial-name-black {
     font-family: Montserrat;
     font-weight: 700;
     font-size: 15px;
     color: #404142;
   }
-
   &__text-testimonial-position {
     font-family: Montserrat;
     font-weight: 700;
     font-size: 15px;
   }
-
   &__text-body {
     font-family: Montserrat;
     font-weight: 500;
     font-size: 20px;
     line-height: 50px;
   }
-
   &__single-column {
     display: flex;
     flex-direction: column;
@@ -1819,15 +1767,12 @@ html {
     // align-items: center;
     padding: 50px;
   }
-
   &__row1 {
   }
-
   &__row1-button {
     font-family: Montserrat;
     font-weight: 800;
   }
-
   &__row2 {
     font-family: Montserrat;
     font-weight: 700;
@@ -1836,27 +1781,21 @@ html {
     line-height: 75px;
     color: #fec34b;
   }
-
   &__row3 {
     justify-content: flex-end;
     align-items: flex-end;
     padding-top: 35px;
     margin-left: auto;
   }
-
   &__row3-button {
     font-family: Montserrat;
-
     font-weight: 800;
   }
-
   &__banner-cta {
     text-align: center;
     margin-bottom: 4%;
-
     margin-top: auto;
   }
-
   &__primary-image {
     // justify-content: center;
     // align-items: center;
@@ -1866,7 +1805,6 @@ html {
     margin-top: 4%;
     margin-bottom: 4%;
   }
-
   &__primary-title {
     font-family: Montserrat;
     font-weight: 700;
@@ -1875,7 +1813,6 @@ html {
     text-align: center;
     margin-top: 4%;
   }
-
   &__primary-subtitle {
     font-family: Montserrat;
     font-weight: 700;
@@ -1891,7 +1828,6 @@ html {
     // align-items: center;
     // font-style:italic;
   }
-
   &__content-grid {
     flex-direction: row;
     display: flex;
@@ -1899,13 +1835,11 @@ html {
     margin: 50px;
     max-width: 100%;
   }
-
   &__content-grid-combo {
     font-family: Montserrat;
     font-weight: 800;
     font-size: 22px;
   }
-
   &__benefits {
     flex-direction: row;
     display: flex;
@@ -1914,13 +1848,11 @@ html {
     margin-top: 50px;
     margin-bottom: 50px;
   }
-
   &__benefits-card {
     margin: 25px;
     // min-width: 250px;
     // max-width: 275px;
   }
-
   &__benefits-card-body {
     // margin: auto;
     // justify-content: center;
@@ -1929,12 +1861,10 @@ html {
     font-weight: 600;
     font-size: 13px;
   }
-
   &__benefits-card-icon {
     // margin: auto;
     margin: 5px;
   }
-
   &__benefits-card-title {
     font-family: Montserrat;
     font-weight: 800;
