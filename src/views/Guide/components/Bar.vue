@@ -270,7 +270,7 @@ export default defineComponent({
     });
     const unlockedStep = computed(() => {
       let whichStep = 0;
-      for (let i = props.timeline.length - 1; i > 0; i--) {
+      for (let i = props.timeline.length - 1; i > 0; i -= 1) {
         if (props.timeline[i].unlocked) {
           whichStep = i;
           break;
