@@ -1,45 +1,48 @@
 <template>
-  <ValidationObserver v-slot="{ invalid, valid }" class="signup_inputs">
-    <validation-provider v-slot="{ errors }" name="confirm" rules="required">
-      <div class="signup__confirmpassword text-subtitle-2">New Password</div>
+  <div class="forgotpassword__background">
+    <div class="forgotpassword__content">
+      <ValidationObserver v-slot="{ invalid }" class="forgotpassword_inputs1">
+        <div class="forgotpassword__newpassword"></div>
 
-      <Password
-        v-model="password"
-        color="white"
-        label="Password"
-        class="signup__input"
-        single-line
-        outlined
-        full-width
-        toggle
-        @score="handleScore"
-      ></Password>
-      <span>{{ errors[0] }}</span>
-      <span v-if="valid && score < 3">Your password is not strong enough</span>
-    </validation-provider>
+        <div class="forgotpassword__textfield">
+          <validation-provider v-slot="{ errors }" rules="required|min:6">
+            <v-text-field
+              v-model="password"
+              rounded
+              x-large
+              type="password"
+              :error-messages="errors"
+              label="Enter new password"
+              class=""
+              single-line
+              outlined
+            ></v-text-field>
+          </validation-provider>
+          <span v-if="valid && score < 3">Your password is not strong enough</span>
+        </div>
 
-    <v-btn
-      class="signup__signupbuttons text-h6 font-weight-black"
-      depressed
-      color="green"
-      :disabled="invalid || score < 3"
-      @click="submit"
-      >Change Password</v-btn
-    >
-    <v-alert v-if="success || error" :type="success ? 'success' : 'error'">{{
-      success || error
-    }}</v-alert>
-  </ValidationObserver>
+        <v-btn
+          class="forgotpassword__button"
+          depressed
+          dark
+          x-large
+          rounded
+          color="blue"
+          :disabled="invalid"
+          :loading="loading"
+          @click="submit"
+          >Reset Password</v-btn
+        >
+        <v-alert v-if="msg" :type="type">{{ msg }}</v-alert>
+      </ValidationObserver>
+    </div>
+  </div>
 </template>
 <script lang="ts">
-import Password from 'vue-password-strength-meter';
-import { reactive, toRefs, ref } from '@vue/composition-api';
-import { useActions } from '@/store/modules/auth';
+import { reactive, toRefs } from '@vue/composition-api';
+import { useAuthActions } from '@/store';
 
 export default {
-  components: {
-    Password
-  },
   props: {
     token: {
       type: String,
@@ -54,28 +57,82 @@ export default {
     // reset password logic
     const state = reactive({
       password: '',
-      success: '',
-      error: ''
+      msg: '',
+      type: 'success',
+      loading: false
     });
-    const { resetPassword } = useActions(['resetPassword']);
+    const { resetPassword } = useAuthActions(['resetPassword']);
     async function submit() {
+      state.loading = true;
       try {
         await resetPassword({
           token: props.token as string,
           tokenId: props.tokenId as string,
           password: state.password
         });
-        state.success = 'Your password has been changed';
-      } catch {
-        state.error = 'Could not change your password';
+        state.msg = 'Your password has been changed';
+        state.type = 'success';
+      } catch (err) {
+        state.msg = err;
+        state.type = 'error';
       }
+      state.loading = false;
     }
     // validation logic
-    const score = ref(0);
-    function handleScore(newScore: number) {
-      score.value = newScore;
-    }
-    return { ...toRefs(state), submit, handleScore, score };
+    return { ...toRefs(state), submit };
   }
 };
 </script>
+
+<style lang="scss">
+.forgotpassword {
+  &__newpassword {
+    text-align: center;
+    padding-top: 15%;
+    color: #6fba7f;
+  }
+
+  &__textfield {
+    margin-top: 1%;
+    width: 30%;
+    margin-left: 35%;
+    align-content: center;
+    text-align: center;
+    align-items: center;
+    & .v-text-field--outlined > .v-input__control > .v-input__slot {
+      background: white;
+    }
+  }
+
+  &__input {
+    align-items: center;
+    align-content: center;
+    text-align: center;
+    align-items: center;
+  }
+
+  &__background {
+    height: 100;
+    background-color: #4f4f4f;
+  }
+
+  &__button {
+    width: 30%;
+    margin-bottom: 50%;
+    margin-left: 35%;
+    & .v-btn__content {
+      // color: white;
+    }
+  }
+
+  &__inputs1 {
+    display: flex;
+    text-align: center;
+    align-content: center;
+  }
+
+  &__content {
+    align-content: center;
+  }
+}
+</style>

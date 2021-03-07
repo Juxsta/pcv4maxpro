@@ -1,44 +1,22 @@
 <template>
   <div class="signup__background">
     <div class="signup__body">
-      <div class="signup__title text-h4 font-weight-black">
-        <span>Join the family.</span>
+      <div class="signup__title text-h4 font-weight-bold">
+        <div class="d-flex justify-center text-align">
+          <v-icon color="green" x-large>mdi-heart-flash</v-icon>
+        </div>
+        <span>Join the family</span>
       </div>
     </div>
     <div class="signup__inputs">
       <validation-observer v-slot="{ invalid }" class="signup__firstname">
-        <div class="signup__first text-subtitle-2">First Name</div>
-        <validation-provider v-slot="{ errors }" rules="required">
-          <v-text-field
-            v-model="firstName"
-            :error-messages="errors"
-            color="white"
-            label="First Name"
-            class="signup__input"
-            single-line
-            outlinedgi
-            full-width
-          ></v-text-field>
-        </validation-provider>
-
-        <div class="signup__lastname text-subtitle-2">Last Name</div>
-        <validation-provider v-slot="{ errors }" rules="required">
-          <v-text-field
-            v-model="lastName"
-            :error-messages="errors"
-            color="white"
-            label="Last Name"
-            class="signup__input"
-            single-line
-            outlined
-            full-width
-          ></v-text-field>
-        </validation-provider>
-
-        <div class="signup__email text-subtitle-2">Email</div>
+        <!-- <div class="signup__email text-subtitle-2">Email</div> -->
         <validation-provider v-slot="{ errors }" rules="required|email">
           <v-text-field
             v-model="email"
+            rounded
+            placeholder="Email"
+            x-large
             :error-messages="errors"
             color="white"
             label="Email"
@@ -46,102 +24,116 @@
             single-line
             outlined
             full-width
+            dark
           ></v-text-field>
         </validation-provider>
-
-        <div class="signup__password text-subtitle-2">Password</div>
-        <validation-provider v-slot="{ errors }" name="confirm" rules="required">
-          <Password
+        <!-- <div class="signup__confirmpassword text-subtitle-2">Password</div> -->
+        <validation-provider v-slot="{ errors }" rules="required|min:6">
+          <v-text-field
             v-model="password"
+            x-large
+            rounded
+            placeholder="Password"
+            type="password"
+            :error-messages="errors"
             color="white"
             label="Password"
             class="signup__input"
             single-line
             outlined
             full-width
-            toggle
-          ></Password>
-          <span>{{ errors[0] }}</span>
-        </validation-provider>
-
-        <div class="signup__confirmpassword text-subtitle-2">Confirm Password</div>
-        <validation-provider v-slot="{ errors }" rules="required|password:@confirm">
-          <v-text-field
-            v-model="confirmPassword"
-            type="password"
-            :error-messages="errors"
-            color="white"
-            label="Confirm Password"
-            class="signup__input"
-            single-line
-            outlined
-            full-width
+            dark
           ></v-text-field>
         </validation-provider>
 
         <v-checkbox
           v-model="terms"
           class="signup__conditions"
-          color="green"
+          color="white"
           single-line
           outlined
           full-width
+          dark
         >
           <template v-slot:label>
-            <div>
+            <div class="signup__conditions-text">
               I agree to the following
-              <a href="https://www.iubenda.com/terms-and-conditions/32542296">Terms & Conditions</a>
+              <a
+                class="login__forgotlink"
+                href="https://www.iubenda.com/terms-and-conditions/32542296"
+                >Terms & Conditions</a
+              >
               and
-              <a href="https://www.iubenda.com/privacy-policy/32542296">Privacy Policy.</a>
+              <a class="login__forgotlink" href="https://www.iubenda.com/privacy-policy/32542296"
+                >Privacy Policy.</a
+              >
             </div>
           </template>
         </v-checkbox>
 
         <v-btn
-          class="signup__signupbuttons text-h6 font-weight-black"
+          width="100%"
+          rounded
+          dark
           depressed
           color="green"
+          x-large
           :disabled="invalid || !terms"
+          :loading="loading"
           @click="submit"
         >
           Signup
         </v-btn>
+        <v-alert v-if="msg" class="signup__alert" :type="type">{{ msg }}</v-alert>
       </validation-observer>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import Password from 'vue-password-strength-meter';
-import { reactive, toRefs } from '@vue/composition-api';
-import { useActions } from '@/store/modules/auth';
+import { reactive, toRefs, ref } from '@vue/composition-api';
+import { useAuthActions, useDbState } from '@/store';
 
 export default {
   name: 'Signup',
-  components: {
-    Password
+  components: {},
+  beforeRouteEnter(to, from, next) {
+    const { user } = useDbState(['user']);
+    if (!user.value) next();
+    else next({ name: 'portfolio' });
   },
-
-  setup() {
+  setup(props, { root }) {
+    const dialog = ref(false);
     // * Signup main
+    const param = root.$route.query.email ? (root.$route.query.email as string) : '';
     const state = reactive({
-      firstName: '',
-      lastName: '',
       email: '',
       password: '',
-      confirmPassword: '',
       terms: false
     });
-    const { signup } = useActions(['signup']);
+    state.email = param;
+    // * UI handling
+    const ui = reactive({
+      msg: '',
+      type: 'success',
+      loading: false
+    });
+    const { signup } = useAuthActions(['signup']);
     async function submit() {
-      localStorage.setItem('firstName', state.firstName);
-      localStorage.setItem('lastName', state.lastName);
-      await signup({ email: state.email, password: state.password });
+      ui.loading = true;
+      try {
+        await signup({ email: state.email, password: state.password });
+        ui.type = 'success';
+        ui.msg = 'An email confirmation has been sent to your address';
+      } catch (err) {
+        ui.msg = (err as Error).message.includes('409')
+          ? 'Email already in use'
+          : 'Could not signup';
+        ui.type = 'error';
+      }
+      ui.loading = false;
     }
-
-    // Reset Password
-
-    return { ...toRefs(state), submit };
+    return { ...toRefs(state), submit, ...toRefs(ui), dialog };
   },
   methods: {}
 };
@@ -156,6 +148,21 @@ export default {
 }
 
 .signup {
+  &__dialog {
+    text-align: center;
+    padding: 25px;
+  }
+
+  &__dialog-title {
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__dialog-button {
+    margin: 20px;
+  }
+
   &__navbar {
     display: flex;
   }
@@ -201,11 +208,13 @@ export default {
   &__body {
     display: flex;
     justify-content: center;
+    font-family: Raleway;
   }
   &__title {
     color: #6eba7f;
-    margin-top: 144px;
-    margin-bottom: 56.5px;
+    margin-top: 120px;
+    margin-bottom: 30px;
+    font-family: Raleway;
   }
 }
 
@@ -226,9 +235,6 @@ export default {
     margin-top: 10px;
     margin-bottom: 4.5px;
     color: #ffffff;
-  }
-  &__input {
-    color: #d4d4d4;
   }
   &__lastname {
     margin-bottom: 4.5px;
@@ -252,6 +258,14 @@ export default {
     }
   }
 
+  &__conditions-text {
+    font-size: 11px;
+    color: #ffffff;
+    & a.login__forgotlink {
+      color: #ffffff;
+    }
+  }
+
   &__signupbuttons {
     width: 100%;
     &.theme--light.v-btn {
@@ -261,12 +275,10 @@ export default {
       margin-bottom: 0px 0px, 100px;
     }
   }
-}
 
-@media only screen and (max-width: 600px) {
-  // .signup {
-  //   &__header {
-  //   }
-  // }
+  &__alert {
+    margin-top: 25px;
+    font-size: 11.5px !important;
+  }
 }
 </style>

@@ -17,7 +17,12 @@ export default new Vuetify({
         info: '#3C9CCC', // blue
         success: '#6EBA7F', // green
         warning: '#FDD35A', // yellow
-        purple: '#AE90B0'
+        pink: '#E49AB3', // pink
+        purple: '#AE90B0', // purple
+        red: '#EA6763', // red
+        blue: '#3C9CCC', // blue
+        green: '#6EBA7F', // green
+        yellow: '#FDD35A' // yellow
       }
     }
   }

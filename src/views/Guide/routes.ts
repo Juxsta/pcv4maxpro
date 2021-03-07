@@ -1,18 +1,14 @@
 import { RouteConfig } from 'vue-router';
 import Guide from './Guide.vue';
-import Bar from './Bar.vue';
 
 const routes: Array<RouteConfig> = [
   {
-    path: '/guide',
-    name: 'Guide',
-    component: Guide
-  },
-  {
-    path: '/guide/:param',
-    name: 'Guide-Component',
-    props: true,
-    component: Bar
+    path: '/guide/:programId/:page',
+    name: 'guide',
+    component: Guide,
+    meta: {
+      layout: 'no-nav'
+    }
   }
 ];
 

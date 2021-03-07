@@ -1,7 +1,8 @@
 const esModules = [
   'vee-validate/dist/rule',
   // 'vuex-composition-helpers/dist'
-  'vuex-composition-helpers/src'
+  'vuex-composition-helpers/src',
+  '@babel'
   // 'vuex',
   // 'realm-web'
 ].join('|');

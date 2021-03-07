@@ -1,8 +1,7 @@
 import { Module } from 'vuex';
-import { createNamespacedHelpers } from 'vuex-composition-helpers';
 import { RootState } from '@/store/state';
-import { AuthGetters, getters } from './getters';
-import { actions, AuthActions } from './actions';
+import { getters } from './getters';
+import { actions } from './actions';
 import { mutations } from './mutations';
 import state from './state';
 
@@ -15,9 +14,3 @@ const auth: Module<typeof state, RootState> = {
   getters
 };
 export default auth;
-export const { useState, useGetters, useMutations, useActions } = createNamespacedHelpers<
-  typeof state,
-  AuthGetters,
-  AuthActions,
-  any
->('auth');

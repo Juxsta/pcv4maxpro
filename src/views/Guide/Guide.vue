@@ -1,226 +1,258 @@
 <template>
-  <div class="guide__container">
-    <div class="guide__bar">
-      <guide-bar
-        :program-filter.sync="programFilter"
-        :age-filter.sync="ageFilter"
-        :residence-filter.sync="residenceFilter"
-        :pathways-filter.sync="pathwaysFilter"
-      />
-    </div>
-    <!-- <div class="guide__page">
-      <div class="guide__activity-title-button">
-        <v-avatar size="50">
-          <v-img
-            src="https://cdn.discordapp.com/attachments/692111176129052712/800962947743875102/Screen_Shot_2021-01-18_at_9.40.44_PM.png"
-          ></v-img>
-        </v-avatar> 
+  <Loading v-slot="{ loading }" :process-now="true" :callback="fetchProgram">
+    <v-skeleton-loader
+      :loading="loading"
+      type="heading, list-item-two-line, list-item-two-line, list-item-three-line"
+      class="guide__container"
+    >
+      <div class="guide__bar">
+        <guide-bar
+          v-if="programDoc && programDoc.title"
+          v-model="currentPage"
+          :timeline="timeline"
+          :title="programDoc.title"
+        />
+        <guide-bar v-else v-model="currentPage" :timeline="timeline" />
       </div>
-      <div class="guide__activity-title">Prajit Saravanan's Progress</div> -->
 
-    <div class="guide__table">
-      <ListView
-        :employers="filteredPrograms"
-        :loves="loved"
-        :bookmarks="bookmarked"
-        @loveProgram="loveProgram"
-        @bookmarkProgram="bookmarkProgram"
-        v-on="$listeners"
-      />
-      <!-- <component :is="currentUnit" :employers="employers" /> -->
-    </div>
-    <!-- </div> -->
-  </div>
+      <div class="guide__page">
+        <div class="guide__setupbutton">
+          <v-btn small depressed dark color="orange">Setup Mode</v-btn>
+        </div>
+
+        <div v-if="currentPage != 0" class="guide__locks guide__locks--left unlocked">
+          <v-icon x-large color="grey lighten-1" class="guide__lock" @click="prevPage"
+            >mdi-chevron-left</v-icon
+          >
+          <!-- STUDENT VIEW -->
+          <!-- <v-icon large color="green" class="guide__lock">mdi-lock-open</v-icon> -->
+          <!-- <v-icon large color="grey lighten-1" class="guide__lock" @click="prevPage"
+            >mdi-lock-open</v-icon
+          > -->
+
+          <v-tooltip dark right>
+            <template v-slot:activator="{ on, attrs }">
+              <v-icon
+                v-bind="attrs"
+                x-large
+                color="green"
+                class="guide__lock"
+                v-on="on"
+                @click="prevPage"
+                >mdi-check-circle</v-icon
+              >
+            </template>
+
+            <span>Last Activity Setup</span>
+          </v-tooltip>
+        </div>
+
+        <!-- <component :is="currentUnit" v-if="programDoc" v-model="programDoc" @save="updateProgram" /> -->
+        <div class="guide__activities">
+          <component
+            :is="currentUnit"
+            v-if="programDoc.data.dateCreated"
+            v-model="programDoc"
+            :license-program="licenseProgram"
+          />
+        </div>
+        <div class="guide__locks guide__locks--right locked">
+          <!-- STUDENT VIEW -->
+          <!-- <v-icon large color="red" class="guide__lock">mdi-lock</v-icon> -->
+          <v-tooltip dark left>
+            <template v-slot:activator="{ on, attrs }">
+              <v-icon
+                v-bind="attrs"
+                x-large
+                color="orange"
+                class="guide__lock"
+                :disabled="!isNextUnlocked"
+                v-on="on"
+                @click="nextPage"
+                >mdi-progress-wrench</v-icon
+              >
+            </template>
+            <span>Setup Next Activity</span>
+          </v-tooltip>
+
+          <!-- <v-icon large color="grey lighten-1" class="guide__lock" @click="nextPage"
+            >mdi-lock-open</v-icon
+          > -->
+          <v-icon
+            :disabled="!isNextUnlocked"
+            x-large
+            color="grey lighten-1"
+            class="guide__lock"
+            @click="nextPage"
+            >mdi-chevron-right</v-icon
+          >
+        </div>
+      </div>
+    </v-skeleton-loader>
+  </Loading>
 </template>
 
 <script lang="ts">
-import Test from '@/components/Test.vue';
-import { ref, reactive, toRefs, computed } from '@vue/composition-api';
-import Bar from './Bar.vue';
-import ListView from './components/ListView/TableView.vue';
+import { computed, defineComponent, ref, Ref, watchEffect } from '@vue/composition-api';
+// import Forum from 'developer-adk-interact';
+// import demo from 'developer-adk-demo/src/Module/Module.vue';
+// import autoapply from 'developer-adk-autoapply/src/Module/Module.vue';
+// import interact from 'developer-adk-interact/src/Module/Module.vue';
+import rfp from 'developer-adk-rfp/src/Module/Module.vue';
+// import team from 'developer-adk-teamcommunity/src/Module/Module.vue';
+import train from 'developer-adk-train/src/Module/Module.vue';
+import research from 'developer-adk-research/src/Module/Module.vue';
+// import practice from 'developer-adk-practice/src/Module/Module.vue';
+// import ideate from 'developer-adk-ideate/src/Module/Module.vue';
+// import pitches from 'developer-adk-pitches/src/Module/Module.vue';
+// import present from 'developer-adk-present/src/Module/Module.vue';
+// import interview from 'developer-adk-interview/src/Module/Module.vue';
+import offer from 'developer-adk-offer/src/Module/Module.vue';
+// eslint-disable-next-line import/no-unresolved
+import setup from 'developer-adk-setup/src/Module/Module.vue';
+// import JoinForm from 'developer-adk-joinform/src/App.vue';
+import Loading from '@/components/Loading.vue';
+import { useDbGetters } from '@/store';
+import { ObjectId } from 'bson';
+import Bar from './components/Bar.vue';
 
-const dummyEmployerData = [
-  {
-    programName: 'Artemys Foods',
-    programDesc:
-      'Help a biotech startup interview, evaluate & understand attitudes towards cell-based meats by determining age, demographics & reasons consumers would choose it over animal-based meats',
-    avatar:
-      'https://specials-images.forbesimg.com/imageserve/5e4830a66895e00006834fdd/960x0.jpg?fit=scale',
-    tokens: 1,
-    ageRange: [15, 18],
-    requiredResidency: ['Alameda County, CA', 'San Leandro, CA'],
-    pathways: ['Public Services', 'Transportation']
-  },
-  {
-    programName: 'Picterra',
-    programDesc:
-      'Use the Picterra platform to develop a machine learning based solution that uses aerial, satellite or drone imagery to support the Climate Action Plan of your city, county or region',
-    avatar:
-      'http://ifnk2kzc2lrg7y02yhzokml4-wpengine.netdna-ssl.com/wp-content/uploads/2019/04/Diverse-detection-outputs_Picterra_01.jpg',
-    tokens: 1,
-    ageRange: [20, 22],
-    requiredResidency: ['Albany, CA'],
-    pathways: ['Transportation']
-  },
-  {
-    programName: 'Cognixion',
-    programDesc:
-      'Assist in the development of a high-tech communication system for people with disabilities. We need students to record their own communications and aid with design so those who do not have the privilege to speak can be better connected with their culture and community.',
-    avatar: 'https://sociable.co/wp-content/uploads/2019/01/MainPhone-750x450.png',
-    tokens: 1,
-    ageRange: [12, 15],
-    requiredResidency: ['Alameda County, CA', 'San Leandro, CA'],
-    pathways: ['Public Services', 'Transportation']
-  },
-  {
-    programName: 'Mayor Pauline Cutter',
-    programDesc:
-      'Innovate access to the Mayor of San Leandro by utilizing VideoAsk.com, a face-to-face video interaction app, to improve the dialogue, relationships & communications with constituents of the city',
-    avatar: 'https://www.civicbusinessjournal.com/wp-content/uploads/2018/02/San-Leandro-Seal.jpg',
-    tokens: 1,
-    ageRange: [15, 18],
-    requiredResidency: ['San Leandro, CA'],
-    pathways: ['Public Services']
-  },
-  {
-    programName: 'Uber',
-    programDesc:
-      'Design and code a copywriting assistant with natural language processing to optimize Uber localization efforts in customer support, marketing and product',
-    avatar:
-      'https://cnet1.cbsistatic.com/img/N_2AKaW9QFaEPiALqhMarCDx_Sg=/1200x675/2019/08/27/8f91f34c-927f-4056-90b4-25f9d5a9df7d/uber-logo-map-1.jpg',
-    tokens: 1,
-    requiredResidency: ['Alameda County, CA', 'San Leandro, CA'],
-    ageRange: [16, 18],
-    pathways: ['Public Services', 'Transportation']
-  },
-  {
-    programName: 'Litterati',
-    programDesc:
-      'Stop litter at its source by using the Litterati app to document brands, materials & objects of litter to inspire local leaders to make better-informed decisions & investments towards a clean, litter-free city',
-    avatar:
-      'https://cdn.shopify.com/s/files/1/0098/1362/2848/products/Litterati_2048x.jpg?v=1582885474',
-    tokens: 1,
-    ageRange: [16, 18],
-    requiredResidency: ['Alameda County, CA', 'San Leandro, CA'],
-    pathways: ['Transportation']
-  },
-  {
-    programName: 'Purely Drinks',
-    programDesc:
-      'Produce a viral (and even comedic) 30-second video marketing the variety of ways Purely Drinks can be used in daily diets to better brand vinegar-based beverages to opportunity markets (Signup for Feb 26th launch now)',
-    avatar: 'https://i.pinimg.com/236x/66/17/a6/6617a670ba0ed929c38ea5297f723879.jpg',
-    tokens: 1,
-    ageRange: [16, 18],
-    requiredResidency: ['San Leandro, CA'],
-    pathways: ['Public Services', 'Transportation']
-  },
-  {
-    programName: 'Typeform',
-    programDesc:
-      'Transform the way your favorite local businesses interact with their customers in a post-pandemic society by utilizing VideoAsk.com to prototype face-to-face video experiences',
-    avatar:
-      'https://zenprospect-production.s3.amazonaws.com/uploads/pictures/5f5ab9ce1f1a5e0001389958/picture',
-    tokens: 1,
-    ageRange: [16, 18],
-    requiredResidency: ['Alameda County, CA', 'San Leandro, CA'],
-    pathways: [
-      'Agriculture & Natural Resources',
-      'Arts, Media & Entertainment',
-      'Building & Construction Trades',
-      'Business & Finance',
-      'Education, Childhood Development & Family Services'
-    ]
-  }
-];
-
-export default {
+export default defineComponent({
   components: {
     'guide-bar': Bar,
-    ListView
-    // Test
+    Loading,
+    setup,
+    // Forum,
+    // interact
+    // demo
+    // autoapply,
+    rfp,
+    // team,
+    train,
+    research,
+    // practice,
+    // ideate,
+    // pitches,
+    // present,
+    // interview,
+    offer
   },
-  setup() {
-    const state = reactive({
-      programFilter: 'All' as 'All' | 'Loved' | 'Bookmarked',
-      ageFilter: null,
-      residenceFilter: null,
-      pathwaysFilter: [],
-      bookmarked: [],
-      loved: []
+  setup(_props, ctx) {
+    // ADK navigation Logic
+    const adks = ref([
+      'setup',
+      'rfp',
+      // 'team',
+      'train',
+      'research',
+      // 'pracitce',
+      // 'ideate',
+      // 'pitches',
+      // 'interact'
+      // 'demo',
+      // 'present',
+      // 'autoapply',
+      // 'interview',
+      'offer'
+    ]);
+
+    // Layout
+    // Program Data Logic
+    const { collection } = useDbGetters(['collection']);
+    const programDoc: Ref<{
+      data: Record<string, any>; // Gives access to Document
+      update: () => Promise<any>; // Gives access to update Method
+      changeStream: any; // Gives access to mongodb Collection Changestream
+    }> = ref({
+      data: {},
+      update: async () => null,
+      changeStream: undefined
     });
-    const currentUnit = ref(ListView);
-
-    const filteredPrograms = computed(() => {
-      let visiblePrograms = [];
-      if (state.programFilter === 'Loved') {
-        visiblePrograms = state.loved;
-      } else if (state.programFilter === 'Bookmarked') {
-        visiblePrograms = state.bookmarked;
-      } else {
-        visiblePrograms = dummyEmployerData;
+    programDoc.value.update = async () => {
+      return collection.value!('Program').findOneAndUpdate(
+        {
+          _id: new ObjectId(ctx.root.$route.params.programId)
+        },
+        { ...programDoc.value.data, lastSaved: new Date() }
+      );
+    };
+    async function fetchProgram() {
+      programDoc.value.data = await collection.value!('Program').findOne({
+        _id: new ObjectId(ctx.root.$route.params.programId)
+      });
+      // initialize Properties
+      programDoc.value.data = {
+        adks: [],
+        ...programDoc.value.data
+      };
+    }
+    const timeline = computed(() =>
+      adks.value.map(adk => ({
+        step: adk,
+        unlocked:
+          programDoc.value.data.adks?.some(adkObject => adkObject.name === adk) || adk === 'setup'
+            ? programDoc.value.data.licensed
+            : false
+      }))
+    );
+    // Checkout Session Logic
+    // const { createCheckoutSession } = useStripeActions(['createCheckoutSession']);
+    // const licensePriceId = 'price_1IENzxLnkQGEgDQncNKPhwPr';
+    // const cancelUrl = window.location.href; // Bring them back to the setupprogram
+    // Nav logic
+    const maxIndex = adks.value.length - 1;
+    const currentPage = computed({
+      get: () => parseInt(ctx.root.$route.params.page, 10),
+      set: newPage => {
+        if (newPage <= maxIndex && newPage >= 0)
+          ctx.root.$router.replace({
+            params: { programId: ctx.root.$route.params.programId, page: newPage.toString() }
+          });
       }
-
-      if (state.residenceFilter && state.residenceFilter !== 'None') {
-        visiblePrograms = visiblePrograms.filter(program =>
-          program.requiredResidency.includes(state.residenceFilter)
-        );
-      }
-
-      if (state.ageFilter && state.ageFilter !== 'All') {
-        visiblePrograms = visiblePrograms.filter(
-          program =>
-            program.ageRange[0] <= parseInt(state.ageFilter, 10) &&
-            program.ageRange[1] >= parseInt(state.ageFilter, 10)
-        );
-      }
-
-      if (state.pathwaysFilter.length && !state.pathwaysFilter.some(obj => obj.text === 'All')) {
-        const filters = state.pathwaysFilter.map(obj => obj.text);
-        visiblePrograms = visiblePrograms.filter(program =>
-          program.pathways.some(pathway => filters.includes(pathway))
-        );
-      }
-
-      return visiblePrograms;
     });
-
-    // ! mock functions to simulation liking/bookmarking.
-    // ! change these to something that will actually store in db
-    const loveProgram = program => {
-      // add to loved if not there, else remove it
-      if (state.loved.some(obj => obj.programName === program.programName))
-        state.loved.splice(
-          state.loved.findIndex(obj => {
-            return obj.programName === program.programName;
-          }),
-          1
-        );
-      else state.loved.push(program);
-    };
-
-    const bookmarkProgram = program => {
-      // add to bookmarked if not there, else remove it
-      if (state.bookmarked.some(obj => obj.programName === program.programName))
-        state.bookmarked.splice(
-          state.bookmarked.findIndex(obj => {
-            return obj.programName === program.programName;
-          }),
-          1
-        );
-      else state.bookmarked.push(program);
-    };
-
+    const currentUnit = computed(() => adks.value[currentPage.value]);
+    const isNextUnlocked = computed(() => timeline.value[currentPage.value].unlocked);
+    function nextPage() {
+      if (isNextUnlocked.value) currentPage.value += 1;
+    }
+    function prevPage() {
+      currentPage.value -= 1;
+    }
+    watchEffect(() => {
+      const maxLength = maxIndex;
+      if (currentPage.value >= maxLength) {
+        currentPage.value = maxLength;
+      }
+      if (currentPage.value < 0) {
+        currentPage.value = 0;
+      }
+    });
+    async function licenseProgram() {
+      programDoc.value.data.licensed = new Date();
+      await programDoc.value.update();
+      nextPage();
+      // return createCheckoutSession({
+      //   lineItems: [{ priceId: licensePriceId, quantity: 1 }],
+      //   cancelUrl,
+      //   successUrl: window.location.href.replace(/.$/, '1'), // change page to 1 i.e. setup
+      //   metadata: {
+      //     programId: ctx.root.$route.params.programId
+      //   }
+      // });
+    }
     return {
-      filteredPrograms,
-      ...toRefs(state),
-      loveProgram,
-      bookmarkProgram,
-      currentUnit
+      currentUnit,
+      currentPage,
+      nextPage,
+      prevPage,
+      timeline,
+      fetchProgram,
+      programDoc,
+      licenseProgram,
+      isNextUnlocked
     };
   }
-};
+});
 </script>
-
 <style lang="scss">
 .guide {
   &__activity-title-button {
@@ -236,7 +268,7 @@ export default {
 
   &__container {
     width: 100%;
-    height: 100vh;
+    // height: 100vh;
     display: flex;
     // border: 12px solid #000000;
     background-color: transparent;
@@ -249,12 +281,52 @@ export default {
   }
   &__page {
     width: 100%;
-    height: fit-content;
-    //display: flex;
+    height: 100vh;
+    // display: flex;
     position: relative;
+    border: 12px solid orange;
   }
-  &__locks {
-    height: 95vh;
+  &activities {
+    overflow: scroll;
+    width: 100%;
+    height: 97vh;
+    // margin: none;
+    // justify-content: center !important;
+    // align-items: center !important;
+  }
+
+  &setupbutton {
+    // text-align: center;
+    // padding-left: 45%;
+    // padding-right: 45%;
+    // justify-content: center !important;
+    // align-items: center !important;
+    // margin: 25px;
+    // position: absolute;
+    // position: relative;
+    // display: flex;
+    // display: grid;
+    background-color: transparent;
+    // padding-top: 25px;
+    // padding-left: 25px;
+    // margin-left: 45%;
+    // margin-right: 45%;
+    // margin-top: 2%;
+    // display: block;
+    // margin: 0 auto;
+    // margin-right: 300px;
+    // right: 50;
+    z-index: 1;
+    // right: 15px;
+    // left: 45%;
+    // right: 45%;
+    position: absolute;
+    top: 5%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  &locks {
+    height: 97vh;
     width: 70px;
     position: absolute;
     display: flex;
@@ -288,7 +360,7 @@ export default {
     width: 100%;
     display: flex;
     justify-content: center;
-    align-items: start;
+    align-items: flex-start;
     overflow-y: scroll;
   }
 }
