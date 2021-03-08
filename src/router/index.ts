@@ -3,6 +3,7 @@ import Login from '@/views/Login';
 import Vue from 'vue';
 import VueRouter, { RouteConfig } from 'vue-router';
 import { GuideRoutes } from '@/views/Guide';
+import { ExploreRoutes } from '@/views/Explore';
 
 import { routes as PortfolioRoutes } from '@/views/Portfolio';
 import Signup from '@/views/Signup';
@@ -26,6 +27,7 @@ const routes: Array<RouteConfig> = [
   ...GuideRoutes,
   ...ManageProgramRoutes,
   ...PortfolioRoutes,
+  ...ExploreRoutes,
   {
     path: '/timeline',
     name: 'timeline',

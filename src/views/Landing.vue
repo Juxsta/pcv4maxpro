@@ -2,7 +2,7 @@
   <div class="landing__container">
     <v-parallax
       dark
-      height="600"
+      height="625"
       src="https://f.hubspotusercontent00.net/hubfs/2480959/pilotcitypaperplanes_grey.png"
       class="landing__hero"
     >
@@ -18,6 +18,10 @@
         <v-spacer></v-spacer>
 
         <div class="nav__actions">
+          <v-btn class="ml-5 mr-5" depressed color="white" outlined large rounded>
+            <span class="font-weight-black">Explore Employers</span>
+          </v-btn>
+
           <v-btn
             v-if="!user"
             depressed
@@ -73,9 +77,272 @@
           ></v-img>
         </div>
 
-        <div class="landing__hero-title">Digital programs, for digital cities.</div>
+        <div class="landing__hero-title">Build projects to win internships</div>
 
-        <validation-observer>
+        <div class="d-flex flex-row landing__hero-cta justify-center">
+          <!-- <v-select class="ma-2" dark x-large rounded outlined label="Citizen"></v-select> -->
+
+          <v-menu class="d-flex align-center" offset-y transparent>
+            <template v-slot:activator="{ on, attrs }">
+              <div class="d-flex align-start mt-5 landing__i-am-a">I am a</div>
+              <v-btn
+                rounded
+                class="ma-2 d-flex align-center"
+                x-large
+                v-bind="attrs"
+                dark
+                color="green"
+                depressed
+                v-on="on"
+                >Student<v-icon right>mdi-chevron-down</v-icon></v-btn
+              >
+            </template>
+            <v-btn class="mt-2 mb-1" color="pink" dark rounded x-large depressed>Teacher</v-btn>
+            <v-divider></v-divider>
+            <v-btn class="mt-1 mb-1" color="blue" dark rounded x-large depressed>School</v-btn>
+            <v-divider></v-divider>
+            <v-btn class="mt-1 mb-1" color="yellow" dark rounded x-large depressed>Parent</v-btn>
+            <v-divider></v-divider>
+            <v-btn class="mt-1 mb-1" color="purple" dark rounded x-large depressed>Employer</v-btn>
+
+            <v-divider></v-divider>
+            <v-btn class="mt-1 mb-1" color="red" dark rounded x-large depressed>Sponsor</v-btn>
+          </v-menu>
+
+          <!-- <v-select class="ma-2" dark x-large rounded outlined label="Hometown"></v-select>
+          <v-select class="ma-2"  dark x-large rounded outlined label="Age"></v-select> -->
+          <!-- <v-select class="ma-2" dark x-large rounded outlined label="Interests"></v-select> -->
+
+          <!-- STUDENT COMBOBOX -->
+          <v-combobox
+            v-model="pathwayPresets"
+            rounded
+            :items="pathwayOptions"
+            :search-input="pathwaySearch"
+            :error-messages="errors"
+            hide-selected
+            label="What kinds of projects are you most interested in?"
+            multiple
+            small-chips
+            hide-details
+            outlined
+            dark
+            class="d-flex align-center module-setup__combobox"
+          >
+            <template v-slot:no-data>
+              <v-list-item>
+                <v-list-item-content>
+                  <v-list-item-title> Press <kbd>enter</kbd> to add reward </v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </template>
+            <template v-slot:selection="{ attrs, item, parent, selected }">
+              <v-chip
+                v-bind="attrs"
+                :input-value="selected"
+                label
+                small
+                rounded
+                dark
+                @click="parent.selectItem(item)"
+              >
+                <span class="pr-2">
+                  {{ item }}
+                </span>
+                <v-icon small> mdi-close </v-icon>
+              </v-chip>
+            </template>
+          </v-combobox>
+          <router-link :to="{ name: 'explore', query: { pathway: pathwayPresets } }">
+            <v-btn class="ma-2 d-flex align-center" x-large rounded dark depressed
+              >Explore Employers</v-btn
+            >
+          </router-link>
+
+          <!-- TEACHER COMBOBOX -->
+
+          <!-- <v-combobox
+            v-model="pathwayPresets"
+            rounded
+            :items="pathwayOptions"
+            :search-input="pathwaySearch"
+            :error-messages="errors"
+            hide-selected
+            label="What pathways do you teach in your class?"
+            multiple
+            small-chips
+            hide-details
+            outlined
+            dark
+            class="d-flex align-center module-setup__combobox"
+          >
+            <template v-slot:no-data>
+              <v-list-item>
+                <v-list-item-content>
+                  <v-list-item-title> Press <kbd>enter</kbd> to add reward </v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </template>
+            <template v-slot:selection="{ attrs, item, parent, selected }">
+              <v-chip
+                v-bind="attrs"
+                :input-value="selected"
+                label
+                small
+                rounded
+                dark
+                @click="parent.selectItem(item)"
+              >
+                <span class="pr-2">
+                  {{ item }}
+                </span>
+                <v-icon small> mdi-close </v-icon>
+              </v-chip>
+            </template>
+          </v-combobox>
+          <v-btn class="ma-2 d-flex align-center" x-large rounded dark depressed
+            >Explore Employers</v-btn
+          > -->
+
+          <!-- SCHOOL COMBOBOX -->
+
+          <!-- <v-combobox
+            v-model="pathwayPresets"
+            rounded
+            :items="pathwayOptions"
+            :search-input="pathwaySearch"
+            :error-messages="errors"
+            hide-selected
+            label="What pathways do you teach at your school?"
+            multiple
+            small-chips
+            hide-details
+            outlined
+            dark
+            class="d-flex align-center module-setup__combobox"
+          >
+            <template v-slot:no-data>
+              <v-list-item>
+                <v-list-item-content>
+                  <v-list-item-title> Press <kbd>enter</kbd> to add reward </v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </template>
+            <template v-slot:selection="{ attrs, item, parent, selected }">
+              <v-chip
+                v-bind="attrs"
+                :input-value="selected"
+                label
+                small
+                rounded
+                dark
+                @click="parent.selectItem(item)"
+              >
+                <span class="pr-2">
+                  {{ item }}
+                </span>
+                <v-icon small> mdi-close </v-icon>
+              </v-chip>
+            </template>
+          </v-combobox>
+          <v-btn class="ma-2 d-flex align-center" x-large rounded dark depressed
+            >Explore Employers</v-btn
+          >
+        </div> -->
+
+          <!-- PARENT COMBOBOX -->
+
+          <!-- <v-combobox
+            v-model="pathwayPresets"
+            rounded
+            :items="pathwayOptions"
+            :search-input="pathwaySearch"
+            :error-messages="errors"
+            hide-selected
+            label="What careers do you want your student to explore?"
+            multiple
+            small-chips
+            hide-details
+            outlined
+            dark
+            class="d-flex align-center module-setup__combobox"
+          >
+            <template v-slot:no-data>
+              <v-list-item>
+                <v-list-item-content>
+                  <v-list-item-title> Press <kbd>enter</kbd> to add reward </v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </template>
+            <template v-slot:selection="{ attrs, item, parent, selected }">
+              <v-chip
+                v-bind="attrs"
+                :input-value="selected"
+                label
+                small
+                rounded
+                dark
+                @click="parent.selectItem(item)"
+              >
+                <span class="pr-2">
+                  {{ item }}
+                </span>
+                <v-icon small> mdi-close </v-icon>
+              </v-chip>
+            </template>
+          </v-combobox>
+          <v-btn class="ma-2 d-flex align-center" x-large rounded dark depressed
+            >Explore Employers</v-btn
+          >
+        </div> -->
+
+          <!-- SPONSOR COMBOBOX -->
+
+          <!-- <v-combobox
+            v-model="pathwayPresets"
+            rounded
+            :items="pathwayOptions"
+            :search-input="pathwaySearch"
+            :error-messages="errors"
+            hide-selected
+            label="What workforce initiatives do you want to fund?"
+            multiple
+            small-chips
+            hide-details
+            outlined
+            dark
+            class="d-flex align-center module-setup__combobox"
+          >
+            <template v-slot:no-data>
+              <v-list-item>
+                <v-list-item-content>
+                  <v-list-item-title> Press <kbd>enter</kbd> to add reward </v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </template>
+            <template v-slot:selection="{ attrs, item, parent, selected }">
+              <v-chip
+                v-bind="attrs"
+                :input-value="selected"
+                label
+                small
+                rounded
+                dark
+                @click="parent.selectItem(item)"
+              >
+                <span class="pr-2">
+                  {{ item }}
+                </span>
+                <v-icon small> mdi-close </v-icon>
+              </v-chip>
+            </template>
+          </v-combobox>
+          <v-btn class="ma-2 d-flex align-center" x-large rounded dark depressed
+            >Explore Employers</v-btn
+          > -->
+        </div>
+
+        <!-- <validation-observer>
           <div class="landing__hero-cta">
             <validation-provider v-slot="{ errors }" slim rules="email">
               <v-text-field
@@ -87,7 +354,6 @@
                 label="Signup with email"
               ></v-text-field>
             </validation-provider>
-
             <v-btn
               class="landing__hero-cta-button"
               x-large
@@ -98,86 +364,46 @@
               >Get Started</v-btn
             >
           </div>
-        </validation-observer>
-        <div class="landing__hero-citizenchips text-center">
-          <a href="#student">
-            <v-btn
-              center
-              rounded
-              depressed
-              dark
-              large
-              color="green"
-              class="landing__hero-citizenchips-group1"
-              ><v-icon left>mdi-clover</v-icon>Students</v-btn
-            ></a
+        </validation-observer> -->
+      </div>
+
+      <div class="text-center mb-8 mt-auto">
+        <a href="#student">
+          <v-btn class="ma-2" rounded dark depressed small color="green"
+            ><v-icon left>mdi-clover</v-icon>Students</v-btn
+          ></a
+        >
+
+        <a href="#employer">
+          <v-btn class="ma-2" rounded dark depressed small color="purple"
+            ><v-icon left>mdi-graph-outline</v-icon>Employers</v-btn
           >
+        </a>
+        <a href="#teacher">
+          <v-btn class="ma-2" rounded dark depressed small color="pink"
+            ><v-icon left>mdi-head-heart</v-icon>Teachers</v-btn
+          >
+        </a>
 
-          <a href="#employer">
-            <v-btn
-              center
-              rounded
-              depressed
-              dark
-              large
-              color="purple"
-              class="landing__hero-citizenchips-group"
-              ><v-icon left>mdi-graph-outline</v-icon>Employers</v-btn
-            >
-          </a>
-          <a href="#teacher">
-            <v-btn
-              center
-              rounded
-              depressed
-              dark
-              large
-              color="pink"
-              class="landing__hero-citizenchips-group"
-              ><v-icon left>mdi-head-heart</v-icon>Teachers</v-btn
-            >
-          </a>
+        <a href="#school">
+          <v-btn class="ma-2" rounded dark depressed small color="blue"
+            ><v-icon left>mdi-airballoon</v-icon>Schools</v-btn
+          >
+        </a>
 
-          <a href="#school">
-            <v-btn
-              center
-              rounded
-              depressed
-              dark
-              large
-              color="blue"
-              class="landing__hero-citizenchips-group"
-              ><v-icon left>mdi-airballoon</v-icon>Schools</v-btn
-            >
-          </a>
+        <a href="#parent">
+          <v-btn class="ma-2" rounded dark depressed small color="yellow"
+            ><v-icon left>mdi-sign-direction</v-icon>Parents</v-btn
+          >
+        </a>
 
-          <a href="#parent">
-            <v-btn
-              center
-              rounded
-              depressed
-              dark
-              large
-              color="yellow"
-              class="landing__hero-citizenchips-group"
-              ><v-icon left>mdi-sign-direction</v-icon>Parents</v-btn
-            >
-          </a>
+        <a href="#sponsor">
+          <v-btn class="ma-2" rounded dark depressed small color="red"
+            ><v-icon left>mdi-currency-usd-circle</v-icon>Sponsors</v-btn
+          >
+        </a>
 
-          <a href="#sponsor">
-            <v-btn
-              center
-              rounded
-              depressed
-              dark
-              large
-              color="red"
-              class="landing__hero-citizenchips-group"
-              ><v-icon left>mdi-currency-usd-circle</v-icon>Sponsors</v-btn
-            >
-          </a>
-
-          <!-- <v-btn
+        <!-- <v-btn
          The code for the v-scrolls for each chip @click="$vuetify.goTo(target, options)"
             center
             dark
@@ -200,7 +426,6 @@
           <v-chip center dark color="red" class="landing__hero-citizenchips-group"
             ><v-icon left>mdi-currency-usd-circle</v-icon>For Sponsors</v-chip
           > -->
-        </div>
       </div>
     </v-parallax>
 
@@ -430,13 +655,10 @@
               <!-- <v-timeline-item small>Practice Log</v-timeline-item> -->
               <!-- <v-timeline-item small>Business Model Canvas</v-timeline-item>
             <v-timeline-item small>Your One Sentence Pitch</v-timeline-item>
-
             <v-timeline-item small>Write Your 60-Second Elevator Pitch</v-timeline-item>
             <v-timeline-item small>Hack Day</v-timeline-item>
             <v-timeline-item small>Post-Hack Reflection</v-timeline-item>
-
             <v-timeline-item small>Design & Prototype Process Log</v-timeline-item>
-
             <v-timeline-item small>Enter Prototype Demonstration Video</v-timeline-item>
             <v-timeline-item small>Enter Link to Presentation Deck</v-timeline-item>
             <v-timeline-item small>Demo Day</v-timeline-item>
@@ -639,7 +861,6 @@
       class="landing__hero-default"
     >
       <div class="landing__primary-title">Subject Areas</div>
-
       <v-btn outlined color="white" rounded class="landing__primary-subtitle"
         >Classes that find our program amplifying</v-btn
       >
@@ -656,7 +877,6 @@
           <v-chip dark class="landing__content-grid-combo" large>Healthcare</v-chip>
         </v-chip-group>
       </div>
-
       <div class="landing__content-grid">
         <div class="landing__content-grid-combo">
           <v-icon dark x-large>mdi-telegram</v-icon>Computer Science
@@ -668,7 +888,6 @@
           <v-icon dark x-large>mdi-telegram</v-icon>Digital Media
         </div>
       </div>
-
       <div class="landing__content-grid">
         <div class="landing__content-grid-combo">
           <v-icon dark x-large>mdi-telegram</v-icon>Public Service
@@ -680,7 +899,6 @@
           <v-icon dark x-large>mdi-telegram</v-icon>Business & Finance
         </div>
       </div>
-
       <div class="landing__content-grid">
         <div class="landing__content-grid-combo">
           <v-icon dark x-large>mdi-telegram</v-icon>Education & Family
@@ -966,7 +1184,6 @@
       class="landing__hero-default"
     >
       <div class="landing__primary-title">Deliverables</div>
-
       <v-btn outlined color="white" rounded class="landing__primary-subtitle"
         >Prototypes, pilots and products for employer goals</v-btn
       >
@@ -1190,15 +1407,54 @@ export default {
   data() {
     return {
       e6: 1,
-      snackbar: true
+      pathway: [
+        { text: 'All Projects', color: 'grey darken-2' },
+        { text: 'Agriculture & Natural Resources', color: 'grey darken-2' },
+        { text: 'Arts, Media & Entertainment', color: 'grey darken-2' },
+        { text: 'Building & Construction Trades', color: 'grey darken-2' },
+        { text: 'Business & Finance', color: 'grey darken-2' },
+        { text: 'Education, Childhood Development & Family Services', color: 'grey darken-2' },
+        { text: 'Energy, Environment & Utilities', color: 'grey darken-2' },
+        { text: 'Engineering & Architecture', color: 'grey darken-2' },
+        { text: 'Fashion & Interior Design', color: 'grey darken-2' },
+        { text: 'Health Science & Medical Technology', color: 'grey darken-2' },
+        { text: 'Hospitality, Tourism & Recreation', color: 'grey darken-2' },
+        { text: 'Information & Communication Technologies', color: 'grey darken-2' },
+        { text: 'Manufacturing & Product Design', color: 'grey darken-2' },
+        { text: 'Marketing, Sales & Service', color: 'grey darken-2' },
+        { text: 'Public Services', color: 'grey darken-2' },
+        { text: 'Transportation', color: 'grey darken-2' }
+      ],
+      pathwayOptions: [
+        'All',
+        'Agriculture & Natural Resources',
+        'Arts, Media & Entertainment',
+        'Building & Construction Trades',
+        'Business & Finance',
+        'Education, Childhood Development & Family Services',
+        'Energy, Environment & Utilities',
+        'Engineering & Architecture',
+        'Fashion & Interior Design',
+        'Health Science & Medical Technology',
+        'Hospitality, Tourism & Recreation',
+        'Information & Communication Technologies',
+        'Manufacturing & Product Design',
+        'Marketing, Sales & Service',
+        'Public Services',
+        'Transportation'
+      ],
+      pathwayPresets: []
     };
   }
 };
 </script>
 
 <style lang="scss">
-.snackbar-announcement {
-  // border-radius: 25px !important;
+.theme--light.v-divider {
+  border-color: transparent;
+}
+.v-menu__content {
+  box-shadow: none;
 }
 html {
   scroll-behavior: smooth;
@@ -1216,24 +1472,28 @@ html {
   scroll-behavior: smooth;
 }
 .landing {
+  &__i-am-a {
+    font-family: Raleway;
+    font-weight: 800;
+    font-size: 18px;
+    white-space: nowrap;
+  }
   &__hero {
     justify-content: flex-start;
     align-items: flex-start;
     display: block;
     margin-bottom: auto;
+    // margin-top: auto;
   }
-
   &__app-bar {
     margin-bottom: 0px;
     padding-bottom: 0px;
   }
-
   &__footer {
     flex-direction: row;
     display: flex;
     margin-left: auto;
   }
-
   &__footer-text {
     font-family: Montserrat;
     font-weight: 700;
@@ -1243,7 +1503,6 @@ html {
     // font-style: none;
     text-decoration: none;
   }
-
   &__footer-text-secondary {
     font-family: Montserrat;
     font-weight: 700;
@@ -1253,7 +1512,6 @@ html {
     // font-style: none;
     text-decoration: none;
   }
-
   &__hero-default {
     background-color: #404142;
     // padding-top: 50px;
@@ -1267,7 +1525,6 @@ html {
     // height: fit-content;
     // width: fit-content;
   }
-
   &__hero-default-padded {
     background-color: #404142;
     padding-top: 50px;
@@ -1281,20 +1538,18 @@ html {
     // height: fit-content;
     // width: fit-content;
   }
-
   &__hero-body {
     margin-bottom: auto;
+    // margin-top: auto;
   }
   &__hero-title {
     font-family: Montserrat;
     font-weight: 700;
     font-size: 52px;
     text-align: center;
-
     letter-spacing: -1px;
     line-height: 65px;
   }
-
   &__hero-logo {
     width: 65px;
     margin-left: auto;
@@ -1302,22 +1557,19 @@ html {
     padding-top: 70px;
     margin-bottom: 50px;
   }
-
   &__hero-cta {
-    width: 45%;
+    width: 65%;
     margin-left: auto;
     margin-right: auto;
     padding-top: 75px;
     display: flex;
   }
-
   &__hero-cta-button {
     margin-left: 10px;
     margin-right: 10px;
     font-family: Montserrat;
     font-weight: 700;
   }
-
   &__hero-citizenchips {
     width: 75%;
     padding-top: 50px;
@@ -1329,7 +1581,6 @@ html {
     // align-items: center;
     // display: block;
   }
-
   &__hero-citizenchips-group {
     // justify-content: center;
     // align-items: center;
@@ -1337,7 +1588,6 @@ html {
     font-weight: 800;
     text-decoration: none;
   }
-
   &__hero-citizenchips-group1 {
     // justify-content: center;
     // align-items: center;
@@ -1345,28 +1595,24 @@ html {
     font-weight: 800;
     text-decoration: none;
   }
-
   &__2-column {
     display: flex;
     flex-direction: row;
   }
-
   &__left {
     // justify-content: center;
     // align-items: center;
     // flex-grow: 1;
     padding-left: 100px;
-    margin-top: auto;
+    // margin-top: auto;
     margin-bottom: auto;
   }
-
   &__timeline-card {
     border: 1px solid #6fbb81;
     border-radius: 25px;
     padding-right: 25px;
     margin-top: 15px;
   }
-
   &__timeline-card-step {
     font-family: Montserrat;
     font-weight: 800;
@@ -1374,7 +1620,6 @@ html {
     text-transform: uppercase;
     letter-spacing: 1px;
   }
-
   &__right {
     justify-content: flex-end;
     flex-grow: 0.25;
@@ -1383,54 +1628,46 @@ html {
     font-size: 42px;
     padding-left: 50px;
   }
-
   &__testimonial-logo {
-    margin-top: auto;
+    // margin-top: auto;
     margin-bottom: auto;
   }
-
   &__text-subtitle-pink {
     font-family: Montserrat;
     font-weight: 800;
     font-size: 42px;
     color: #eda1bf;
   }
-
   &__text-subtitle-purple {
     font-family: Montserrat;
     font-weight: 800;
     font-size: 42px;
     color: #ae92b1;
   }
-
   &__text-subtitle-red {
     font-family: Montserrat;
     font-weight: 800;
     font-size: 42px;
     color: #ea6764;
   }
-
   &__text-subtitle-blue {
     font-family: Montserrat;
     font-weight: 800;
     font-size: 42px;
     color: #3c9dcd;
   }
-
   &__text-subtitle-yellow {
     font-family: Montserrat;
     font-weight: 800;
     font-size: 42px;
     color: #fdd35a;
   }
-
   &__text-subtitle-green {
     font-family: Montserrat;
     font-weight: 800;
     font-size: 42px;
     color: #6fba7f;
   }
-
   &__text-testimonial {
     font-family: Montserrat;
     font-weight: 700;
@@ -1443,7 +1680,6 @@ html {
     display: flex;
     align-items: flex-start;
   }
-
   &__text-testimonial-green {
     font-family: Montserrat;
     font-weight: 700;
@@ -1456,7 +1692,6 @@ html {
     display: flex;
     align-items: flex-start;
   }
-
   &__text-testimonial-yellow {
     font-family: Montserrat;
     font-weight: 700;
@@ -1469,7 +1704,6 @@ html {
     display: flex;
     align-items: flex-start;
   }
-
   &__text-testimonial-black {
     font-family: Montserrat;
     font-weight: 700;
@@ -1482,61 +1716,52 @@ html {
     display: flex;
     align-items: flex-start;
   }
-
   &__text-testimonial-body {
     flex-direction: row;
     display: flex;
     margin-bottom: 100px;
   }
-
   &__text-testimonial-title {
     flex-direction: column;
     display: flex;
     justify-content: center;
     padding-left: 25px;
   }
-
   &__text-testimonial-name {
     font-family: Montserrat;
     font-weight: 700;
     font-size: 15px;
     color: #ffffff;
   }
-
   &__text-testimonial-name-green {
     font-family: Montserrat;
     font-weight: 700;
     font-size: 15px;
     color: #6fba7f;
   }
-
   &__text-testimonial-name-yellow {
     font-family: Montserrat;
     font-weight: 700;
     font-size: 15px;
     color: #fec34b;
   }
-
   &__text-testimonial-name-black {
     font-family: Montserrat;
     font-weight: 700;
     font-size: 15px;
     color: #404142;
   }
-
   &__text-testimonial-position {
     font-family: Montserrat;
     font-weight: 700;
     font-size: 15px;
   }
-
   &__text-body {
     font-family: Montserrat;
     font-weight: 500;
     font-size: 20px;
     line-height: 50px;
   }
-
   &__single-column {
     display: flex;
     flex-direction: column;
@@ -1545,15 +1770,12 @@ html {
     // align-items: center;
     padding: 50px;
   }
-
   &__row1 {
   }
-
   &__row1-button {
     font-family: Montserrat;
     font-weight: 800;
   }
-
   &__row2 {
     font-family: Montserrat;
     font-weight: 700;
@@ -1562,27 +1784,21 @@ html {
     line-height: 75px;
     color: #fec34b;
   }
-
   &__row3 {
     justify-content: flex-end;
     align-items: flex-end;
     padding-top: 35px;
     margin-left: auto;
   }
-
   &__row3-button {
     font-family: Montserrat;
-
     font-weight: 800;
   }
-
   &__banner-cta {
     text-align: center;
     margin-bottom: 4%;
-
     margin-top: auto;
   }
-
   &__primary-image {
     // justify-content: center;
     // align-items: center;
@@ -1592,7 +1808,6 @@ html {
     margin-top: 4%;
     margin-bottom: 4%;
   }
-
   &__primary-title {
     font-family: Montserrat;
     font-weight: 700;
@@ -1601,7 +1816,6 @@ html {
     text-align: center;
     margin-top: 4%;
   }
-
   &__primary-subtitle {
     font-family: Montserrat;
     font-weight: 700;
@@ -1617,7 +1831,6 @@ html {
     // align-items: center;
     // font-style:italic;
   }
-
   &__content-grid {
     flex-direction: row;
     display: flex;
@@ -1625,13 +1838,11 @@ html {
     margin: 50px;
     max-width: 100%;
   }
-
   &__content-grid-combo {
     font-family: Montserrat;
     font-weight: 800;
     font-size: 22px;
   }
-
   &__benefits {
     flex-direction: row;
     display: flex;
@@ -1640,13 +1851,11 @@ html {
     margin-top: 50px;
     margin-bottom: 50px;
   }
-
   &__benefits-card {
     margin: 25px;
     // min-width: 250px;
     // max-width: 275px;
   }
-
   &__benefits-card-body {
     // margin: auto;
     // justify-content: center;
@@ -1655,12 +1864,10 @@ html {
     font-weight: 600;
     font-size: 13px;
   }
-
   &__benefits-card-icon {
     // margin: auto;
     margin: 5px;
   }
-
   &__benefits-card-title {
     font-family: Montserrat;
     font-weight: 800;
