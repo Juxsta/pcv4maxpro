@@ -137,7 +137,7 @@ export default {
 
   &__explore-card {
     margin-top: 50px;
-    margin-left: 25px;
+    // margin-left: 25px;
     margin-right: 25px;
     margin-bottom: 25px;
     // flex-direction: row;
