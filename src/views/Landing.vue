@@ -3,7 +3,7 @@
     <v-parallax
       dark
       height="625"
-      src="https://f.hubspotusercontent00.net/hubfs/2480959/pilotcitypaperplanes_grey.png"
+      src="https://f.hubspotusercontent00.net/hubfs/2480959/PC_Hero_3c-1.jpg"
       class="landing__hero"
     >
       <!-- APP BAR  -->
@@ -127,7 +127,7 @@
             hide-details
             outlined
             dark
-            class="d-flex align-center module-setup__combobox"
+            class="d-flex align-center module-setup__combobox font-weight-bold"
           >
             <template v-slot:no-data>
               <v-list-item>
