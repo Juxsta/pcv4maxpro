@@ -604,7 +604,7 @@
               </v-combobox>
 
               <v-combobox
-                v-model="pathwaysStandard"
+                v-model="pathwaysFilter"
                 :filter="filter"
                 :hide-no-data="!search"
                 :items="pathways"
@@ -731,6 +731,10 @@ export default {
     programFilter: {
       required: true,
       type: String
+    },
+    pathwaysFilter: {
+      required: true,
+      type: Array
     }
   },
   data: () => ({
@@ -1128,14 +1132,7 @@ export default {
     search: null,
     y: 0
   }),
-  created() {
-    if (Array.isArray(this.$route.query.pathway))
-      this.pathwaysStandard =
-        this.$route.query.pathway?.map(pathway => ({
-          text: pathway as string,
-          color: 'grey darken-1'
-        })) || this.pathwaysStandard;
-  },
+
   // watch: {
   //   model(val, prev) {
   //     if (val.length === prev.length) return;

@@ -35,7 +35,7 @@
 
 <script lang="ts">
 import Test from '@/components/Test.vue';
-import { ref, reactive, toRefs, computed, onMounted } from '@vue/composition-api';
+import { ref, reactive, toRefs, computed, defineComponent } from '@vue/composition-api';
 import { useDbGetters } from '@/store';
 import Bar from './Bar.vue';
 import ListView from './components/ListView/TableView.vue';
@@ -134,7 +134,7 @@ const dummyEmployerData = [
   }
 ];
 
-export default {
+export default defineComponent({
   components: {
     'guide-bar': Bar,
     ListView
@@ -143,6 +143,7 @@ export default {
   setup(_props, ctx) {
     const { collection } = useDbGetters(['collection']);
     const employerData = ref([]);
+    // const employerData = ref(dummyEmployerData);
     collection.value!('Program')
       .find({
         // published: true
@@ -159,6 +160,17 @@ export default {
       bookmarked: [],
       loved: []
     });
+
+    if (ctx.root._route.query) {
+      let query = ctx.root._route.query.pathway;
+      if (!Array.isArray(query)) query = [query];
+      console.log(query);
+      state.pathwaysFilter = query.map(pathway => ({
+        text: pathway as string,
+        color: 'grey darken-1'
+      }));
+    }
+
     const currentUnit = ref(ListView);
 
     const filteredPrograms = computed(() => {
@@ -229,7 +241,7 @@ export default {
       currentUnit
     };
   }
-};
+});
 </script>
 
 <style lang="scss">
