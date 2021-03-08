@@ -133,7 +133,7 @@ export default {
     if (!user.value) next();
     else next({ name: 'portfolio' });
   },
-  setup(_props, { root: { $router } }) {
+  setup(_props, { root: { $router, $route } }) {
     const state = reactive({
       email: '',
       password: '',
@@ -157,7 +157,7 @@ export default {
       try {
         const user = await loginUser({ email: state.email, password: state.password });
         await onLogin(user!.accessToken);
-        $router.push({ name: 'setup' });
+        $router.push({ name: $route.params.page || 'setup' });
       } catch (err) {
         // To catch errors: pass an error object to captureException() to get it captured as event in Sentry.
         // Sentry.captureException() should be called in places where the code might break.  This will allow you to find and fix bugs.

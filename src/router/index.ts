@@ -32,7 +32,7 @@ const routes: Array<RouteConfig> = [
     component: Timeline
   },
   {
-    path: '/login',
+    path: '/login/:page',
     name: 'login',
     component: Login
   },
@@ -113,7 +113,10 @@ router.beforeEach((to, from, next) => {
     // if not, redirect to login page.
     if (!getUser.value) {
       next({
-        name: 'authError'
+        name: 'login',
+        params: {
+          page: to.name!
+        }
       });
     } else {
       next();
