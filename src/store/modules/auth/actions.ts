@@ -13,8 +13,7 @@ export enum ActionTypes {
   confirmUser = 'confirmUser',
   logout = 'logout',
   resetPassword = 'resetPassword',
-  resendEmailConfirmation = 'resendEmailConfirmation',
-  sendResetPassword = 'sendResetPassword'
+  resendEmailConfirmation = 'resendEmailConfirmation'
 }
 type AuthActionCtx = ActionContext<typeof authState, RootState>;
 
@@ -106,7 +105,7 @@ export const actions: AuthActions = {
       throw new Error('Could not send email verification');
     }
   },
-  async sendResetPassword({ rootState }, { email }) {
+  sendResetPassword({ rootState }, { email }) {
     return rootState.realmApp.app.emailPasswordAuth.sendResetPasswordEmail(email);
   }
 };
