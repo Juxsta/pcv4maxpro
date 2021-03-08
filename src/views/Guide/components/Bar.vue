@@ -80,7 +80,13 @@
           <v-dialog v-model="dialog" persistent max-width="500px">
             <template v-slot:activator="{ on, attrs }">
               <div class="d-flex justify-center">
-                <v-btn min-width="225px" v-bind="attrs" disabled rounded depressed v-on="on"
+                <v-btn
+                  min-width="225px"
+                  v-bind="attrs"
+                  :disabled="!timeline.slice(0, timeline.length - 2).every(adk => adk.unlocked)"
+                  rounded
+                  depressed
+                  v-on="on"
                   >Publish Program</v-btn
                 >
               </div>
@@ -113,6 +119,7 @@
                         depressed
                         dark
                         v-on="on"
+                        @click="publishProgram"
                         >Publish</v-btn
                       >
                     </template>
@@ -166,6 +173,8 @@
 </template>
 
 <script lang="ts">
+import { useDbGetters } from '@/store';
+import { ObjectId } from 'bson';
 import { ref, defineComponent, computed } from '@vue/composition-api';
 
 export default defineComponent({
@@ -191,6 +200,7 @@ export default defineComponent({
     const vertical = ref(true);
     const expand = ref(true); // open or closed sidebar
     const steps = ref(props.timeline.length); // number of lines
+    const { collection } = useDbGetters(['collection']);
     const activeStep = computed({
       get: () => props.value + 1,
       set: newPage => {
@@ -278,6 +288,22 @@ export default defineComponent({
       }
       return whichStep;
     });
+    const publishProgram = () => {
+      collection.value!('Program').findOneAndUpdate(
+        {
+          _id: new ObjectId(ctx.root.$route.params.programId)
+        },
+        { $set: { published: true } }
+      );
+    };
+    const unpublishProgram = () => {
+      collection.value!('Program').findOneAndUpdate(
+        {
+          _id: new ObjectId(ctx.root.$route.params.programId)
+        },
+        { $set: { published: false } }
+      );
+    };
     return {
       steps,
       expand,
@@ -287,7 +313,8 @@ export default defineComponent({
       vertical,
       dialog: ref(false),
       dialog2: ref(false),
-      unlockedStep
+      unlockedStep,
+      publishProgram
     };
   }
 });
