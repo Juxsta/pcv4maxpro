@@ -36,6 +36,7 @@
 <script lang="ts">
 import Test from '@/components/Test.vue';
 import { ref, reactive, toRefs, computed, onMounted } from '@vue/composition-api';
+import { useDbGetters } from '@/store';
 import Bar from './Bar.vue';
 import ListView from './components/ListView/TableView.vue';
 
@@ -140,6 +141,16 @@ export default {
     // Test
   },
   setup(_props, ctx) {
+    const { collection } = useDbGetters(['collection']);
+    const employerData = ref([]);
+    collection.value!('Program')
+      .find({
+        // published: true
+      })
+      .then(programs => {
+        employerData.value = programs;
+      });
+
     const state = reactive({
       programFilter: 'All' as 'All' | 'Loved' | 'Bookmarked',
       ageFilter: null,
@@ -157,7 +168,7 @@ export default {
       } else if (state.programFilter === 'Bookmarked') {
         visiblePrograms = state.bookmarked;
       } else {
-        visiblePrograms = dummyEmployerData;
+        visiblePrograms = employerData.value;
       }
 
       if (state.residenceFilter && state.residenceFilter !== 'None') {
