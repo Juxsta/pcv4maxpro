@@ -503,6 +503,58 @@
               </v-combobox> -->
 
               <v-combobox
+                v-model="pathwaysStandard"
+                :filter="filter"
+                :hide-no-data="!search"
+                :items="pathways"
+                :search-input.sync="search"
+                hide-selected
+                label="What are your interests?"
+                multiple
+                prepend-inner-icon="mdi-sign-direction"
+                rounded
+                small-chips
+                hide-details
+                outlined
+                class="guide-bar__combobox mt-4 mb-4"
+                @input="val => $emit('update:pathwaysFilter', val)"
+              >
+                <template v-slot:selection="{ attrs, item, parent, selected }">
+                  <v-chip
+                    v-if="item === Object(item)"
+                    v-bind="attrs"
+                    :color="`${item.color} lighten-2`"
+                    :input-value="selected"
+                    label
+                    small
+                    dark
+                  >
+                    <span class="pr-2">
+                      {{ item.text }}
+                    </span>
+                    <v-icon small @click="parent.selectItem(item)"> mdi-close </v-icon>
+                  </v-chip>
+                </template>
+
+                <template v-slot:item="{ index, item }">
+                  <v-text-field
+                    v-if="editing === item"
+                    v-model="editing.text"
+                    autofocus
+                    flat
+                    background-color="transparent"
+                    hide-details
+                    solo
+                    @keyup.enter="edit(index, item)"
+                  ></v-text-field>
+                  <v-chip v-else :color="`${item.color} lighten-2`" dark label small>
+                    {{ item.text }}
+                  </v-chip>
+                  <v-spacer></v-spacer>
+                </template>
+              </v-combobox>
+
+              <v-combobox
                 v-model="cityStandard"
                 rounded
                 :filter="filter"
@@ -582,58 +634,6 @@
                       {{ item.text }}
                     </span>
                     <!-- <v-icon small @click="parent.selectItem(item)"> mdi-close </v-icon> -->
-                  </v-chip>
-                </template>
-
-                <template v-slot:item="{ index, item }">
-                  <v-text-field
-                    v-if="editing === item"
-                    v-model="editing.text"
-                    autofocus
-                    flat
-                    background-color="transparent"
-                    hide-details
-                    solo
-                    @keyup.enter="edit(index, item)"
-                  ></v-text-field>
-                  <v-chip v-else :color="`${item.color} lighten-2`" dark label small>
-                    {{ item.text }}
-                  </v-chip>
-                  <v-spacer></v-spacer>
-                </template>
-              </v-combobox>
-
-              <v-combobox
-                v-model="pathwaysStandard"
-                :filter="filter"
-                :hide-no-data="!search"
-                :items="pathways"
-                :search-input.sync="search"
-                hide-selected
-                label="What are your interests?"
-                multiple
-                prepend-inner-icon="mdi-sign-direction"
-                rounded
-                small-chips
-                hide-details
-                outlined
-                class="guide-bar__combobox mt-4 mb-4"
-                @input="val => $emit('update:pathwaysFilter', val)"
-              >
-                <template v-slot:selection="{ attrs, item, parent, selected }">
-                  <v-chip
-                    v-if="item === Object(item)"
-                    v-bind="attrs"
-                    :color="`${item.color} lighten-2`"
-                    :input-value="selected"
-                    label
-                    small
-                    dark
-                  >
-                    <span class="pr-2">
-                      {{ item.text }}
-                    </span>
-                    <v-icon small @click="parent.selectItem(item)"> mdi-close </v-icon>
                   </v-chip>
                 </template>
 
@@ -1272,7 +1272,7 @@ $stepper-step-step-height: 50px;
   // height: 100vh;
   // width: 25vw;
   max-width: 25vw;
-  background-color: #dedede !important;
+  // background-color: #dedede !important;
   color: #dedede !important;
 }
 .v-application--is-ltr .guide-bar .v-stepper--vertical .v-stepper__content {

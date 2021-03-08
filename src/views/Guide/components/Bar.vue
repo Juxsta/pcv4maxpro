@@ -530,7 +530,7 @@ $stepper-step-step-height: 50px;
     padding: 12px;
     flex-direction: column;
     display: flex;
-    // background: #eeeeee;
+    background: #eeeeee;
     // border-right: 1px solid #dedede;
     // flex-direction: column;
     // display: flex;
