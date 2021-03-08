@@ -56,6 +56,7 @@
             :student-doc="studentDoc"
             :license-program="licenseProgram"
             :user-type="userType"
+            :db="db"
             @inputStudentDoc="studentDoc = $event"
             @inputTeamDoc="teamDoc = $event"
             @inputUserDoc="userDoc = $event"
