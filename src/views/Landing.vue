@@ -153,9 +153,11 @@
               </v-chip>
             </template>
           </v-combobox>
-          <v-btn class="ma-2 d-flex align-center" x-large rounded dark depressed
-            >Explore Employers</v-btn
-          >
+          <router-link :to="{ name: 'explore', query: { pathway: pathwayPresets } }">
+            <v-btn class="ma-2 d-flex align-center" x-large rounded dark depressed
+              >Explore Employers</v-btn
+            >
+          </router-link>
 
           <!-- TEACHER COMBOBOX -->
 
@@ -1440,7 +1442,8 @@ export default {
         'Marketing, Sales & Service',
         'Public Services',
         'Transportation'
-      ]
+      ],
+      pathwayPresets: []
     };
   }
 };

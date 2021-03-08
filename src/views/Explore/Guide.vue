@@ -14,7 +14,7 @@
           <v-img
             src="https://cdn.discordapp.com/attachments/692111176129052712/800962947743875102/Screen_Shot_2021-01-18_at_9.40.44_PM.png"
           ></v-img>
-        </v-avatar> 
+        </v-avatar>
       </div>
       <div class="guide__activity-title">Prajit Saravanan's Progress</div> -->
 
@@ -35,7 +35,7 @@
 
 <script lang="ts">
 import Test from '@/components/Test.vue';
-import { ref, reactive, toRefs, computed } from '@vue/composition-api';
+import { ref, reactive, toRefs, computed, onMounted } from '@vue/composition-api';
 import Bar from './Bar.vue';
 import ListView from './components/ListView/TableView.vue';
 
@@ -139,7 +139,7 @@ export default {
     ListView
     // Test
   },
-  setup() {
+  setup(_props, ctx) {
     const state = reactive({
       programFilter: 'All' as 'All' | 'Loved' | 'Bookmarked',
       ageFilter: null,

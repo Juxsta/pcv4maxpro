@@ -5,7 +5,7 @@ import Bar from './Bar.vue';
 const routes: Array<RouteConfig> = [
   {
     path: '/explore',
-    name: 'Guide',
+    name: 'explore',
     component: Guide
   }
 ];
