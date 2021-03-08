@@ -91,7 +91,7 @@
                   <v-btn x-large depressed rounded outlined @click="sendResetPasswordEmail">
                     Send Reset Password Email
                   </v-btn>
-                  <v-alert v-if="msg" class="login__alert" :type="type">{{ msg }}</v-alert>
+                  <v-alert v-if="msg" class="forgotPassword__alert" :type="type">{{ msg }}</v-alert>
                 </div>
               </v-card>
             </v-dialog>
@@ -145,7 +145,7 @@ export default {
       password: '',
       resetEmail: '',
       dialog: false,
-      error: '',
+      error: ''
     });
     const ui = reactive({
       msg: '',
@@ -328,6 +328,13 @@ export default {
 
 .login__inputs .v-text-field--outlined > .v-input__control > .v-input__slot {
   background-color: transparent;
+}
+
+.forgotPassword {
+  &__alert {
+    margin-top: 25px;
+    font-size: 11.5px !important;
+  }
 }
 
 @media only screen and (max-width: 600px) {
