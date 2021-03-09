@@ -120,8 +120,7 @@
             :items="pathwayOptions"
             :search-input="pathwaySearch"
             :error-messages="errors"
-            hide-selected
-            label="What kinds of projects are you most interested in?"
+            label="What employer projects would you like to explore?"
             multiple
             small-chips
             hide-details
