@@ -191,6 +191,7 @@ export default {
   &__background {
     height: 100%;
     background-color: #4f4f4f;
+    // background-image: url('https://f.hubspotusercontent00.net/hubfs/2480959/PC_Hero_3-1.jpg');
   }
 }
 

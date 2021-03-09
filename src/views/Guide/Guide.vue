@@ -94,22 +94,24 @@
 
 <script lang="ts">
 import { computed, defineComponent, ref, Ref, watchEffect } from '@vue/composition-api';
-// import Forum from 'developer-adk-interact';
-// import demo from 'developer-adk-demo/src/Module/Module.vue';
-// import autoapply from 'developer-adk-autoapply/src/Module/Module.vue';
-// import interact from 'developer-adk-interact/src/Module/Module.vue';
+import setup from 'developer-adk-setup/src/Module/Module.vue';
 import rfp from 'developer-adk-rfp/src/Module/Module.vue';
+// import discord from 'developer-adk-discord/src/Module/Module.vue';
 // import team from 'developer-adk-teamcommunity/src/Module/Module.vue';
 import train from 'developer-adk-train/src/Module/Module.vue';
 import research from 'developer-adk-research/src/Module/Module.vue';
 // import practice from 'developer-adk-practice/src/Module/Module.vue';
 // import ideate from 'developer-adk-ideate/src/Module/Module.vue';
 // import pitches from 'developer-adk-pitches/src/Module/Module.vue';
-// import present from 'developer-adk-present/src/Module/Module.vue';
+// import forum from 'developer-adk-interact/src/Module/Module.vue';
+// import designprototype from 'developer-adk-designprototype/src/Module/Module.vue';
+// import demo from 'developer-adk-demo/src/Module/Module.vue';
+// import autoapply from 'developer-adk-autoapply/src/Module/Module.vue';
 // import interview from 'developer-adk-interview/src/Module/Module.vue';
 import offer from 'developer-adk-offer/src/Module/Module.vue';
+// import Forum from 'developer-adk-interact/src/Module/Module.vue';
+// import present from 'developer-adk-present/src/Module/Module.vue';
 // eslint-disable-next-line import/no-unresolved
-import setup from 'developer-adk-setup/src/Module/Module.vue';
 // import JoinForm from 'developer-adk-joinform/src/App.vue';
 import Loading from '@/components/Loading.vue';
 import { useDbGetters } from '@/store';
@@ -121,18 +123,18 @@ export default defineComponent({
     'guide-bar': Bar,
     Loading,
     setup,
-    // Forum,
-    // interact
-    // demo
-    // autoapply,
     rfp,
+    // discord,
     // team,
     train,
     research,
     // practice,
     // ideate,
     // pitches,
-    // present,
+    // forum,
+    // designprototype,
+    // demo,
+    // autoapply,
     // interview,
     offer
   },
@@ -141,15 +143,16 @@ export default defineComponent({
     const adks = ref([
       'setup',
       'rfp',
+      // 'discord',
       // 'team',
       'train',
       'research',
-      // 'pracitce',
+      // 'practice',
       // 'ideate',
       // 'pitches',
-      // 'interact'
+      // 'forum',
+      // 'designprototype',
       // 'demo',
-      // 'present',
       // 'autoapply',
       // 'interview',
       'offer'
