@@ -40,16 +40,21 @@ export default {
     const displayMessage = ref('..... Earth to Discord');
     const confirmationError = ref(false);
     const loading = ref(false);
+    const params = new URLSearchParams();
+    params.append('client_id', process.env.CLIENT_ID as string);
+    params.append('client_secret', process.env.CLIENT_SECRET as string);
+    params.append('grant_type', 'authorization_code');
+    params.append('code', props.code as string);
+    params.append('redirect_uri', 'https://pilotcity.com/discordconfirmation');
+    params.append('scope', 'identify email guilds.join gdm.join');
+
     const verifyToken = async () => {
-      const API_ENDPOINT = 'https://discord.com/api/v8';
+      const API_ENDPOINT = 'https://discord.com/api/oauth2/token';
       try {
-        const resp = await axios.post(API_ENDPOINT, {
-          client_id: process.env.CLIENT_ID,
-          client_secret: process.env.CLIENT_SECRET,
-          grant_type: 'refresh_token',
-          code: props.code,
-          redirect_uri: '',
-          scope: 'identify email connections'
+        const resp = await axios.post(API_ENDPOINT, params, {
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          }
         });
         await update({
           collection: 'User',
