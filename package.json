@@ -77,7 +77,7 @@
     "style-loader": "^1.2.1",
     "stylus-loader": "^3.0.2",
     "ts-jest": "^26.2.0",
-    "v-mask": "^2.2.3",
+    "v-mask": "^2.2.4",
     "vee-validate": "^3.3.9",
     "vue": "^2.6.12",
     "vue-apollo": "^3.0.4",

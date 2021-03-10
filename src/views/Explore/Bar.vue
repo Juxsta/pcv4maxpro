@@ -1064,7 +1064,7 @@ export default {
         color: 'grey darken-4'
       },
       {
-        text: 'Arts Media & Entertainment',
+        text: 'Arts, Media & Entertainment',
         color: 'grey darken-4'
       },
       {
@@ -1076,11 +1076,11 @@ export default {
         color: 'grey darken-4'
       },
       {
-        text: 'Education Child Development & Family Services',
+        text: 'Education, Child Development & Family Services',
         color: 'grey darken-4'
       },
       {
-        text: 'Energy Environment & Utilities',
+        text: 'Energy, Environment & Utilities',
         color: 'grey darken-4'
       },
       {
@@ -1096,7 +1096,7 @@ export default {
         color: 'grey darken-4'
       },
       {
-        text: 'Hospitality Tourism & Recreation',
+        text: 'Hospitality, Tourism & Recreation',
         color: 'grey darken-4'
       },
       {
@@ -1108,7 +1108,7 @@ export default {
         color: 'grey darken-4'
       },
       {
-        text: 'Marketing Sales & Services',
+        text: 'Marketing, Sales & Services',
         color: 'grey darken-4'
       },
       {

@@ -48,7 +48,7 @@
         disabled
         depressed
         :ripple="false"
-        ><v-icon left>mdi-set-none</v-icon>{{ employer.tokens }} Token</v-btn
+        ><v-icon left>mdi-set-none</v-icon>{{ employer.tokens }}1 Token</v-btn
       >
 
       <v-btn
