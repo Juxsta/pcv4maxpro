@@ -64,8 +64,8 @@
         <div v-show="expand" class="guide-bar__container">
           <v-list class="guide-bar__list">
             <v-container fluid>
-              <v-btn href="https://www.pilotcity.com" color="grey" depressed icon>
-                <v-icon color="grey">mdi-chevron-double-left</v-icon>
+              <v-btn href="https://www.pilotcity.com" large color="grey" depressed icon>
+                <v-icon large color="grey">mdi-chevron-double-left</v-icon>
               </v-btn>
               <div class="">
                 <v-btn

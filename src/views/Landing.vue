@@ -1427,7 +1427,7 @@ export default {
         { text: 'Transportation', color: 'grey darken-2' }
       ],
       pathwayOptions: [
-        'All Employers',
+        // 'All Employers',
         'Agriculture & Natural Resources',
         'Arts, Media & Entertainment',
         'Building & Construction Trades',
@@ -1444,7 +1444,7 @@ export default {
         'Public Services',
         'Transportation'
       ],
-      pathwayPresets: ['All Employers']
+      pathwayPresets: []
     };
   }
 };
