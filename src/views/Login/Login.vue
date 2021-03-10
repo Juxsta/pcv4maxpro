@@ -1,5 +1,9 @@
 <template>
-  <div class="login__background">
+  <v-img
+    src="https://f.hubspotusercontent00.net/hubfs/2480959/PC_Hero_3-1.jpg"
+    class="login__background"
+    max-height="100vh"
+  >
     <Loading v-slot="{ loading, process }" :callback="login" linear-loader>
       <div class="login__body">
         <div class="login__title text-h4 font-weight-bold">
@@ -39,7 +43,6 @@
               x-large
               placeholder="Password"
               class="login__input"
-              type="password"
               label="Password"
               toggle
               single-line
@@ -48,6 +51,9 @@
               dark
               :error-messagees="errors"
               @keyup.enter="process"
+              :type="show1 ? 'text' : 'password'"
+              :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+              @click:append="show1 = !show1"
             >
             </v-text-field>
             <!-- <a class="login__forgotlink" href="password-reset"> Forgot Password</a> -->
@@ -110,10 +116,15 @@
               <a class="login__signuplink" href="signup"> No account yet? Signup.</a>
             </i>
           </div>
+          <div class="d-flex justify-center mt-6">
+            <a href="https://www.pilotcity.com/"
+              ><img src="@/assets/Pilotcity_logo.png" class="nav__logo2" />
+            </a>
+          </div>
         </validation-observer>
       </div>
     </Loading>
-  </div>
+  </v-img>
 </template>
 
 <script lang="ts">
@@ -137,6 +148,7 @@ export default {
     const state = reactive({
       email: '',
       password: '',
+      show1: false,
       dialog: false,
       error: ''
     });
@@ -237,7 +249,7 @@ export default {
   }
   &__title {
     color: #3c9ccc;
-    margin-top: 120px;
+    margin-top: 160px;
     margin-bottom: 30px;
     font-family: Raleway;
   }

@@ -3,7 +3,7 @@
     <v-parallax
       dark
       height="625"
-      src="https://f.hubspotusercontent00.net/hubfs/2480959/pilotcitypaperplanes_grey.png"
+      src="https://f.hubspotusercontent00.net/hubfs/2480959/PC_Hero_3c-1.jpg"
       class="landing__hero"
     >
       <!-- APP BAR  -->
@@ -18,10 +18,11 @@
         <v-spacer></v-spacer>
 
         <div class="nav__actions">
-          <v-btn class="ml-5 mr-5" depressed color="white" outlined large rounded>
-            <span class="font-weight-black">Explore Employers</span>
-          </v-btn>
-
+          <router-link :to="{ name: 'explore' }">
+            <v-btn class="ml-5 mr-5" depressed dark outlined large rounded>
+              Explore Programs<v-icon right>mdi-sign-direction</v-icon>
+            </v-btn>
+          </router-link>
           <v-btn
             v-if="!user"
             depressed
@@ -126,7 +127,7 @@
             hide-details
             outlined
             dark
-            class="d-flex align-center module-setup__combobox"
+            class="d-flex align-center module-setup__combobox font-weight-bold"
           >
             <template v-slot:no-data>
               <v-list-item>
@@ -143,6 +144,7 @@
                 small
                 rounded
                 dark
+                color="grey darken-4"
                 @click="parent.selectItem(item)"
               >
                 <span class="pr-2">
@@ -154,7 +156,7 @@
           </v-combobox>
           <router-link :to="{ name: 'explore', query: { pathway: pathwayPresets } }">
             <v-btn class="ma-2 d-flex align-center" x-large rounded dark depressed
-              >Explore Employers</v-btn
+              >Explore Employers<v-icon right>mdi-sign-direction</v-icon></v-btn
             >
           </router-link>
 
@@ -1425,7 +1427,7 @@ export default {
         { text: 'Transportation', color: 'grey darken-2' }
       ],
       pathwayOptions: [
-        'All',
+        'All Employers',
         'Agriculture & Natural Resources',
         'Arts, Media & Entertainment',
         'Building & Construction Trades',
@@ -1442,7 +1444,7 @@ export default {
         'Public Services',
         'Transportation'
       ],
-      pathwayPresets: []
+      pathwayPresets: ['All Employers']
     };
   }
 };
@@ -1557,7 +1559,7 @@ html {
     margin-bottom: 50px;
   }
   &__hero-cta {
-    width: 65%;
+    width: 67%;
     margin-left: auto;
     margin-right: auto;
     padding-top: 75px;

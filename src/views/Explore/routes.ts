@@ -6,7 +6,12 @@ const routes: Array<RouteConfig> = [
   {
     path: '/explore',
     name: 'explore',
-    component: Guide
+    component: Guide,
+    meta: {
+      layout: 'no-nav',
+      requiresAuth: false,
+      requiresUser: false
+    }
   }
 ];
 

@@ -34,14 +34,24 @@ const routes: Array<RouteConfig> = [
     component: Timeline
   },
   {
-    path: '/login/:page',
+    path: '/login',
     name: 'login',
-    component: Login
+    component: Login,
+    meta: {
+      layout: 'no-nav',
+      requiresAuth: false,
+      requiresUser: false
+    }
   },
   {
     path: '/signup',
     name: 'signup',
-    component: Signup
+    component: Signup,
+    meta: {
+      layout: 'no-nav',
+      requiresAuth: false,
+      requiresUser: false
+    }
   },
   {
     path: '/',

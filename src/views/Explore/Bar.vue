@@ -64,15 +64,16 @@
         <div v-show="expand" class="guide-bar__container">
           <v-list class="guide-bar__list">
             <v-container fluid>
+              <v-btn href="https://www.pilotcity.com" color="grey" depressed icon>
+                <v-icon color="grey">mdi-chevron-double-left</v-icon>
+              </v-btn>
               <div class="">
                 <v-btn
                   class="font-weight-bold guide-bar__activities-chips"
                   x-small
                   rounded
-                  outlined
-                  color="black"
-                  dark
                   depressed
+                  disabled
                   >Build projects to win internships</v-btn
                 >
               </div>
@@ -101,7 +102,7 @@
                       >
                     </v-btn>
                   </template>
-                  <span>All</span>
+                  <span>All Employers</span>
                 </v-tooltip>
 
                 <v-tooltip bottom>
@@ -155,7 +156,7 @@
                   class="guide-bar__activities-chips font-weight-bold"
                   rounded
                   dark
-                  color="grey darken-4"
+                  color="grey darken-1"
                   depressed
                   small
                   >Activities include</v-chip
@@ -169,7 +170,7 @@
                       rounded
                       dark
                       outlined
-                      color="grey darken-2"
+                      color="grey darken-1"
                       depressed
                       small
                       v-on="on"
@@ -442,7 +443,7 @@
                       rounded
                       dark
                       outlined
-                      color="grey darken-2"
+                      color="grey darken-1"
                       depressed
                       small
                       v-on="on"
@@ -503,6 +504,58 @@
               </v-combobox> -->
 
               <v-combobox
+                v-model="pathwaysFilter"
+                :filter="filter"
+                :hide-no-data="!search"
+                :items="pathways"
+                :search-input.sync="search"
+                label="What are your interests?"
+                multiple
+                hide-selected
+                prepend-inner-icon="mdi-sign-direction"
+                rounded
+                small-chips
+                hide-details
+                outlined
+                class="guide-bar__combobox mt-4 mb-4"
+                @input="val => $emit('update:pathwaysFilter', val)"
+              >
+                <template v-slot:selection="{ attrs, item, parent, selected }">
+                  <v-chip
+                    v-if="item === Object(item)"
+                    v-bind="attrs"
+                    :color="`${item.color} lighten-2`"
+                    :input-value="selected"
+                    label
+                    small
+                    dark
+                  >
+                    <span class="pr-2">
+                      {{ item.text }}
+                    </span>
+                    <v-icon small @click="parent.selectItem(item)"> mdi-close </v-icon>
+                  </v-chip>
+                </template>
+
+                <template v-slot:item="{ index, item }">
+                  <v-text-field
+                    v-if="editing === item"
+                    v-model="editing.text"
+                    autofocus
+                    flat
+                    background-color="transparent"
+                    hide-details
+                    solo
+                    @keyup.enter="edit(index, item)"
+                  ></v-text-field>
+                  <v-chip v-else :color="`${item.color} lighten-2`" dark label small>
+                    {{ item.text }}
+                  </v-chip>
+                  <v-spacer></v-spacer>
+                </template>
+              </v-combobox>
+
+              <v-combobox
                 v-model="cityStandard"
                 rounded
                 :filter="filter"
@@ -559,9 +612,9 @@
                 :hide-no-data="!search"
                 :items="age"
                 :search-input.sync="search"
-                hide-selected
                 prepend-inner-icon="mdi-cake-variant"
                 label="What is your age?"
+                hide-selected
                 small-chips
                 hide-details
                 outlined
@@ -582,58 +635,6 @@
                       {{ item.text }}
                     </span>
                     <!-- <v-icon small @click="parent.selectItem(item)"> mdi-close </v-icon> -->
-                  </v-chip>
-                </template>
-
-                <template v-slot:item="{ index, item }">
-                  <v-text-field
-                    v-if="editing === item"
-                    v-model="editing.text"
-                    autofocus
-                    flat
-                    background-color="transparent"
-                    hide-details
-                    solo
-                    @keyup.enter="edit(index, item)"
-                  ></v-text-field>
-                  <v-chip v-else :color="`${item.color} lighten-2`" dark label small>
-                    {{ item.text }}
-                  </v-chip>
-                  <v-spacer></v-spacer>
-                </template>
-              </v-combobox>
-
-              <v-combobox
-                v-model="pathwaysFilter"
-                :filter="filter"
-                :hide-no-data="!search"
-                :items="pathways"
-                :search-input.sync="search"
-                hide-selected
-                label="What are your interests?"
-                multiple
-                prepend-inner-icon="mdi-sign-direction"
-                rounded
-                small-chips
-                hide-details
-                outlined
-                class="guide-bar__combobox mt-4 mb-4"
-                @input="val => $emit('update:pathwaysFilter', val)"
-              >
-                <template v-slot:selection="{ attrs, item, parent, selected }">
-                  <v-chip
-                    v-if="item === Object(item)"
-                    v-bind="attrs"
-                    :color="`${item.color} lighten-2`"
-                    :input-value="selected"
-                    label
-                    small
-                    dark
-                  >
-                    <span class="pr-2">
-                      {{ item.text }}
-                    </span>
-                    <v-icon small @click="parent.selectItem(item)"> mdi-close </v-icon>
                   </v-chip>
                 </template>
 
@@ -894,8 +895,8 @@ export default {
 
     pathwaysStandard: [
       {
-        text: 'All',
-        color: 'grey darken-1'
+        text: 'All Employers',
+        color: 'grey darken-4'
       }
     ],
 
@@ -903,152 +904,152 @@ export default {
       // { header: 'Filter by programs' },
       {
         text: 'Student',
-        color: 'grey darken-1'
+        color: 'grey darken-4'
       },
       {
         text: 'Teacher',
-        color: 'grey darken-1'
+        color: 'grey darken-4'
       },
       {
         text: 'Parent',
-        color: 'grey darken-1'
+        color: 'grey darken-4'
       },
       {
         text: 'School',
-        color: 'grey darken-1'
+        color: 'grey darken-4'
       },
       {
         text: 'Employer',
-        color: 'grey darken-1'
+        color: 'grey darken-4'
       },
       {
         text: 'Sponsor',
-        color: 'grey darken-1'
+        color: 'grey darken-4'
       }
     ],
     citizenStandard: {
       text: 'Student',
-      color: 'grey darken-1'
+      color: 'grey darken-4'
     },
 
     city: [
       // { header: 'Filter by programs' },
       {
         text: 'None',
-        color: 'grey darken-1'
+        color: 'grey darken-4'
       },
       {
         text: 'Alameda County, CA',
-        color: 'grey darken-1'
+        color: 'grey darken-4'
       },
       {
         text: 'Alameda, CA',
-        color: 'grey darken-1'
+        color: 'grey darken-4'
       },
       {
         text: 'Albany, CA',
-        color: 'grey darken-1'
+        color: 'grey darken-4'
       },
       {
         text: 'Berkeley, CA',
-        color: 'grey darken-1'
+        color: 'grey darken-4'
       },
       {
         text: 'Contra Costa County, CA',
-        color: 'grey darken-1'
+        color: 'grey darken-4'
       },
       {
         text: 'East Palo Alto, CA',
-        color: 'grey darken-1'
+        color: 'grey darken-4'
       },
       {
         text: 'Emeryville, CA',
-        color: 'grey darken-1'
+        color: 'grey darken-4'
       },
       {
         text: 'Hayward, CA',
-        color: 'grey darken-1'
+        color: 'grey darken-4'
       },
       {
         text: 'Marin County, CA',
-        color: 'grey darken-1'
+        color: 'grey darken-4'
       },
       {
         text: 'Oakland, CA',
-        color: 'grey darken-1'
+        color: 'grey darken-4'
       },
       {
         text: 'Piedmont, CA',
-        color: 'grey darken-1'
+        color: 'grey darken-4'
       },
       {
         text: 'San Leandro, CA',
-        color: 'grey darken-1'
+        color: 'grey darken-4'
       },
       {
         text: 'San Lorenzo, CA',
-        color: 'grey darken-1'
+        color: 'grey darken-4'
       },
 
       {
         text: 'San Mateo County, Ca',
-        color: 'grey darken-1'
+        color: 'grey darken-4'
       },
       {
         text: 'Santa Clara County, CA',
-        color: 'grey darken-1'
+        color: 'grey darken-4'
       }
     ],
 
     age: [
       // { header: 'Filter by programs' },
       {
-        text: 'All',
-        color: 'grey darken-1'
+        text: 'All Ages',
+        color: 'grey darken-4'
       },
       {
         text: '12',
-        color: 'grey darken-1'
+        color: 'grey darken-4'
       },
       {
         text: '13',
-        color: 'grey darken-1'
+        color: 'grey darken-4'
       },
       {
         text: '14',
-        color: 'grey darken-1'
+        color: 'grey darken-4'
       },
       {
         text: '15',
-        color: 'grey darken-1'
+        color: 'grey darken-4'
       },
       {
         text: '16',
-        color: 'grey darken-1'
+        color: 'grey darken-4'
       },
       {
         text: '17',
-        color: 'grey darken-1'
+        color: 'grey darken-4'
       },
       {
         text: '18',
-        color: 'grey darken-1'
+        color: 'grey darken-4'
       },
       {
         text: '19',
-        color: 'grey darken-1'
+        color: 'grey darken-4'
       },
       {
         text: '20',
-        color: 'grey darken-1'
+        color: 'grey darken-4'
       },
       {
         text: '21',
-        color: 'grey darken-1'
+        color: 'grey darken-4'
       },
       {
         text: '22',
-        color: 'grey darken-1'
+        color: 'grey darken-4'
       }
     ],
 
@@ -1056,67 +1057,67 @@ export default {
       // { header: 'Filter by programs' },
       {
         text: 'All',
-        color: 'grey darken-1'
+        color: 'grey darken-4'
       },
       {
         text: 'Agriculture & Natural Resources',
-        color: 'grey darken-1'
+        color: 'grey darken-4'
       },
       {
         text: 'Arts Media & Entertainment',
-        color: 'grey darken-1'
+        color: 'grey darken-4'
       },
       {
         text: 'Building & Construction Trades',
-        color: 'grey darken-1'
+        color: 'grey darken-4'
       },
       {
         text: 'Business & Finance',
-        color: 'grey darken-1'
+        color: 'grey darken-4'
       },
       {
         text: 'Education Child Development & Family Services',
-        color: 'grey darken-1'
+        color: 'grey darken-4'
       },
       {
         text: 'Energy Environment & Utilities',
-        color: 'grey darken-1'
+        color: 'grey darken-4'
       },
       {
         text: 'Engineering & Architecture',
-        color: 'grey darken-1'
+        color: 'grey darken-4'
       },
       {
         text: 'Fashion & Interior Design',
-        color: 'grey darken-1'
+        color: 'grey darken-4'
       },
       {
         text: 'Health Science & Medical Technology',
-        color: 'grey darken-1'
+        color: 'grey darken-4'
       },
       {
         text: 'Hospitality Tourism & Recreation',
-        color: 'grey darken-1'
+        color: 'grey darken-4'
       },
       {
         text: 'Information & Communication Technologies',
-        color: 'grey darken-1'
+        color: 'grey darken-4'
       },
       {
         text: 'Manufacturing & Product Design',
-        color: 'grey darken-1'
+        color: 'grey darken-4'
       },
       {
         text: 'Marketing Sales & Services',
-        color: 'grey darken-1'
+        color: 'grey darken-4'
       },
       {
         text: 'Public Services',
-        color: 'grey darken-1'
+        color: 'grey darken-4'
       },
       {
         text: 'Transportation',
-        color: 'grey darken-1'
+        color: 'grey darken-4'
       }
     ],
 
@@ -1132,7 +1133,6 @@ export default {
     search: null,
     y: 0
   }),
-
   // watch: {
   //   model(val, prev) {
   //     if (val.length === prev.length) return;
@@ -1269,7 +1269,7 @@ $stepper-step-step-height: 50px;
   // height: 100vh;
   // width: 25vw;
   max-width: 25vw;
-  background-color: #dedede !important;
+  // background-color: #dedede !important;
   color: #dedede !important;
 }
 .v-application--is-ltr .guide-bar .v-stepper--vertical .v-stepper__content {

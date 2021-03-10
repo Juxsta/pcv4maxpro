@@ -131,6 +131,11 @@
   margin-left: 20px;
 }
 
+.nav__logo2 {
+  width: 35px;
+  height: 43.75px;
+}
+
 .navbar__avatar {
 }
 
