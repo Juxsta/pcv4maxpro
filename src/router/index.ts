@@ -34,7 +34,7 @@ const routes: Array<RouteConfig> = [
     component: Timeline
   },
   {
-    path: '/login',
+    path: '/login/:page',
     name: 'login',
     component: Login,
     meta: {
