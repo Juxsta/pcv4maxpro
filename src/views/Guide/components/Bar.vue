@@ -16,11 +16,11 @@
       <div @click="activeStep = unlockedStep">
         <v-tooltip right color="black">
           <template v-slot:activator="{ on, attrs }"
-            ><v-icon v-bind="attrs" color="orange" class="guide-bar__sidebar-icon" v-on="on"
+            ><v-icon v-bind="attrs" color="blue" class="guide-bar__sidebar-icon" v-on="on"
               >mdi-progress-wrench</v-icon
             >
           </template>
-          <span>Setup Program</span>
+          <span>Program Guide</span>
         </v-tooltip>
       </div>
 
@@ -77,7 +77,7 @@
           </div>
 
           <!-- READY TO PUBLISH PROGRAM BUTTON -->
-          <v-dialog v-model="dialog" persistent max-width="500px">
+          <!-- <v-dialog v-model="dialog" persistent max-width="500px">
             <template v-slot:activator="{ on, attrs }">
               <div class="d-flex justify-center">
                 <v-btn min-width="225px" v-bind="attrs" disabled rounded depressed v-on="on"
@@ -156,7 +156,7 @@
                 </div>
               </v-container>
             </v-card>
-          </v-dialog>
+          </v-dialog> -->
 
           <!-- ORGANIZER SETUP MODE -->
         </div>

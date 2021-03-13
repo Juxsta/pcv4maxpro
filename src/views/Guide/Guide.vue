@@ -16,9 +16,9 @@
       </div>
 
       <div class="guide__page">
-        <div class="guide__setupbutton">
+        <!-- <div class="guide__setupbutton">
           <v-btn small depressed dark color="orange">Setup Mode</v-btn>
-        </div>
+        </div> -->
 
         <div v-if="currentPage != 0" class="guide__locks guide__locks--left unlocked">
           <v-icon x-large color="grey lighten-1" class="guide__lock" @click="prevPage"
@@ -273,7 +273,7 @@ export default defineComponent({
     height: 100vh;
     // display: flex;
     position: relative;
-    border: 12px solid orange;
+    border: 12px solid transparent;
   }
   &activities {
     overflow: scroll;
