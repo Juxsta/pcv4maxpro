@@ -133,7 +133,6 @@ import { ActionTypes } from '@/store/modules/auth/actions';
 import { useAuthActions, useDbState } from '@/store';
 import Loading from '@/components/Loading.vue';
 import { onLogin } from '@/vue-apollo';
-import * as Sentry from '@sentry/vue'; // Import Sentry to start using it
 
 export default {
   components: {
@@ -142,48 +141,47 @@ export default {
   beforeRouteEnter(to, from, next) {
     const { user } = useDbState(['user']);
     if (!user.value) next();
-    else next({ name: 'portfolio' });
+    else next({ name: 'login' });
   },
-  setup(_props, { root: { $router, $route } }) {
+  setup(_props, { root: { $router } }) {
     const state = reactive({
       email: '',
       password: '',
-      show1: false,
+      resetEmail: '',
       dialog: false,
       error: ''
     });
+    const ui = reactive({
+      msg: '',
+      type: 'success',
+      loading: false
+    });
     const { loginUser } = useAuthActions([ActionTypes.loginUser]);
-    // async function login() {
-    //   try {
-    //     const user = await loginUser({ email: state.email, password: state.password });
-    //     await onLogin(user!.accessToken);
-    //     $router.push({ name: 'setup' });
-    //   } catch (err) {
-    //     if (err.statusCode === 401)
-    //       state.error = 'That email and password combination does not exist';
-    //     else state.error = err;
-    //   }
-    // }
-
+    const { sendResetPassword } = useAuthActions(['sendResetPassword']);
+    const sendResetPasswordEmail = async () => {
+      ui.loading = true;
+      try {
+        await sendResetPassword({ email: state.resetEmail });
+        ui.type = 'success';
+        ui.msg = 'Reset password email has been sent';
+      } catch (err) {
+        ui.msg = 'Reset password email could not be sent';
+        ui.type = 'error';
+      }
+      ui.loading = false;
+    };
     async function login() {
       try {
         const user = await loginUser({ email: state.email, password: state.password });
         await onLogin(user!.accessToken);
-        $router.push({ name: $route.params.page || 'setup' });
+        $router.push({ name: 'setup' });
       } catch (err) {
-        // To catch errors: pass an error object to captureException() to get it captured as event in Sentry.
-        // Sentry.captureException() should be called in places where the code might break.  This will allow you to find and fix bugs.
-        if (err.statusCode === 401) {
-          Sentry.captureException(err); // just for testing, not useful for production.  Logging when users accidentally type someting wrong won't help you fix the code.
+        if (err.statusCode === 401)
           state.error = 'That email and password combination does not exist';
-        } else {
-          Sentry.captureException(err); // catches for non email and password DNE errors. Useful because it shows that an unknown error occurred - maybe a bug or unexpected issue on the platform.
-          state.error = err;
-        }
+        else state.error = err;
       }
     }
-
-    return { ...toRefs(state), login };
+    return { ...toRefs(state), login, ...toRefs(ui), sendResetPasswordEmail };
   }
 };
 </script>
