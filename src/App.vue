@@ -8,27 +8,27 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import * as Sentry from '@sentry/vue';
+// import * as Sentry from '@sentry/vue';
 // import Navbar from '@/components/Navbar.vue';
 import Navbar from '@/components/Navbar.vue';
 import '@/styles/main.scss';
 import { computed } from '@vue/composition-api';
 import { useToolGetters, useAuthGetters } from '@/store';
-import SentryRRWeb from '@sentry/rrweb';
+// import SentryRRWeb from '@sentry/rrweb';
 // import Profile from 'src/views/Portfolio/Profile.vue';
 /* eslint-disable */
-Sentry.init({
-  Vue,
-  integrations : [
-    new SentryRRWeb({
-      checkoutEveryNth: 10,
-      maskAllInputs: false,
-    }),
-  ],
-  environment: process.env.NODE_ENV,
-  dsn: process.env.VUE_APP_SENTRY_DSN,
-  logErrors: true,
-});
+// Sentry.init({
+//   Vue,
+//   integrations : [
+//     new SentryRRWeb({
+//       checkoutEveryNth: 10,
+//       maskAllInputs: false,
+//     }),
+//   ],
+//   environment: process.env.NODE_ENV,
+//   dsn: process.env.VUE_APP_SENTRY_DSN,
+//   logErrors: true,
+// });
 
 export default Vue.extend({
   name: 'App',
