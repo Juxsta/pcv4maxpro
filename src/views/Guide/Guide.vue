@@ -69,10 +69,10 @@
                 :disabled="!isNextUnlocked"
                 v-on="on"
                 @click="nextPage"
-                >mdi-progress-wrench</v-icon
+                >mdi-lock</v-icon
               >
             </template>
-            <span>Setup Next Activity</span>
+            <span>Locked</span>
           </v-tooltip>
 
           <!-- <v-icon large color="grey lighten-1" class="guide__lock" @click="nextPage"

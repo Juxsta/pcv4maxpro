@@ -12,12 +12,47 @@
         </v-tooltip>
       </div>
 
+      <!-- <div>
+        <v-tooltip right color="black">
+          <template v-slot:activator="{ on, attrs }"
+            ><v-icon v-bind="attrs" color="#404142" class="guide-bar__sidebar-icon" v-on="on"
+              >mdi-bell-outline</v-icon
+            >
+          </template>
+          <span>Notifications </span>
+        </v-tooltip>
+      </div> -->
+
+      <v-divider />
+
+      <!-- <div>
+        <v-tooltip right color="black">
+          <template v-slot:activator="{ on, attrs }"
+            ><v-icon v-bind="attrs" color="blue" class="guide-bar__sidebar-icon" v-on="on"
+              >mdi-transit-connection-variant</v-icon
+            >
+          </template>
+          <span>Program Guide</span>
+        </v-tooltip>
+      </div>
+
+      <div>
+        <v-tooltip right color="black">
+          <template v-slot:activator="{ on, attrs }"
+            ><v-icon v-bind="attrs" color="#404142" class="guide-bar__sidebar-icon" v-on="on"
+              >mdi-rocket</v-icon
+            >
+          </template>
+          <span>Launch Program</span>
+        </v-tooltip>
+      </div> -->
+
       <v-divider />
       <div @click="activeStep = unlockedStep">
         <v-tooltip right color="black">
           <template v-slot:activator="{ on, attrs }"
             ><v-icon v-bind="attrs" color="blue" class="guide-bar__sidebar-icon" v-on="on"
-              >mdi-progress-wrench</v-icon
+              >mdi-transit-connection-variant</v-icon
             >
           </template>
           <span>Program Guide</span>
@@ -39,7 +74,7 @@
     </div>
     <v-card class="program-card">
       <v-expand-x-transition>
-        <div v-show="expand" class="guide-bar__container">
+        <div v-show="!expand" class="guide-bar__container">
           <div><v-btn rounded disabled x-small outlined depressed>PilotCity Flagship</v-btn></div>
           <div class="guide-bar__title">{{ title }}</div>
 
@@ -58,15 +93,15 @@
                     <div class="guide-bar__timeline-item">
                       {{ timeline[n - 1].step }}
                       <div>
-                        <v-btn
+                        <!-- <v-btn
                           class="guide-bar__timeline-item-setup"
                           color="orange"
                           outlined
                           x-small
                           depressed
                           :disabled="!timeline[n - 1].unlocked"
-                          >Setup</v-btn
-                        >
+                          >Preview</v-btn
+                        > -->
                       </div>
                     </div>
                   </v-stepper-step>
@@ -184,7 +219,7 @@ export default defineComponent({
       type: Number
     },
     title: {
-      default: 'Program Setup'
+      default: 'Lawrence Berkeley National Laboratory'
     }
   },
   setup(props, ctx) {
