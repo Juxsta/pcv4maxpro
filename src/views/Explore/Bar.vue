@@ -524,10 +524,9 @@
                   <v-chip
                     v-if="item === Object(item)"
                     v-bind="attrs"
-                    :color="`${item.color} lighten-2`"
+                    :color="`${item.color}`"
                     :input-value="selected"
-                    label
-                    small
+                    x-small
                     dark
                   >
                     <span class="pr-2">
@@ -548,7 +547,7 @@
                     solo
                     @keyup.enter="edit(index, item)"
                   ></v-text-field>
-                  <v-chip v-else :color="`${item.color} lighten-2`" dark label small>
+                  <v-chip v-else :color="`${item.color}`" dark label small>
                     {{ item.text }}
                   </v-chip>
                   <v-spacer></v-spacer>
@@ -575,10 +574,9 @@
                   <v-chip
                     v-if="item === Object(item)"
                     v-bind="attrs"
-                    :color="`${item.color} lighten-2`"
+                    :color="`${item.color}`"
                     :input-value="selected"
-                    label
-                    small
+                    x-small
                     dark
                   >
                     <span class="pr-2">
@@ -599,14 +597,14 @@
                     solo
                     @keyup.enter="edit(index, item)"
                   ></v-text-field>
-                  <v-chip v-else :color="`${item.color} lighten-2`" dark label small>
+                  <v-chip v-else :color="`${item.color}`" dark label small>
                     {{ item.text }}
                   </v-chip>
                   <v-spacer></v-spacer>
                 </template>
               </v-combobox>
 
-              <v-combobox
+              <!-- <v-combobox
                 rounded
                 :filter="filter"
                 :hide-no-data="!search"
@@ -634,7 +632,6 @@
                     <span class="pr-2">
                       {{ item.text }}
                     </span>
-                    <!-- <v-icon small @click="parent.selectItem(item)"> mdi-close </v-icon> -->
                   </v-chip>
                 </template>
 
@@ -654,7 +651,7 @@
                   </v-chip>
                   <v-spacer></v-spacer>
                 </template>
-              </v-combobox>
+              </v-combobox> -->
 
               <!-- <div class="">
                 <template>

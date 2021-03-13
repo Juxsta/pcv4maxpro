@@ -140,7 +140,6 @@
               <v-chip
                 v-bind="attrs"
                 :input-value="selected"
-                label
                 small
                 rounded
                 dark
@@ -1444,7 +1443,7 @@ export default {
         'Public Services',
         'Transportation'
       ],
-      pathwayPresets: []
+      pathwayPresets: ['All']
     };
   }
 };
