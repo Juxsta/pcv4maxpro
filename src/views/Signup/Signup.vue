@@ -109,7 +109,6 @@
 <script lang="ts">
 import { reactive, toRefs, ref } from '@vue/composition-api';
 import { useAuthActions, useDbState } from '@/store';
-import * as Sentry from '@sentry/vue'; // Import Sentry to start using it
 
 export default {
   name: 'Signup',
@@ -126,7 +125,6 @@ export default {
     const state = reactive({
       email: '',
       password: '',
-      show1: false,
       terms: false
     });
     state.email = param;
@@ -137,21 +135,6 @@ export default {
       loading: false
     });
     const { signup } = useAuthActions(['signup']);
-    // async function submit() {
-    //   ui.loading = true;
-    //   try {
-    //     await signup({ email: state.email, password: state.password });
-    //     ui.type = 'success';
-    //     ui.msg = 'An email confirmation has been sent to your address';
-    //   } catch (err) {
-    //     ui.msg = (err as Error).message.includes('409')
-    //       ? 'Email already in use'
-    //       : 'Could not signup';
-    //     ui.type = 'error';
-    //   }
-    //   ui.loading = false;
-    // }
-
     async function submit() {
       ui.loading = true;
       try {
@@ -162,19 +145,10 @@ export default {
         ui.msg = (err as Error).message.includes('409')
           ? 'Email already in use'
           : 'Could not signup';
-        if (ui.msg === 'Email already in use') {
-          // Wouldn't want to catch errors here. Logging when the user already has an email won't help you debug the code.
-          Sentry.captureMessage('email already in use'); // can use captureMessage to send a text string to sentry (might be useful for test circumstances)
-        }
-        if (ui.msg === 'Could not signup') {
-          // This would be a good place because it was an error it is unexpected. Might help fix a bug in the code
-          Sentry.captureException(err);
-        }
         ui.type = 'error';
       }
       ui.loading = false;
     }
-
     return { ...toRefs(state), submit, ...toRefs(ui), dialog };
   },
   methods: {}
