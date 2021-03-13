@@ -9,8 +9,8 @@ const routes: Array<RouteConfig> = [
     component: Guide,
     meta: {
       layout: 'no-nav',
-      requiresAuth: true,
-      requiresUser: true
+      requiresAuth: false,
+      requiresUser: false
     }
   }
 ];
