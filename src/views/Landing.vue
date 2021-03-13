@@ -41,7 +41,7 @@
             depressed
             large
             rounded
-            color="green"
+            dark
             :ripple="false"
             :to="{ name: 'signup' }"
           >

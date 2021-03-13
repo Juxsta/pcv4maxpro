@@ -69,6 +69,20 @@
         large
         depressed
         rounded
+        dark
+        color="green"
+        :ripple="false"
+        @click="$router.push({ name: 'portfolio' })"
+        ><v-icon left>mdi-sign-direction</v-icon>
+        <span class="font-weight-black">Explore Programs</span>
+      </v-btn>
+
+      <v-btn
+        v-if="user"
+        class="mr-3 ml-3"
+        large
+        depressed
+        rounded
         outlined
         color="white"
         :ripple="false"
