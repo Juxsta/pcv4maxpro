@@ -95,18 +95,18 @@
 <script lang="ts">
 import { computed, defineComponent, ref, Ref, watchEffect } from '@vue/composition-api';
 // import Forum from 'developer-adk-interact';
-// import demo from 'developer-adk-demo/src/Module/Module.vue';
-// import autoapply from 'developer-adk-autoapply/src/Module/Module.vue';
-// import interact from 'developer-adk-interact/src/Module/Module.vue';
+import demo from 'developer-adk-demo/src/Module/Module.vue';
+import autoapply from 'developer-adk-autoapply/src/Module/Module.vue';
+import interact from 'developer-adk-interact/src/Module/Module.vue';
 import rfp from 'developer-adk-rfp/src/Module/Module.vue';
 // import team from 'developer-adk-teamcommunity/src/Module/Module.vue';
 import train from 'developer-adk-train/src/Module/Module.vue';
 import research from 'developer-adk-research/src/Module/Module.vue';
-// import practice from 'developer-adk-practice/src/Module/Module.vue';
-// import ideate from 'developer-adk-ideate/src/Module/Module.vue';
+import practice from 'developer-adk-practice/src/Module/Module.vue';
+import ideate from 'developer-adk-ideate/src/Module/Module.vue';
 // import pitches from 'developer-adk-pitches/src/Module/Module.vue';
 // import present from 'developer-adk-present/src/Module/Module.vue';
-// import interview from 'developer-adk-interview/src/Module/Module.vue';
+import interview from 'developer-adk-interview/src/Module/Module.vue';
 import offer from 'developer-adk-offer/src/Module/Module.vue';
 // eslint-disable-next-line import/no-unresolved
 import setup from 'developer-adk-setup/src/Module/Module.vue';
@@ -122,18 +122,18 @@ export default defineComponent({
     Loading,
     setup,
     // Forum,
-    // interact
-    // demo
-    // autoapply,
+    interact,
+    demo,
+    autoapply,
     rfp,
     // team,
     train,
     research,
-    // practice,
-    // ideate,
+    practice,
+    ideate,
     // pitches,
     // present,
-    // interview,
+    interview,
     offer
   },
   setup(_props, ctx) {
@@ -144,14 +144,14 @@ export default defineComponent({
       // 'team',
       'train',
       'research',
-      // 'pracitce',
-      // 'ideate',
+      'practice',
+      'ideate',
       // 'pitches',
-      // 'interact'
-      // 'demo',
+      'interact',
+      'demo',
       // 'present',
-      // 'autoapply',
-      // 'interview',
+      'autoapply',
+      'interview',
       'offer'
     ]);
 
@@ -230,14 +230,14 @@ export default defineComponent({
       programDoc.value.data.licensed = new Date();
       await programDoc.value.update();
       nextPage();
-      // return createCheckoutSession({
-      //   lineItems: [{ priceId: licensePriceId, quantity: 1 }],
-      //   cancelUrl,
-      //   successUrl: window.location.href.replace(/.$/, '1'), // change page to 1 i.e. setup
-      //   metadata: {
-      //     programId: ctx.root.$route.params.programId
-      //   }
-      // });
+      return createCheckoutSession({
+        lineItems: [{ priceId: licensePriceId, quantity: 1 }],
+        cancelUrl,
+        successUrl: window.location.href.replace(/.$/, '1'), // change page to 1 i.e. setup
+        metadata: {
+          programId: ctx.root.$route.params.programId
+        }
+      });
     }
     return {
       currentUnit,
