@@ -194,6 +194,188 @@
           </v-dialog> -->
 
           <!-- ORGANIZER SETUP MODE -->
+
+          <div class="guide-bar__actions">
+            <div class="guide-bar__actions-list">
+              <v-icon v-for="action in actions" :key="action.icon" dark @click="logThis(action.fn)">
+                {{ 'mdi-' + action.icon }}
+              </v-icon>
+            </div>
+          </div>
+          <div class="guide-bar__actions-share">
+            <v-dialog v-model="dialog" persistent max-width="600px">
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn
+                  v-bind="attrs"
+                  class="guide-bar__actions-share-btn"
+                  small
+                  outlined
+                  depressed
+                  v-on="on"
+                  >Share</v-btn
+                >
+              </template>
+              <v-card>
+                <v-card-title>
+                  <div class="overline font-weight-bold">Share Access</div>
+
+                  <div class="ml-auto">
+                    <v-btn icon @click="dialog = false"><v-icon>mdi-close</v-icon></v-btn>
+                  </div>
+                </v-card-title>
+
+                <v-card-subtitle>Allow stakeholders to monitor your program</v-card-subtitle>
+
+                <v-card-text>
+                  <v-container class="d-flex flex-row">
+                    <v-text-field
+                      hide-details
+                      dense
+                      outlined
+                      label="Enter email address"
+                    ></v-text-field>
+                    <v-btn class="ml-4 mr-4" disabled depressed>Send Invite</v-btn>
+                    <!-- <v-btn class="ml-4 mr-4" color="blue" dark depressed>Send Invite</v-btn> -->
+                  </v-container>
+                </v-card-text>
+
+                <v-divider></v-divider>
+
+                <v-card-text>
+                  <v-row
+                    ><v-col cols="1" class="d-flex align-center"
+                      ><v-avatar size="32">
+                        <v-img src="https://picsum.photos/510/300?random"></v-img></v-avatar></v-col
+                    ><v-col class="d-flex align-center" cols="8"
+                      >Jeff Lee<v-chip class="ml-2" dark disabled x-small>Parent</v-chip></v-col
+                    ><v-col class="" cols="3"
+                      ><v-select
+                        value="Monitor"
+                        :items="shareAccess"
+                        hide-details
+                        dense
+                        outlined
+                      ></v-select></v-col
+                  ></v-row>
+
+                  <v-row
+                    ><v-col cols="1" class="d-flex align-center"
+                      ><v-avatar size="32">
+                        <v-img src="https://picsum.photos/510/300?random"></v-img></v-avatar></v-col
+                    ><v-col class="d-flex align-center" cols="8"
+                      >Kristin Berbawy<v-chip class="ml-2" dark disabled x-small
+                        >Teacher</v-chip
+                      ></v-col
+                    ><v-col class="" cols="3"
+                      ><v-select
+                        value="Monitor"
+                        :items="shareAccess"
+                        hide-details
+                        dense
+                        outlined
+                      ></v-select></v-col
+                  ></v-row>
+
+                  <v-row
+                    ><v-col cols="1" class="d-flex align-center"
+                      ><v-avatar size="32">
+                        <v-img src="https://picsum.photos/510/300?random"></v-img></v-avatar></v-col
+                    ><v-col class="d-flex align-center" cols="8"
+                      >Felicia Vargas<v-chip class="ml-2" dark disabled x-small
+                        >School</v-chip
+                      ></v-col
+                    ><v-col class="" cols="3"
+                      ><v-select
+                        value="Monitor"
+                        :items="shareAccess"
+                        hide-details
+                        dense
+                        outlined
+                      ></v-select></v-col
+                  ></v-row>
+
+                  <v-row
+                    ><v-col cols="1" class="d-flex align-center"
+                      ><v-avatar color="grey lighten-2" size="32"> </v-avatar></v-col
+                    ><v-col class="d-flex align-center" cols="8">dericklee@pilotcity.com</v-col
+                    ><v-col class="" cols="3"
+                      ><v-select
+                        value="Monitor"
+                        :items="shareAccess"
+                        hide-details
+                        dense
+                        outlined
+                      ></v-select></v-col
+                  ></v-row>
+                </v-card-text>
+
+                <v-divider></v-divider>
+                <!-- <v-card-text>
+                  <v-container>
+                    <v-row>
+                      <v-col cols="12" sm="6" md="4">
+                        <v-text-field label="Legal first name*" required></v-text-field>
+                      </v-col>
+                      <v-col cols="12" sm="6" md="4">
+                        <v-text-field
+                          label="Legal middle name"
+                          hint="example of helper text only on focus"
+                        ></v-text-field>
+                      </v-col>
+                      <v-col cols="12" sm="6" md="4">
+                        <v-text-field
+                          label="Legal last name*"
+                          hint="example of persistent helper text"
+                          persistent-hint
+                          required
+                        ></v-text-field>
+                      </v-col>
+                      <v-col cols="12">
+                        <v-text-field label="Email*" required></v-text-field>
+                      </v-col>
+                      <v-col cols="12">
+                        <v-text-field label="Password*" type="password" required></v-text-field>
+                      </v-col>
+                      <v-col cols="12" sm="6">
+                        <v-select
+                          :items="['0-17', '18-29', '30-54', '54+']"
+                          label="Age*"
+                          required
+                        ></v-select>
+                      </v-col>
+                      <v-col cols="12" sm="6">
+                        <v-autocomplete
+                          :items="[
+                            'Skiing',
+                            'Ice hockey',
+                            'Soccer',
+                            'Basketball',
+                            'Hockey',
+                            'Reading',
+                            'Writing',
+                            'Coding',
+                            'Basejump'
+                          ]"
+                          label="Interests"
+                          multiple
+                        ></v-autocomplete>
+                      </v-col>
+                    </v-row>
+                  </v-container>
+                  <small>*indicates required field</small>
+                </v-card-text> -->
+                <v-card-actions>
+                  <!-- <v-spacer></v-spacer> -->
+                  <v-container class="d-flex justify-end">
+                    <v-btn color="grey darken-1" text @click="dialog = false"> Close </v-btn>
+                    <v-btn color="grey darken-1" text @click="dialog = false">
+                      Save
+                    </v-btn></v-container
+                  >
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+          </div>
         </div>
       </v-expand-x-transition>
     </v-card>
@@ -409,6 +591,10 @@ $stepper-step-step-height: 50px;
   display: flex;
   height: 95vh;
   // background-color: transparent;
+
+  &__actions-share-btn {
+    width: 100%;
+  }
 
   &__cta1 {
     margin-right: auto;

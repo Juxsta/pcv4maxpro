@@ -39,11 +39,11 @@
                 class="guide__lock"
                 v-on="on"
                 @click="prevPage"
-                >mdi-check-circle</v-icon
+                >mdi-lock-open</v-icon
               >
             </template>
 
-            <span>Last Activity Setup</span>
+            <span>Unlocked Activity</span>
           </v-tooltip>
         </div>
 
@@ -64,7 +64,7 @@
               <v-icon
                 v-bind="attrs"
                 x-large
-                color="orange"
+                color="red"
                 class="guide__lock"
                 :disabled="!isNextUnlocked"
                 v-on="on"
@@ -72,7 +72,7 @@
                 >mdi-lock</v-icon
               >
             </template>
-            <span>Locked</span>
+            <span>Locked Activity</span>
           </v-tooltip>
 
           <!-- <v-icon large color="grey lighten-1" class="guide__lock" @click="nextPage"
