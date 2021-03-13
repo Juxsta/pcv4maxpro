@@ -95,7 +95,7 @@
 <script lang="ts">
 import { computed, defineComponent, ref, Ref, watchEffect } from '@vue/composition-api';
 // import Forum from 'developer-adk-interact';
-import demo from 'developer-adk-demo/src/Module/Module.vue';
+// import demo from 'developer-adk-demo/src/Module/Module.vue';
 import autoapply from 'developer-adk-autoapply/src/Module/Module.vue';
 import interact from 'developer-adk-interact/src/Module/Module.vue';
 import rfp from 'developer-adk-rfp/src/Module/Module.vue';
@@ -123,7 +123,7 @@ export default defineComponent({
     setup,
     // Forum,
     interact,
-    demo,
+    // demo,
     autoapply,
     rfp,
     // team,
@@ -148,7 +148,7 @@ export default defineComponent({
       'ideate',
       // 'pitches',
       'interact',
-      'demo',
+      // 'demo',
       // 'present',
       'autoapply',
       'interview',
@@ -230,14 +230,14 @@ export default defineComponent({
       programDoc.value.data.licensed = new Date();
       await programDoc.value.update();
       nextPage();
-      return createCheckoutSession({
-        lineItems: [{ priceId: licensePriceId, quantity: 1 }],
-        cancelUrl,
-        successUrl: window.location.href.replace(/.$/, '1'), // change page to 1 i.e. setup
-        metadata: {
-          programId: ctx.root.$route.params.programId
-        }
-      });
+      // return createCheckoutSession({
+      //   lineItems: [{ priceId: licensePriceId, quantity: 1 }],
+      //   cancelUrl,
+      //   successUrl: window.location.href.replace(/.$/, '1'), // change page to 1 i.e. setup
+      //   metadata: {
+      //     programId: ctx.root.$route.params.programId
+      //   }
+      // });
     }
     return {
       currentUnit,
