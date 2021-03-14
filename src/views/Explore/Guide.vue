@@ -232,7 +232,7 @@ export default defineComponent({
         );
       else state.bookmarked.push(program);
     };
-
+    console.log(state.programFilter);
     return {
       filteredPrograms,
       ...toRefs(state),

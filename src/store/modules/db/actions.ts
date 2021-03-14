@@ -4,7 +4,7 @@ import { Stripe } from 'stripe';
 import { DbGetters } from './getters';
 import { Collection, getCollectionType } from '../../../@types/collections.d';
 import dbState from './state';
-
+// eslint-disable-next-line no-shadow
 export enum ActionTypes {
   create = 'create',
   update = 'update',

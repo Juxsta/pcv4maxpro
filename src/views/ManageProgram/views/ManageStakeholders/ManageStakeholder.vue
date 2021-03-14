@@ -19,7 +19,7 @@
             sort-by="index"
             @current-items="indexHandler"
           >
-            <template v-slot:item.role>
+            <template #item.role>
               <v-select label="Role" dense outlined></v-select>
             </template>
           </v-data-table>
@@ -41,11 +41,11 @@ export default {
     IndexTable,
     ManageFilter
   },
-  data() {
-    return {};
-  },
   setup() {
     return { header: ref(HEADER), items: ref(items) };
+  },
+  data() {
+    return {};
   }
 };
 </script>

@@ -2,7 +2,7 @@ import { ActionContext, ActionTree } from 'vuex';
 import { StripeError } from '@stripe/stripe-js';
 import { RootState } from '../../state';
 import stripeState from './state';
-
+// eslint-disable-next-line no-shadow
 export enum ActionTypes {
   createCheckoutSession = 'createCheckoutSession'
 }
@@ -39,7 +39,6 @@ export const actions: StripeActions = {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          // eslint-disable-next-line @typescript-eslint/camelcase
           lineItems: lineItems.map(item => ({
             price: item.priceId,
             quantity: item.quantity
@@ -67,7 +66,6 @@ export const actions: StripeActions = {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          // eslint-disable-next-line @typescript-eslint/camelcase
           lineItems: lineItems.map(item => ({
             price: item.priceId,
             quantity: item.quantity

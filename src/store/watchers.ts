@@ -1,7 +1,10 @@
 import { watch } from '@vue/composition-api';
-import store, { useAuthGetters, useDbGetters } from '@/store';
+import store, { useAuthGetters, useDbGetters, useRealmAppState } from '@/store';
 import { ObjectId } from 'bson';
+import * as Realm from 'realm-web';
 import { MutationTypes } from './modules/db/mutations';
+
+const { app } = useRealmAppState(['app']);
 
 const { getUser } = useAuthGetters(['getUser']);
 const { collection } = useDbGetters(['collection']);
@@ -12,6 +15,12 @@ export const setUser = watch(
     if (newUser) {
       const user = await collection.value!('User').findOne({ _id: new ObjectId(newUser.id) });
       store.commit(`db/${MutationTypes.setUser}`, user);
+    } else if (newUser === null) {
+      console.log(app.value.currentUser);
+      app.value.logIn(Realm.Credentials.anonymous()).then(() => {
+        console.log(app.value.currentUser);
+      });
+      console.log(app.value.currentUser);
     }
   },
   {

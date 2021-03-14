@@ -89,7 +89,7 @@
 
               <div class="pl-2 pb-2 mb-3">
                 <v-tooltip bottom>
-                  <template v-slot:activator="{ on, attrs }">
+                  <template #activator="{ on, attrs }">
                     <v-btn
                       v-bind="attrs"
                       icon
@@ -106,7 +106,7 @@
                 </v-tooltip>
 
                 <v-tooltip bottom>
-                  <template v-slot:activator="{ on, attrs }">
+                  <template #activator="{ on, attrs }">
                     <v-btn
                       v-bind="attrs"
                       icon
@@ -163,7 +163,7 @@
                 >
 
                 <v-tooltip right color="black">
-                  <template v-slot:activator="{ on, attrs }">
+                  <template #activator="{ on, attrs }">
                     <v-chip
                       v-bind="attrs"
                       class="guide-bar__activities-chips font-weight-bold"
@@ -181,7 +181,7 @@
                 </v-tooltip>
 
                 <v-tooltip right color="black">
-                  <template v-slot:activator="{ on, attrs }">
+                  <template #activator="{ on, attrs }">
                     <v-chip
                       v-bind="attrs"
                       class="guide-bar__activities-chips font-weight-bold"
@@ -198,7 +198,7 @@
                 </v-tooltip>
 
                 <v-tooltip right color="black">
-                  <template v-slot:activator="{ on, attrs }">
+                  <template #activator="{ on, attrs }">
                     <v-chip
                       v-bind="attrs"
                       class="guide-bar__activities-chips font-weight-bold"
@@ -217,7 +217,7 @@
                 </v-tooltip>
 
                 <v-tooltip right color="black">
-                  <template v-slot:activator="{ on, attrs }">
+                  <template #activator="{ on, attrs }">
                     <v-chip
                       v-bind="attrs"
                       class="guide-bar__activities-chips font-weight-bold"
@@ -234,7 +234,7 @@
                 </v-tooltip>
 
                 <v-tooltip right color="black">
-                  <template v-slot:activator="{ on, attrs }">
+                  <template #activator="{ on, attrs }">
                     <v-chip
                       v-bind="attrs"
                       class="guide-bar__activities-chips font-weight-bold"
@@ -251,7 +251,7 @@
                 </v-tooltip>
 
                 <v-tooltip right color="black">
-                  <template v-slot:activator="{ on, attrs }">
+                  <template #activator="{ on, attrs }">
                     <v-chip
                       v-bind="attrs"
                       class="guide-bar__activities-chips font-weight-bold"
@@ -268,7 +268,7 @@
                 </v-tooltip>
 
                 <v-tooltip right color="black">
-                  <template v-slot:activator="{ on, attrs }">
+                  <template #activator="{ on, attrs }">
                     <v-chip
                       v-bind="attrs"
                       class="guide-bar__activities-chips font-weight-bold"
@@ -287,7 +287,7 @@
                 </v-tooltip>
 
                 <v-tooltip right color="black">
-                  <template v-slot:activator="{ on, attrs }">
+                  <template #activator="{ on, attrs }">
                     <v-chip
                       v-bind="attrs"
                       class="guide-bar__activities-chips font-weight-bold"
@@ -305,7 +305,7 @@
                   >
                 </v-tooltip>
                 <v-tooltip right color="black">
-                  <template v-slot:activator="{ on, attrs }">
+                  <template #activator="{ on, attrs }">
                     <v-chip
                       v-bind="attrs"
                       class="guide-bar__activities-chips font-weight-bold"
@@ -323,7 +323,7 @@
                   >
                 </v-tooltip>
                 <v-tooltip right color="black">
-                  <template v-slot:activator="{ on, attrs }">
+                  <template #activator="{ on, attrs }">
                     <v-chip
                       v-bind="attrs"
                       class="guide-bar__activities-chips font-weight-bold"
@@ -342,7 +342,7 @@
                 </v-tooltip>
 
                 <v-tooltip right color="black">
-                  <template v-slot:activator="{ on, attrs }">
+                  <template #activator="{ on, attrs }">
                     <v-chip
                       v-bind="attrs"
                       class="guide-bar__activities-chips font-weight-bold"
@@ -360,7 +360,7 @@
                   >
                 </v-tooltip>
                 <v-tooltip right color="black">
-                  <template v-slot:activator="{ on, attrs }">
+                  <template #activator="{ on, attrs }">
                     <v-chip
                       v-bind="attrs"
                       class="guide-bar__activities-chips font-weight-bold"
@@ -379,7 +379,7 @@
                 </v-tooltip>
 
                 <v-tooltip right color="black">
-                  <template v-slot:activator="{ on, attrs }">
+                  <template #activator="{ on, attrs }">
                     <v-chip
                       v-bind="attrs"
                       class="guide-bar__activities-chips font-weight-bold"
@@ -397,7 +397,7 @@
                   >
                 </v-tooltip>
                 <v-tooltip right color="black">
-                  <template v-slot:activator="{ on, attrs }">
+                  <template #activator="{ on, attrs }">
                     <v-chip
                       v-bind="attrs"
                       class="guide-bar__activities-chips font-weight-bold"
@@ -417,7 +417,7 @@
                 </v-tooltip>
 
                 <v-tooltip right color="black">
-                  <template v-slot:activator="{ on, attrs }">
+                  <template #activator="{ on, attrs }">
                     <v-chip
                       v-bind="attrs"
                       class="guide-bar__activities-chips font-weight-bold"
@@ -436,7 +436,7 @@
                 </v-tooltip>
 
                 <v-tooltip right color="black">
-                  <template v-slot:activator="{ on, attrs }">
+                  <template #activator="{ on, attrs }">
                     <v-chip
                       v-bind="attrs"
                       class="guide-bar__activities-chips font-weight-bold"
@@ -504,7 +504,7 @@
               </v-combobox> -->
 
               <v-combobox
-                v-model="pathwaysFilter"
+                :value="pathwaysFilter"
                 :filter="filter"
                 :hide-no-data="!search"
                 :items="pathways"
@@ -520,7 +520,7 @@
                 class="guide-bar__combobox mt-4 mb-4"
                 @input="val => $emit('update:pathwaysFilter', val)"
               >
-                <template v-slot:selection="{ attrs, item, parent, selected }">
+                <template #selection="{ attrs, item, parent, selected }">
                   <v-chip
                     v-if="item === Object(item)"
                     v-bind="attrs"
@@ -536,7 +536,7 @@
                   </v-chip>
                 </template>
 
-                <template v-slot:item="{ index, item }">
+                <template #item="{ index, item }">
                   <v-text-field
                     v-if="editing === item"
                     v-model="editing.text"
@@ -570,7 +570,7 @@
                 class="guide-bar__combobox mt-4 mb-4"
                 @input="val => $emit('update:residenceFilter', val.text)"
               >
-                <template v-slot:selection="{ attrs, item, parent, selected }">
+                <template #selection="{ attrs, item, selected }">
                   <v-chip
                     v-if="item === Object(item)"
                     v-bind="attrs"
@@ -586,7 +586,7 @@
                   </v-chip>
                 </template>
 
-                <template v-slot:item="{ index, item }">
+                <template #item="{ index, item }">
                   <v-text-field
                     v-if="editing === item"
                     v-model="editing.text"
@@ -734,6 +734,88 @@ export default {
       required: true,
       type: Array
     }
+  },
+
+  setup() {
+    function logThis(val: string) {
+      console.log(val);
+    }
+    const vertical = ref(true);
+    const expand = ref(true); // open or closed sidebar
+    const steps = ref(15); // number of lines
+    const activeStep = ref(1); // open line
+    const actions = ref([
+      {
+        icon: 'account-group',
+        fn: 'my-portfolio'
+      },
+      {
+        icon: 'message-outline',
+        fn: 'my-chat'
+      },
+      {
+        icon: 'square-edit-outline',
+        fn: 'my-post'
+      },
+      {
+        icon: 'cog',
+        fn: 'my-settings'
+      }
+    ]);
+    const sequence = ref({
+      Project: {
+        icon: '',
+        color: 'green',
+        submodule: [
+          {
+            title: 'Launch Day'
+          },
+          {
+            title: 'Cowork'
+          },
+          {
+            title: 'Research & Practice'
+          },
+          {
+            title: 'Ideate'
+          },
+          {
+            title: 'Hack Day'
+          },
+          {
+            title: 'Reflection'
+          },
+          {
+            title: 'Design & Prototype'
+          },
+          {
+            title: 'Package'
+          },
+          {
+            title: 'Demo Day'
+          },
+          {
+            title: 'Finish Lane'
+          }
+        ]
+      },
+      Internship: {
+        icon: '',
+        color: 'purple',
+        submodule: [
+          {
+            title: 'Auto-App'
+          },
+          {
+            title: 'Interviews'
+          },
+          {
+            title: 'Offers'
+          }
+        ]
+      }
+    });
+    return { steps, expand, activeStep, sequence, actions, logThis, vertical };
   },
   data: () => ({
     activator: null,
@@ -1171,88 +1253,6 @@ export default {
 
       return text.toString().toLowerCase().indexOf(query.toString().toLowerCase()) > -1;
     }
-  },
-
-  setup() {
-    function logThis(val: string) {
-      console.log(val);
-    }
-    const vertical = ref(true);
-    const expand = ref(true); // open or closed sidebar
-    const steps = ref(15); // number of lines
-    const activeStep = ref(1); // open line
-    const actions = ref([
-      {
-        icon: 'account-group',
-        fn: 'my-portfolio'
-      },
-      {
-        icon: 'message-outline',
-        fn: 'my-chat'
-      },
-      {
-        icon: 'square-edit-outline',
-        fn: 'my-post'
-      },
-      {
-        icon: 'cog',
-        fn: 'my-settings'
-      }
-    ]);
-    const sequence = ref({
-      Project: {
-        icon: '',
-        color: 'green',
-        submodule: [
-          {
-            title: 'Launch Day'
-          },
-          {
-            title: 'Cowork'
-          },
-          {
-            title: 'Research & Practice'
-          },
-          {
-            title: 'Ideate'
-          },
-          {
-            title: 'Hack Day'
-          },
-          {
-            title: 'Reflection'
-          },
-          {
-            title: 'Design & Prototype'
-          },
-          {
-            title: 'Package'
-          },
-          {
-            title: 'Demo Day'
-          },
-          {
-            title: 'Finish Lane'
-          }
-        ]
-      },
-      Internship: {
-        icon: '',
-        color: 'purple',
-        submodule: [
-          {
-            title: 'Auto-App'
-          },
-          {
-            title: 'Interviews'
-          },
-          {
-            title: 'Offers'
-          }
-        ]
-      }
-    });
-    return { steps, expand, activeStep, sequence, actions, logThis, vertical };
   }
 };
 </script>

@@ -6,6 +6,7 @@ import { MutationTypes as DbMutationTypes } from '@/store/modules/db/mutations';
 import { MutationTypes } from './mutations';
 import authState from './state';
 
+// eslint-disable-next-line no-shadow
 export enum ActionTypes {
   loginAnon = 'loginAnon',
   loginUser = 'loginUser',

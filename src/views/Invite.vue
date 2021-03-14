@@ -26,7 +26,7 @@
         >
       </div>
 
-      <validation-observer v-slot="{ invalid, handleSubmit }" class="invite__password">
+      <validation-observer v-slot="{ handleSubmit }" class="invite__password">
         <validation-provider
           v-slot="{ errors }"
           slim
@@ -212,7 +212,7 @@
 
         <div class="invite__accept-decline">
           <v-tooltip bottom>
-            <template v-slot:activator="{ on, attrs }">
+            <template #activator="{ on, attrs }">
               <a
                 href="https://www.pilotcity.com/signup"
                 target="_blank"
@@ -235,7 +235,7 @@
           </v-tooltip>
 
           <v-tooltip bottom>
-            <template v-slot:activator="{ on, attrs }">
+            <template #activator="{ on, attrs }">
               <a
                 href="https://share.hsforms.com/1FhBLzFLZSPSHPUk3TEvv0w1h6bj"
                 target="_blank"
@@ -272,7 +272,7 @@
           <template>
             <div class="text-center">
               <v-dialog v-model="activitiesDialog" width="100%">
-                <template v-slot:activator="{ on, attrs }">
+                <template #activator="{ on, attrs }">
                   <v-btn
                     v-bind="attrs"
                     class="invite__cta"
@@ -319,7 +319,7 @@
           <template>
             <div class="text-center">
               <v-dialog v-model="testimonialsDialog" width="90%">
-                <template v-slot:activator="{ on, attrs }">
+                <template #activator="{ on, attrs }">
                   <v-btn
                     v-bind="attrs"
                     class="invite__cta"
@@ -666,24 +666,6 @@ export default {
       type: String,
       default: ''
     }
-  },
-  data() {
-    return {
-      activitiesDialog: false,
-      testimonialssDialog: false,
-      schoolContainer: 'invite__wrapper-school',
-      employerContainer: 'invite__wrapper-employer',
-      teacherContainer: 'invite__wrapper-teacher',
-      parentContainer: 'invite__wrapper-parent',
-      studentContainer: 'invite__wrapper-student',
-      sponsorContainer: 'invite__wrapper-sponsor',
-      schoolTitleEntity: 'invite__title-entity-school',
-      employerTitleEntity: 'invite__title-entity-employer',
-      teacherTitleEntity: 'invite__title-entity-teacher',
-      parentTitleEntity: 'invite__title-entity-parent',
-      studentTitleEntity: 'invite__title-entity-student',
-      sponsorTitleEntity: 'invite__title-entity-sponsor'
-    };
   },
 
   setup(props, { root: { $router } }) {
@@ -2871,6 +2853,24 @@ export default {
       invitePages,
       getInvitee,
       show1: ref(false)
+    };
+  },
+  data() {
+    return {
+      activitiesDialog: false,
+      testimonialssDialog: false,
+      schoolContainer: 'invite__wrapper-school',
+      employerContainer: 'invite__wrapper-employer',
+      teacherContainer: 'invite__wrapper-teacher',
+      parentContainer: 'invite__wrapper-parent',
+      studentContainer: 'invite__wrapper-student',
+      sponsorContainer: 'invite__wrapper-sponsor',
+      schoolTitleEntity: 'invite__title-entity-school',
+      employerTitleEntity: 'invite__title-entity-employer',
+      teacherTitleEntity: 'invite__title-entity-teacher',
+      parentTitleEntity: 'invite__title-entity-parent',
+      studentTitleEntity: 'invite__title-entity-student',
+      sponsorTitleEntity: 'invite__title-entity-sponsor'
     };
   }
 };

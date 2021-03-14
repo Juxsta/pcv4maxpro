@@ -2,7 +2,7 @@ import { GetterTree } from 'vuex';
 import { RootState } from '@/store/state';
 import dbState from './state';
 import { GetterTypes as AuthGetters } from '../auth/getters';
-
+// eslint-disable-next-line no-shadow
 export const enum GetterTypes {
   collection = 'collection'
 }

@@ -3,7 +3,7 @@ import S3, { ManagedUpload } from 'aws-sdk/clients/s3';
 import { ActionTree, ActionContext } from 'vuex';
 import fileStorageState from './state';
 import { MutationTypes } from './mutations';
-
+// eslint-disable-next-line no-shadow
 export enum ActionTypes {
   uploadItem = 'uploadItem',
   deleteItems = 'deleteItems'

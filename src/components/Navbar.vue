@@ -116,7 +116,7 @@
         <span class="font-weight-black">Logout</span>
       </v-btn> -->
       <v-menu v-if="user" offset-y :ripple="false">
-        <template v-slot:activator="{ on, attrs }">
+        <template #activator="{ on, attrs }">
           <v-btn
             v-if="user"
             rounded

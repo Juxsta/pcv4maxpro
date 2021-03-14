@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import { MutationTree } from 'vuex';
 import fileStorageState from './state';
-
+// eslint-disable-next-line no-shadow
 export const enum MutationTypes {
   FILE_UPLOAD = '📤✔ File Upload Complete',
   FILE_UPLOAD_ERROR = '📤❌ File Upload Error',
