@@ -28,7 +28,8 @@ module.exports = {
       {
         allowModifiers: true
       }
-    ]
+    ],
+    'vue/no-unused-vars': 'off'
   },
   overrides: [
     {

@@ -3,7 +3,7 @@ import Guide from './Guide.vue';
 
 const routes: Array<RouteConfig> = [
   {
-    path: '/guide/:programId/:page',
+    path: '/guide/:programId/:page/:join',
     name: 'guide',
     component: Guide,
     meta: {

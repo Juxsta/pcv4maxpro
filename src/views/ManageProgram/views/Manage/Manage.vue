@@ -65,9 +65,9 @@
               name="bounce"
             >
               <pc-card :key="index" class="list-group-item">
-                <template v-slot:title>{{ index }}</template>
-                <template v-slot:actions> </template>
-                <template v-slot:graph>
+                <template #title>{{ index }}</template>
+                <template #actions> </template>
+                <template #graph>
                   <v-img :src="image" class="pc-card__image"></v-img>
                 </template>
               </pc-card>
@@ -94,6 +94,11 @@ export default {
     ListView,
     IndexTable
   },
+  setup() {
+    const gridList = ref(false);
+    const listViewcheck = ref(true);
+    return { items: ref(tableItems), listViewcheck, gridList };
+  },
 
   computed: {
     dragOptions() {
@@ -106,11 +111,6 @@ export default {
         dragClass: 'sortable-drag'
       };
     }
-  },
-  setup() {
-    const gridList = ref(false);
-    const listViewcheck = ref(true);
-    return { items: ref(tableItems), listViewcheck, gridList };
   }
 };
 </script>

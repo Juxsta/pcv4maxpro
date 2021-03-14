@@ -13,7 +13,7 @@
     </v-card>
     <v-list-item class="justify-end">
       <v-tooltip top>
-        <template v-slot:activator="{ on, attrs }">
+        <template #activator="{ on, attrs }">
           <v-btn v-bind="attrs" icon v-on="on" @click="loveProgram">
             <v-icon :color="loved ? '#eda1bf' : 'grey'">mdi-heart</v-icon>
           </v-btn>
@@ -51,96 +51,27 @@
         ><v-icon left>mdi-set-none</v-icon>{{ employer.tokens }}1 Token</v-btn
       >
 
-      <v-btn
-        class="explore-card__button font-weight-bold ml-1 mr-1"
-        outlined
-        rounded
-        small
-        depressed
-        :ripple="false"
-        >Start Program</v-btn
+      <router-link
+        :to="{
+          name: 'guide',
+          params: {
+            programId: employer._id.toString(),
+            page: 0,
+            join: true
+          }
+        }"
       >
+        <v-btn
+          class="explore-card__button font-weight-bold ml-1 mr-1"
+          outlined
+          rounded
+          small
+          depressed
+          :ripple="false"
+          >Start Program</v-btn
+        >
+      </router-link>
     </v-list-item>
-
-    <!-- <v-list-item class="justify-end">
-      <v-tooltip bottom>
-        <template v-slot:activator="{ on, attrs }">
-          <v-btn color="#6fba7f" v-bind="attrs" icon v-on="on">
-            <v-icon small>mdi-account-check</v-icon>
-          </v-btn>
-
-          <v-btn color="#ea6764" v-bind="attrs" icon v-on="on">
-                <v-icon small>mdi-account-off</v-icon>
-              </v-btn>
-        </template>
-        <span>You're a Student</span>
-      </v-tooltip>
-
-      <v-tooltip bottom>
-        <template v-slot:activator="{ on, attrs }">
-          <v-btn color="#6fba7f" v-bind="attrs" icon v-on="on">
-            <v-icon small>mdi-map-marker-check</v-icon>
-          </v-btn>
-
-          <v-btn color="#ea6764" v-bind="attrs" icon v-on="on">
-                <v-icon small>mdi-map-marker-remove-variant</v-icon>
-              </v-btn>
-        </template>
-        <span>No Location Requirement</span>
-      </v-tooltip>
-
-      <v-tooltip bottom>
-        <template v-slot:activator="{ on, attrs }">
-          <v-btn color="#6fba7f" v-bind="attrs" icon v-on="on">
-            <v-icon small>mdi-calendar-check</v-icon>
-          </v-btn>
-
-          <v-btn color="#ea6764" v-bind="attrs" icon v-on="on">
-                <v-icon small>mdi-calendar-remove</v-icon>
-
-              </v-btn>
-        </template>
-        <span>Age Requirement Met</span>
-      </v-tooltip>
-
-      <v-tooltip bottom>
-        <template v-slot:activator="{ on, attrs }">
-          <v-btn color="#6fba7f" icon v-bind="attrs" v-on="on">
-                <v-icon small>mdi-hammer-wrench</v-icon>
-              </v-btn>
-
-          <v-btn color="#fdd35a" icon v-bind="attrs" v-on="on">
-            <v-icon small>mdi-hammer-wrench</v-icon>
-          </v-btn>
-        </template>
-        <span>No Specific Skills Required</span>
-        <span>Specific Skills Required</span>
-      </v-tooltip>
-
-      <v-tooltip bottom>
-        <template v-slot:activator="{ on, attrs }">
-          <v-btn color="#fdd35a" icon v-bind="attrs" v-on="on">
-            <v-icon small>mdi-laptop-windows</v-icon>
-          </v-btn>
-        </template>
-        <span>Specific Tech Required</span>
-      </v-tooltip>
-
-      <v-tooltip bottom>
-        <template v-slot:activator="{ on, attrs }">
-          <v-btn color="#6fba7f" icon v-bind="attrs" v-on="on">
-                <v-icon small>mdi-cash-usd</v-icon>
-              </v-btn>
-
-          <v-btn color="#fdd35a" icon v-bind="attrs" v-on="on">
-            <v-icon small>mdi-trophy</v-icon>
-          </v-btn>
-        </template>
-        <span>Win Paid Opportunities</span>
-        <span>Win Paid or Unpaid Opportunities</span>
-        <span>Win Unpaid Opportunities</span>
-      </v-tooltip>
-    </v-list-item> -->
   </v-card>
 </template>
 

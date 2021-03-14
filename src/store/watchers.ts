@@ -16,11 +16,7 @@ export const setUser = watch(
       const user = await collection.value!('User').findOne({ _id: new ObjectId(newUser.id) });
       store.commit(`db/${MutationTypes.setUser}`, user);
     } else if (newUser === null) {
-      console.log(app.value.currentUser);
-      app.value.logIn(Realm.Credentials.anonymous()).then(() => {
-        console.log(app.value.currentUser);
-      });
-      console.log(app.value.currentUser);
+      await app.value.logIn(Realm.Credentials.anonymous());
     }
   },
   {
