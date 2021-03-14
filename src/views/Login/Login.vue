@@ -129,6 +129,7 @@ import { ActionTypes } from '@/store/modules/auth/actions';
 import { useAuthActions, useDbState } from '@/store';
 import Loading from '@/components/Loading.vue';
 import { onLogin } from '@/vue-apollo';
+import * as Sentry from '@sentry/vue'; // Import Sentry to start using it
 
 export default {
   components: {
@@ -172,9 +173,15 @@ export default {
         await onLogin(user!.accessToken);
         $router.push({ name: 'setup' });
       } catch (err) {
-        if (err.statusCode === 401)
+        // To catch errors: pass an error object to captureException() to get it captured as event in Sentry.
+        // Sentry.captureException() should be called in places where the code might break.  This will allow you to find and fix bugs.
+        if (err.statusCode === 401) {
+          Sentry.captureException(err); // just for testing, not useful for production.  Logging when users accidentally type someting wrong won't help you fix the code.
           state.error = 'That email and password combination does not exist';
-        else state.error = err;
+        } else {
+          Sentry.captureException(err); // catches for non email and password DNE errors. Useful because it shows that an unknown error occurred - maybe a bug or unexpected issue on the platform.
+          state.error = err;
+        }
       }
     }
     return { ...toRefs(state), login, ...toRefs(ui), sendResetPasswordEmail };

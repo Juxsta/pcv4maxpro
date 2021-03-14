@@ -8,6 +8,7 @@ declare global {
       NODE_ENV: 'development' | 'production';
       PORT?: string;
       PWD: string;
+      VUE_APP_SENTRY_DSN: string;
       VUE_APP_REALM_ID: string;
       VUE_APP_REALM_ID_DEV: string;
       VUE_APP_S3_ACCESS_KEY_ID: string;

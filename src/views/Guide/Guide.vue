@@ -53,7 +53,13 @@
             :is="currentUnit"
             v-if="programDoc.data.dateCreated"
             v-model="programDoc"
+            :student-doc="studentDoc"
             :license-program="licenseProgram"
+            :user-type="userType"
+            :db="db"
+            @inputStudentDoc="studentDoc = $event"
+            @inputTeamDoc="teamDoc = $event"
+            @inputUserDoc="userDoc = $event"
           />
         </div>
         <div class="guide__locks guide__locks--right locked">
@@ -113,7 +119,7 @@ import offer from 'developer-adk-offer/src/Module/Module.vue';
 // eslint-disable-next-line import/no-unresolved
 // import JoinForm from 'developer-adk-joinform/src/App.vue';
 import Loading from '@/components/Loading.vue';
-import { useDbGetters } from '@/store';
+import { useDbGetters, useRealmAppState, useDbState } from '@/store';
 import { ObjectId } from 'bson';
 import Bar from './components/Bar.vue';
 
@@ -241,7 +247,62 @@ export default defineComponent({
       //     programId: ctx.root.$route.params.programId
       //   }
       // });
+      // Props to poas down
     }
+    const { getObjectId } = useDbGetters(['getObjectId']);
+    const { app } = useRealmAppState(['app']);
+    const db = app.value.currentUser?.mongoClient('mongodb-atlas').db('Primary');
+    const teamDoc = ref(null);
+    collection.value!('ProgramTeam')
+      .findOne({
+        'members._id': getObjectId.value
+      })
+      .then(doc => {
+        if (doc)
+          teamDoc.value = {
+            data: doc,
+            update: async () => {
+              return collection.value!('ProgramTeam').findOneAndUpdate(
+                {
+                  _id: doc._id
+                },
+                { ...programDoc.value.data, lastSaved: new Date() }
+              );
+            }
+          } as any;
+      });
+    const studentDoc = ref(null);
+    collection.value!('Student')
+      .findOne({
+        _id: getObjectId.value
+      })
+      .then(doc => {
+        if (doc)
+          studentDoc.value = {
+            _id: doc._id,
+            update: async () => {
+              return collection.value!('Student').findOneAndUpdate(
+                {
+                  _id: doc._id
+                },
+                { ...programDoc.value.data, lastSaved: new Date() }
+              );
+            }
+          } as any;
+      });
+
+    const { user } = useDbState(['user']);
+
+    const userDoc = ref({
+      data: user.value,
+      update: () => {}
+    });
+
+    let userType = 'stakeholder';
+    if (programDoc.value.data.organizers.includes(getObjectId.value)) {
+      userType = 'organizer';
+    } else if (programDoc.value.data.participants.includes(getObjectId.value))
+      userType = 'participant';
     return {
       currentUnit,
       currentPage,
@@ -251,7 +312,12 @@ export default defineComponent({
       fetchProgram,
       programDoc,
       licenseProgram,
-      isNextUnlocked
+      isNextUnlocked,
+      db,
+      teamDoc,
+      studentDoc,
+      userDoc,
+      userType
     };
   }
 });
