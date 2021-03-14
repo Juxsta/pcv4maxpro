@@ -100,11 +100,11 @@ import team from 'developer-adk-teamcommunity/src/Module/Module.vue';
 import train from 'developer-adk-train/src/Module/Module.vue';
 import research from 'developer-adk-research/src/Module/Module.vue';
 import practice from 'developer-adk-practice/src/Module/Module.vue';
-import ideate from 'developer-adk-ideate/src/Module/Module.vue';
+// import ideate from 'developer-adk-ideate/src/Module/Module.vue';
 import pitches from 'developer-adk-pitches/src/Module/Module.vue';
 import interact from 'developer-adk-interact/src/Module/Module.vue';
-import make from 'developer-adk-designprototype/src/Module/Module.vue';
-import demo from 'developer-adk-demo/src/Module/Module.vue';
+// import make from 'developer-adk-designprototype/src/Module/Module.vue';
+// import demo from 'developer-adk-demo/src/Module/Module.vue';
 import autoapply from 'developer-adk-autoapply/src/Module/Module.vue';
 import interview from 'developer-adk-interview/src/Module/Module.vue';
 import offer from 'developer-adk-offer/src/Module/Module.vue';
@@ -127,11 +127,11 @@ export default defineComponent({
     train,
     research,
     practice,
-    ideate,
+    // ideate,
     pitches,
     interact,
-    make,
-    demo,
+    // make,
+    // demo,
     autoapply,
     interview,
     offer
@@ -147,10 +147,11 @@ export default defineComponent({
       'train',
       'research',
       'practice',
-      'ideate',
+      // 'ideate',
       'pitches',
       'interact',
-      'demo',
+      // 'make',
+      // 'demo',
       'autoapply',
       'interview',
       'offer'
