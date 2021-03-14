@@ -98,65 +98,21 @@
                 >{{ currentRole }}<v-icon right>mdi-chevron-down</v-icon></v-btn
               >
             </template>
-            <v-btn
-              class="mt-2 mb-1"
-              color="pink"
-              dark
-              rounded
-              x-large
-              depressed
-              @click="changeRoleTo('Teacher')"
-            >
-              Teacher
-            </v-btn>
-            <v-divider></v-divider>
-            <v-btn
-              class="mt-1 mb-1"
-              color="blue"
-              dark
-              rounded
-              x-large
-              depressed
-              @click="changeRoleTo('School')"
-            >
-              School
-            </v-btn>
-            <v-divider></v-divider>
-            <v-btn
-              class="mt-1 mb-1"
-              color="yellow"
-              dark
-              rounded
-              x-large
-              depressed
-              @click="changeRoleTo('Parent')"
-            >
-              Parent
-            </v-btn>
-            <v-divider></v-divider>
-            <v-btn
-              class="mt-1 mb-1"
-              color="purple"
-              dark
-              rounded
-              x-large
-              depressed
-              @click="changeRoleTo('Employer')"
-            >
-              Employer
-            </v-btn>
-            <v-divider></v-divider>
-            <v-btn
-              class="mt-1 mb-1"
-              color="red"
-              dark
-              rounded
-              x-large
-              depressed
-              @click="changeRoleTo('Sponsor')"
-            >
-              Sponsor
-            </v-btn>
+            <div v-for="(role, index) in roles" :key="index">
+              <v-btn
+                v-if="role.show"
+                class="mt-2 mb-1"
+                :color="role.color"
+                dark
+                rounded
+                x-large
+                depressed
+                @click="changeRoleTo(role.val)"
+              >
+                {{ role.val }}
+              </v-btn>
+              <v-divider></v-divider>
+            </div>
           </v-menu>
 
           <!-- <v-select class="ma-2" dark x-large rounded outlined label="Hometown"></v-select>
@@ -1453,39 +1409,59 @@ export default {
     const currentRole = ref('Student');
     const roleColor = ref('green');
     const roleLabel = ref('What employer projects would you like to explore?');
+    const roles = ref({
+      student: { val: 'Student', color: 'green', show: false },
+      teacher: { val: 'Teacher', color: 'pink', show: true },
+      school: { val: 'School', color: 'blue', show: true },
+      parent: { val: 'Parent', color: 'yellow', show: true },
+      employer: { val: 'Employer', color: 'purple', show: true },
+      sponsor: { val: 'Sponsor', color: 'red', show: true }
+    });
     const { user } = useDbState(['user']);
     function changeRoleTo(role: string) {
-      currentRole.value = role;
+      roles.value.student.show = true;
+      roles.value.teacher.show = true;
+      roles.value.school.show = true;
+      roles.value.parent.show = true;
+      roles.value.employer.show = true;
+      roles.value.sponsor.show = true;
       switch (role) {
         case 'Student':
           roleLabel.value = 'What employer projects would you like to explore?';
-          roleColor.value = 'green';
+          roleColor.value = roles.value.student.color;
+          roles.value.student.show = false;
           break;
         case 'Teacher':
           roleLabel.value = 'What pathways do you teach in your class?';
-          roleColor.value = 'pink';
+          roleColor.value = roles.value.teacher.color;
+          roles.value.teacher.show = false;
           break;
         case 'School':
           roleLabel.value = 'What employer projects would you like to explore?';
-          roleColor.value = 'blue';
+          roleColor.value = roles.value.school.color;
+          roles.value.school.show = false;
           break;
         case 'Parent':
           roleLabel.value = 'What careers do you want your student to explore?';
-          roleColor.value = 'yellow';
+          roleColor.value = roles.value.parent.color;
+          roles.value.parent.show = false;
           break;
         case 'Employer':
           roleLabel.value = 'Check out employers in your industry';
-          roleColor.value = 'purple';
+          roleColor.value = roles.value.employer.color;
+          roles.value.employer.show = false;
           break;
         case 'Sponsor':
           roleLabel.value = 'What workforce initiatives do you want to fund?';
-          roleColor.value = 'red';
+          roleColor.value = roles.value.sponsor.color;
+          roles.value.sponsor.show = false;
           break;
         default:
           break;
       }
+      currentRole.value = role;
     }
-    return { user, starterEmail, currentRole, changeRoleTo, roleLabel, roleColor };
+    return { user, starterEmail, currentRole, changeRoleTo, roleLabel, roleColor, roles };
   },
   data() {
     return {
