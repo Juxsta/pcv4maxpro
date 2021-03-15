@@ -410,7 +410,12 @@ export default defineComponent({
       type: Number
     },
     title: {
-      default: 'Lawrence Berkeley National Laboratory'
+      default: 'Lawrence Berkeley National Laboratory',
+      type: String
+    },
+    userType: {
+      required: true,
+      type: String as () => 'participant' | 'organizer' | 'stakeholder'
     }
   },
   setup(props, ctx) {

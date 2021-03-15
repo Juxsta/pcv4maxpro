@@ -11,6 +11,7 @@
           v-model="currentPage"
           :timeline="timeline"
           :title="programDoc.title"
+          :user-type="userType"
         />
         <guide-bar v-else v-model="currentPage" :timeline="timeline" />
       </div>
