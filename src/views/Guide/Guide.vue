@@ -309,6 +309,7 @@ export default defineComponent({
       userType.value = 'organizer';
     } else if (programDoc.value.data.participants?.includes(getObjectId.value))
       userType.value = 'participant';
+    userType.value = 'participant';
     return {
       currentUnit,
       currentPage,

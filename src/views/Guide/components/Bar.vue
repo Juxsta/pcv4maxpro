@@ -79,7 +79,7 @@
           class="guide-bar__container"
           :class="
             userType === 'participant'
-              ? ['participantClass1', 'participantClass2']
+              ? ['text-lowercase', 'participantClass2']
               : userType === 'employer'
               ? ['employerClass1', 'employerClass2']
               : ['studentClass1', 'studentClass2']
