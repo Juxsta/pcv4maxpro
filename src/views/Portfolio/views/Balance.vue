@@ -301,7 +301,7 @@
         </div>
       </div>
       <div v-show="transferState">
-        <div class="balance__transfer-title">Transfer Tokens (Internal testing)</div>
+        <div class="balance__transfer-title">Transfer Tokens</div>
         <div class="balance__transfer">
           <div class="balance__email">
             <validation-provider v-slot="{ errors }" rules="required">
@@ -347,33 +347,42 @@
                   depressed
                   v-on="on"
                   @click="processTransfer"
-                  >Transfer (Internal testing)</v-btn
+                  >Transfer</v-btn
                 >
               </div>
             </template>
 
-            <v-card>
+            <v-card :loading="loading">
               <v-card-title class="d-flex flex-column">
-                <div class="d-flex justify-center">
-                  <v-icon class="mb-6 mt-6" color="green" x-large>mdi-check-all</v-icon>
+                <div v-if="loading">
+                  <div class="d-flex justify-center">
+                    <v-icon class="mb-6 mt-6" color="gray" x-large>mdi-timer-sand</v-icon>
+                  </div>
+                  <div class="headline font-weight-bold">Processing...</div>
                 </div>
+                <div v-else-if="processTransferError">
+                  <div class="d-flex justify-center">
+                    <v-icon class="mb-6 mt-6" color="red" x-large>mdi-close</v-icon>
+                  </div>
 
-                <div class="headline font-weight-bold">Your token has been transferred</div>
+                  <div class="headline font-weight-bold">Uh-oh! The transfer failed.</div>
+
+                  <v-card-text>
+                    Don't worry, your tokens weren't moved. <br />Please refresh the page and make
+                    sure you spelled your intended recipient's email correctly.
+                  </v-card-text>
+                </div>
+                <div v-else>
+                  <div class="d-flex justify-center">
+                    <v-icon class="mb-6 mt-6" color="green" x-large>mdi-check-all</v-icon>
+                  </div>
+
+                  <div class="headline font-weight-bold">Transfer succeeded!</div>
+                </div>
               </v-card-title>
 
               <div class="d-flex flex-row justify-center pa-3">
-                <v-btn
-                  class="ma-2"
-                  x-large
-                  rounded
-                  outlined
-                  depressed
-                  @click="
-                    () => {
-                      dialog6 = false;
-                      $router.go(0);
-                    }
-                  "
+                <v-btn class="ma-2" x-large rounded outlined depressed @click="$router.go(0)"
                   >Refresh Page</v-btn
                 >
 
@@ -528,36 +537,46 @@ export default {
     // Transfer Management
     const transferEmail = ref('');
     const transferQuantity = ref(0);
+    const processTransferError = ref(null);
+    const loading = ref(false);
     const processTransfer = async () => {
-      await mutate({
-        mutation: gql`
-          mutation transferTokens(
-            $senderId: ObjectId!
-            $recipientEmail: String!
-            $tokenIds: [ObjectId!]
-          ) {
-            sendTokensMutation(
-              input: {
-                token_ids: $tokenIds
-                sender_id: $senderId
-                recipient_email: $recipientEmail
-              }
+      loading.value = true;
+      try {
+        await mutate({
+          mutation: gql`
+            mutation transferTokens(
+              $senderId: ObjectId!
+              $recipientEmail: String!
+              $tokenIds: [ObjectId!]
             ) {
-              recipient {
-                firstName
-                lastName
+              sendTokensMutation(
+                input: {
+                  token_ids: $tokenIds
+                  sender_id: $senderId
+                  recipient_email: $recipientEmail
+                }
+              ) {
+                recipient {
+                  firstName
+                  lastName
+                }
+                timestamp
+                tokensSent
               }
-              timestamp
-              tokensSent
             }
+          `,
+          variables: {
+            recipientEmail: transferEmail.value,
+            senderId: id.value,
+            tokenIds: tokens.value.map(token => token._id).slice(0, transferQuantity.value)
           }
-        `,
-        variables: {
-          recipientEmail: transferEmail.value,
-          senderId: id.value,
-          tokenIds: tokens.value.map(token => token._id).slice(0, transferQuantity.value)
-        }
-      });
+        });
+      } catch (e) {
+        console.error(e);
+        processTransferError.value = e;
+      } finally {
+        loading.value = false;
+      }
     };
     const errors = '';
     return {
@@ -583,6 +602,8 @@ export default {
       revokeToken,
       modOriginalOwners,
       transferEmail,
+      processTransferError,
+      loading,
       processTransfer,
       transferQuantity,
       user: useDbState(['user']).user,
