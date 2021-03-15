@@ -272,7 +272,9 @@ export default defineComponent({
             }
           } as any;
       });
-    const studentDoc = ref(null);
+    const studentDoc = ref({
+      data: {}
+    });
     collection.value!('Student')
       .findOne({
         _id: getObjectId.value
