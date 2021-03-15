@@ -11,21 +11,12 @@
           v-model="currentPage"
           :timeline="timeline"
           :title="programDoc.title"
-          :user-type="userType"
         />
-        <guide-bar v-else v-model="currentPage" :timeline="timeline" :user-type="userType" />
+        <guide-bar v-else v-model="currentPage" :timeline="timeline" />
       </div>
 
-      <div
-        :class="
-          userType === 'participant'
-            ? ['guide__pageparticipant']
-            : userType === 'organizer'
-            ? ['guide__pageorganizer']
-            : ['guide__page']
-        "
-      >
-        <div v-if="userType === 'organizer'" class="guide__setupbutton">
+      <div class="guide__page">
+        <div class="guide__setupbutton">
           <v-btn small depressed dark color="orange">Setup Mode</v-btn>
         </div>
 
@@ -42,24 +33,6 @@
           <v-tooltip dark right>
             <template #activator="{ on, attrs }">
               <v-icon
-                v-if="userType === 'participant'"
-                v-bind="attrs"
-                x-large
-                color="green"
-                class="guide__lock"
-                v-on="on"
-                @click="prevPage"
-                >mdi-lock-open</v-icon
-              >
-            </template>
-
-            <span>Unlocked Activity</span>
-          </v-tooltip>
-
-          <v-tooltip dark right>
-            <template #activator="{ on, attrs }">
-              <v-icon
-                v-if="userType === 'organizer'"
                 v-bind="attrs"
                 x-large
                 color="green"
@@ -78,16 +51,9 @@
         <div class="guide__activities">
           <component
             :is="currentUnit"
-            v-if="programDoc && programDoc.data.dateCreated && userDoc.data"
+            v-if="programDoc.data.dateCreated"
             v-model="programDoc"
-            :student-doc="studentDoc"
             :license-program="licenseProgram"
-            :user-type="userType"
-            :db="db"
-            :user-doc="userDoc"
-            @inputStudentDoc="studentDoc = $event"
-            @inputTeamDoc="teamDoc = $event"
-            @inputUserDoc="userDoc = $event"
           />
         </div>
         <div class="guide__locks guide__locks--right locked">
@@ -96,24 +62,6 @@
           <v-tooltip dark left>
             <template #activator="{ on, attrs }">
               <v-icon
-                v-if="userType === 'participant'"
-                v-bind="attrs"
-                x-large
-                color="red"
-                class="guide__lock"
-                :disabled="!isNextUnlocked"
-                v-on="on"
-                @click="nextPage"
-                >mdi-lock</v-icon
-              >
-            </template>
-            <span>Locked Activity</span>
-          </v-tooltip>
-
-          <v-tooltip dark left>
-            <template #activator="{ on, attrs }">
-              <v-icon
-                v-if="userType === 'organizer'"
                 v-bind="attrs"
                 x-large
                 color="orange"
@@ -145,27 +93,26 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref, Ref, watch, watchEffect } from '@vue/composition-api';
-import setup from 'developer-adk-setup/src/Module/Module.vue';
+import { computed, defineComponent, ref, Ref, watchEffect } from '@vue/composition-api';
+// import Forum from 'developer-adk-interact';
+// import demo from 'developer-adk-demo/src/Module/Module.vue';
+// import autoapply from 'developer-adk-autoapply/src/Module/Module.vue';
+// import interact from 'developer-adk-interact/src/Module/Module.vue';
 import rfp from 'developer-adk-rfp/src/Module/Module.vue';
-import team from 'developer-adk-teamcommunity/src/Module/Module.vue';
+// import team from 'developer-adk-teamcommunity/src/Module/Module.vue';
 import train from 'developer-adk-train/src/Module/Module.vue';
 import research from 'developer-adk-research/src/Module/Module.vue';
-import practice from 'developer-adk-practice/src/Module/Module.vue';
+// import practice from 'developer-adk-practice/src/Module/Module.vue';
 // import ideate from 'developer-adk-ideate/src/Module/Module.vue';
 // import pitches from 'developer-adk-pitches/src/Module/Module.vue';
-import interact from 'developer-adk-interact/src/Module/Module.vue';
-// import make from 'developer-adk-designprototype/src/Module/Module.vue';
-// import demo from 'developer-adk-demo/src/Module/Module.vue';
-import autoapply from 'developer-adk-autoapply/src/Module/Module.vue';
-import interview from 'developer-adk-interview/src/Module/Module.vue';
-import offer from 'developer-adk-offer/src/Module/Module.vue';
 // import present from 'developer-adk-present/src/Module/Module.vue';
-// import Forum from 'developer-adk-interact';
+// import interview from 'developer-adk-interview/src/Module/Module.vue';
+import offer from 'developer-adk-offer/src/Module/Module.vue';
 // eslint-disable-next-line import/no-unresolved
+import setup from 'developer-adk-setup/src/Module/Module.vue';
 // import JoinForm from 'developer-adk-joinform/src/App.vue';
 import Loading from '@/components/Loading.vue';
-import { useDbGetters, useRealmAppState, useDbState } from '@/store';
+import { useDbGetters } from '@/store';
 import { ObjectId } from 'bson';
 import Bar from './components/Bar.vue';
 
@@ -174,40 +121,38 @@ export default defineComponent({
     'guide-bar': Bar,
     Loading,
     setup,
+    // Forum,
+    // interact
+    // demo
+    // autoapply,
     rfp,
-    team,
+    // team,
     train,
     research,
-    practice,
+    // practice,
     // ideate,
     // pitches,
-    interact,
-    // make,
-    // demo,
-    autoapply,
-    interview,
-    offer
-    // Forum,
     // present,
+    // interview,
+    offer
   },
   setup(_props, ctx) {
     // ADK navigation Logic
     const adks = ref([
       'setup',
       'rfp',
-      'team',
+      // 'team',
       'train',
       'research',
-      'practice',
+      // 'pracitce',
       // 'ideate',
-      'pitches',
-      'interact',
-      // 'make',
+      // 'pitches',
+      // 'interact'
       // 'demo',
-      'autoapply',
-      'interview',
-      'offer'
       // 'present',
+      // 'autoapply',
+      // 'interview',
+      'offer'
     ]);
 
     // Layout
@@ -293,67 +238,7 @@ export default defineComponent({
       //     programId: ctx.root.$route.params.programId
       //   }
       // });
-      // Props to poas down
     }
-    const { getObjectId } = useDbGetters(['getObjectId']);
-    const { app } = useRealmAppState(['app']);
-    const db = app.value.currentUser?.mongoClient('mongodb-atlas').db('Primary');
-    const teamDoc = ref(null);
-    collection.value!('ProgramTeam')
-      .findOne({
-        'members._id': getObjectId.value
-      })
-      .then(doc => {
-        if (doc)
-          teamDoc.value = {
-            data: doc,
-            update: async () => {
-              return collection.value!('ProgramTeam').findOneAndUpdate(
-                {
-                  _id: doc._id
-                },
-                { ...programDoc.value.data, lastSaved: new Date() }
-              );
-            }
-          } as any;
-      });
-    const studentDoc = ref({
-      data: {}
-    });
-    collection.value!('Student')
-      .findOne({
-        _id: getObjectId.value
-      })
-      .then(doc => {
-        if (doc)
-          studentDoc.value = {
-            _id: doc._id,
-            update: async () => {
-              return collection.value!('Student').findOneAndUpdate(
-                {
-                  _id: doc._id
-                },
-                { ...programDoc.value.data, lastSaved: new Date() }
-              );
-            }
-          } as any;
-      });
-
-    const { user } = useDbState(['user']);
-
-    const userDoc = ref({
-      data: user.value,
-      update: () => {}
-    });
-    watch(user, () => {
-      userDoc.value.data = user.value;
-    });
-    const userType = ref('stakeholder');
-    if (programDoc.value.data.organizers?.includes(getObjectId.value)) {
-      userType.value = 'organizer';
-    } else if (programDoc.value.data.participants?.includes(getObjectId.value))
-      userType.value = 'participant';
-    userType.value = 'participant';
     return {
       currentUnit,
       currentPage,
@@ -363,12 +248,7 @@ export default defineComponent({
       fetchProgram,
       programDoc,
       licenseProgram,
-      isNextUnlocked,
-      db,
-      teamDoc,
-      studentDoc,
-      userDoc,
-      userType
+      isNextUnlocked
     };
   }
 });
@@ -388,26 +268,12 @@ export default defineComponent({
     width: fit-content;
     height: fit-content;
   }
-  &pageparticipant {
-    width: 100%;
-    height: 100vh;
-    // display: flex;
-    position: relative;
-    border: 12px solid transparent;
-  }
-  &pageorganizer {
-    width: 100%;
-    height: 100vh;
-    // display: flex;
-    position: relative;
-    border: 12px solid orange;
-  }
   &page {
     width: 100%;
     height: 100vh;
     // display: flex;
     position: relative;
-    border: 12px solid transparent;
+    border: 12px solid orange;
   }
   &activities {
     overflow: scroll;
