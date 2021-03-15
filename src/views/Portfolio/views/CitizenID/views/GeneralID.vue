@@ -91,7 +91,7 @@ export default {
   },
   props: {
     value: {
-      type: Array as PropType<TypeItem[]>,
+      type: Array,
       default: () => []
     }
   },

@@ -81,7 +81,7 @@ export default {
           tableItems.value = transaction.referral?.map(log => ({
             contact: log?.sentTo,
             date: log?.timestamp,
-            status: usersByEmail[log?.sentTo!] ? 'accepted' : 'pending'
+            status: usersByEmail[log!.sentTo!] ? 'accepted' : 'pending'
           }));
         });
     });
