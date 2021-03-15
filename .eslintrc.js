@@ -7,8 +7,7 @@ module.exports = {
     'plugin:vue/recommended',
     '@vue/airbnb',
     '@vue/typescript/recommended',
-    'plugin:prettier/recommended', // add prettier-eslint plugin which will uses the `.prettierrc.js` config
-    'prettier/vue'
+    'plugin:prettier/recommended' // add prettier-eslint plugin which will uses the `.prettierrc.js` config
   ],
   parserOptions: {
     parser: '@typescript-eslint/parser', // the typescript-parser for eslint, instead of tslint
@@ -23,15 +22,11 @@ module.exports = {
     '@typescript-eslint/no-empty-function': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
     camelcase: 'off',
-    '@typescript-eslint/camelcase': ['warn'],
     'no-underscore-dangle': 'off'
   },
   overrides: [
     {
-      files: [
-        '**/__tests__/*.{j,t}s?(x)',
-        '**/tests/unit/**/*.spec.{j,t}s?(x)',
-      ],
+      files: ['**/__tests__/*.{j,t}s?(x)', '**/tests/unit/**/*.spec.{j,t}s?(x)'],
       env: {
         jest: true
       }

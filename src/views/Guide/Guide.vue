@@ -31,7 +31,7 @@
           > -->
 
           <v-tooltip dark right>
-            <template v-slot:activator="{ on, attrs }">
+            <template #activator="{ on, attrs }">
               <v-icon
                 v-bind="attrs"
                 x-large
@@ -66,7 +66,7 @@
           <!-- STUDENT VIEW -->
           <!-- <v-icon large color="red" class="guide__lock">mdi-lock</v-icon> -->
           <v-tooltip dark left>
-            <template v-slot:activator="{ on, attrs }">
+            <template #activator="{ on, attrs }">
               <v-icon
                 v-bind="attrs"
                 x-large
@@ -107,7 +107,7 @@ import train from 'developer-adk-train/src/Module/Module.vue';
 import research from 'developer-adk-research/src/Module/Module.vue';
 import practice from 'developer-adk-practice/src/Module/Module.vue';
 // import ideate from 'developer-adk-ideate/src/Module/Module.vue';
-import pitches from 'developer-adk-pitches/src/Module/Module.vue';
+// import pitches from 'developer-adk-pitches/src/Module/Module.vue';
 import interact from 'developer-adk-interact/src/Module/Module.vue';
 // import make from 'developer-adk-designprototype/src/Module/Module.vue';
 // import demo from 'developer-adk-demo/src/Module/Module.vue';
@@ -134,7 +134,7 @@ export default defineComponent({
     research,
     practice,
     // ideate,
-    pitches,
+    // pitches,
     interact,
     // make,
     // demo,
