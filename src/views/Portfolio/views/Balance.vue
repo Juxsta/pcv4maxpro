@@ -371,6 +371,10 @@
                     Don't worry, your tokens weren't moved. <br />Please refresh the page and try
                     again.
                   </v-card-text>
+
+                  <v-card-text>
+                    {{ processTransferError }}
+                  </v-card-text>
                 </div>
                 <div v-else>
                   <div class="d-flex justify-center">
@@ -543,8 +547,10 @@ export default {
       loading.value = true;
       try {
         if (transferQuantity.value > tokens.value.length) {
-          // TODO: display this error differently than others.
-          throw new Error('Trying to send more than account holds.');
+          throw new Error('You tried to send more tokens than your account holds.');
+        }
+        if (transferQuantity.value > 100) {
+          throw new Error('Please transfer your tokens in smaller batches (< 100 per batch).');
         }
         await mutate({
           mutation: gql`
@@ -577,7 +583,7 @@ export default {
         });
       } catch (e) {
         console.error(e);
-        processTransferError.value = e;
+        processTransferError.value = e.message;
       } finally {
         loading.value = false;
       }
