@@ -3,6 +3,7 @@ import Login from '@/views/Login';
 import Vue from 'vue';
 import VueRouter, { RouteConfig } from 'vue-router';
 import { GuideRoutes } from '@/views/Guide';
+import { ExploreRoutes } from '@/views/Explore';
 
 import { routes as PortfolioRoutes } from '@/views/Portfolio';
 import Signup from '@/views/Signup';
@@ -26,20 +27,31 @@ const routes: Array<RouteConfig> = [
   ...GuideRoutes,
   ...ManageProgramRoutes,
   ...PortfolioRoutes,
+  ...ExploreRoutes,
   {
     path: '/timeline',
     name: 'timeline',
     component: Timeline
   },
   {
-    path: '/login',
+    path: '/login/:page',
     name: 'login',
-    component: Login
+    component: Login,
+    meta: {
+      layout: 'no-nav',
+      requiresAuth: false,
+      requiresUser: false
+    }
   },
   {
     path: '/signup',
     name: 'signup',
-    component: Signup
+    component: Signup,
+    meta: {
+      layout: 'no-nav',
+      requiresAuth: false,
+      requiresUser: false
+    }
   },
   {
     path: '/',
@@ -113,7 +125,10 @@ router.beforeEach((to, from, next) => {
     // if not, redirect to login page.
     if (!getUser.value) {
       next({
-        name: 'authError'
+        name: 'login',
+        params: {
+          page: to.name!
+        }
       });
     } else {
       next();

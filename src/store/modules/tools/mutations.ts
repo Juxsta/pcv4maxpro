@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import { MutationTree } from 'vuex';
 import toolState from './state';
-
+// eslint-disable-next-line no-shadow
 export const enum MutationTypes {
   LOADING_START = '🔃 Loading Started',
   LOADING_END = '🏁 Loading Finished',

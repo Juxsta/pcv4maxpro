@@ -1,5 +1,9 @@
 <template>
-  <div class="signup__background">
+  <v-img
+    src="https://f.hubspotusercontent00.net/hubfs/2480959/PC_Hero_3-1.jpg"
+    class="signup__background"
+    max-height="100vh"
+  >
     <div class="signup__body">
       <div class="signup__title text-h4 font-weight-bold">
         <div class="d-flex justify-center text-align">
@@ -34,7 +38,6 @@
             x-large
             rounded
             placeholder="Password"
-            type="password"
             :error-messages="errors"
             color="white"
             label="Password"
@@ -43,6 +46,9 @@
             outlined
             full-width
             dark
+            :type="show1 ? 'text' : 'password'"
+            :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+            @click:append="show1 = !show1"
           ></v-text-field>
         </validation-provider>
 
@@ -85,9 +91,19 @@
           Signup
         </v-btn>
         <v-alert v-if="msg" class="signup__alert" :type="type">{{ msg }}</v-alert>
+        <div class="login__newaccount">
+          <i>
+            <a class="login__signuplink" href="login"> Have an account already? Login.</a>
+          </i>
+        </div>
+        <div class="d-flex justify-center mt-6">
+          <a href="https://www.pilotcity.com/"
+            ><img src="@/assets/Pilotcity_logo.png" max-height="50px" class="nav__logo2" />
+          </a>
+        </div>
       </validation-observer>
     </div>
-  </div>
+  </v-img>
 </template>
 
 <script lang="ts">
@@ -110,6 +126,7 @@ export default {
     const state = reactive({
       email: '',
       password: '',
+      show1: false,
       terms: false
     });
     state.email = param;
@@ -237,7 +254,7 @@ export default {
   }
   &__title {
     color: #6eba7f;
-    margin-top: 120px;
+    margin-top: 160px;
     margin-bottom: 30px;
     font-family: Raleway;
   }
@@ -280,6 +297,9 @@ export default {
   &__conditions {
     &.v-checkbox {
       color: #ffffff;
+    }
+    &.v-input--selection-controls {
+      margin-top: 0px;
     }
   }
 

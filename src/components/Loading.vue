@@ -20,7 +20,7 @@ export default defineComponent({
       default: false
     }
   },
-  setup(props, ctx) {
+  setup(props) {
     const { setLinearLoader } = useToolActions(['setLinearLoader']);
 
     const loading = ref(false);
@@ -29,7 +29,7 @@ export default defineComponent({
       async () => {
         loading.value = true;
         try {
-          await (props.callback as Function)();
+          await (props.callback as () => Promise<any>)();
         } catch (err) {
           // eslint-disable-next-line no-console
           console.error(err);

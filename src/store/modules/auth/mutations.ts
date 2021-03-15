@@ -2,6 +2,7 @@
 import { MutationTree } from 'vuex';
 import authState from './state';
 
+// eslint-disable-next-line no-shadow
 export const enum MutationTypes {
   LOGIN_ANON = '🐱‍👤✔ Login Anonymous',
   LOGIN_ERROR = '🔐❌ Login Error',

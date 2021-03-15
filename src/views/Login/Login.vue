@@ -1,5 +1,9 @@
 <template>
-  <div class="login__background">
+  <v-img
+    src="https://f.hubspotusercontent00.net/hubfs/2480959/PC_Hero_3-1.jpg"
+    class="login__background"
+    max-height="100vh"
+  >
     <Loading v-slot="{ loading, process }" :callback="login" linear-loader>
       <div class="login__body">
         <div class="login__title text-h4 font-weight-bold">
@@ -39,7 +43,6 @@
               x-large
               placeholder="Password"
               class="login__input"
-              type="password"
               label="Password"
               toggle
               single-line
@@ -47,7 +50,10 @@
               full-width
               dark
               :error-messagees="errors"
+              :type="show1 ? 'text' : 'password'"
+              :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
               @keyup.enter="process"
+              @click:append="show1 = !show1"
             >
             </v-text-field>
             <!-- <a class="login__forgotlink" href="password-reset"> Forgot Password</a> -->
@@ -71,7 +77,7 @@
               </v-card>
             </v-dialog> -->
             <v-dialog v-model="dialog" width="400">
-              <template v-slot:activator="{ on, attrs }">
+              <template #activator="{ on, attrs }">
                 <div class="login__forgotpassword" v-bind="attrs" v-on="on">
                   <i>
                     <a class="login__forgotlink"> Forgot Password</a>
@@ -117,10 +123,15 @@
               <a class="login__signuplink" href="signup"> No account yet? Signup.</a>
             </i>
           </div>
+          <div class="d-flex justify-center mt-6">
+            <a href="https://www.pilotcity.com/"
+              ><img src="@/assets/Pilotcity_logo.png" class="nav__logo2" />
+            </a>
+          </div>
         </validation-observer>
       </div>
     </Loading>
-  </div>
+  </v-img>
 </template>
 
 <script lang="ts">
@@ -140,11 +151,12 @@ export default {
     if (!user.value) next();
     else next({ name: 'login' });
   },
-  setup(_props, { root: { $router } }) {
+  setup(_props, { root: { $router, $route } }) {
     const state = reactive({
       email: '',
       password: '',
       resetEmail: '',
+      show1: false,
       dialog: false,
       error: ''
     });
@@ -171,7 +183,7 @@ export default {
       try {
         const user = await loginUser({ email: state.email, password: state.password });
         await onLogin(user!.accessToken);
-        $router.push({ name: 'setup' });
+        $router.push({ name: $route.params.page || 'setup' });
       } catch (err) {
         // To catch errors: pass an error object to captureException() to get it captured as event in Sentry.
         // Sentry.captureException() should be called in places where the code might break.  This will allow you to find and fix bugs.
@@ -250,7 +262,7 @@ export default {
   }
   &__title {
     color: #3c9ccc;
-    margin-top: 120px;
+    margin-top: 160px;
     margin-bottom: 30px;
     font-family: Raleway;
   }

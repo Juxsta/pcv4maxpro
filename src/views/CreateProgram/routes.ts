@@ -5,7 +5,11 @@ const routes: Array<RouteConfig> = [
   {
     path: '/createprogram',
     name: 'createprogram',
-    component: CreateProgram
+    component: CreateProgram,
+    meta: {
+      requiresAuth: true,
+      requiresUser: true
+    }
   }
 ];
 

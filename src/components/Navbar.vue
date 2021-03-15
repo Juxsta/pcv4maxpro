@@ -69,6 +69,20 @@
         large
         depressed
         rounded
+        dark
+        color="green"
+        :ripple="false"
+        @click="$router.push({ name: 'portfolio' })"
+        ><v-icon left>mdi-sign-direction</v-icon>
+        <span class="font-weight-black">Explore Programs</span>
+      </v-btn>
+
+      <v-btn
+        v-if="user"
+        class="mr-3 ml-3"
+        large
+        depressed
+        rounded
         outlined
         color="white"
         :ripple="false"
@@ -102,7 +116,7 @@
         <span class="font-weight-black">Logout</span>
       </v-btn> -->
       <v-menu v-if="user" offset-y :ripple="false">
-        <template v-slot:activator="{ on, attrs }">
+        <template #activator="{ on, attrs }">
           <v-btn
             v-if="user"
             rounded
@@ -129,6 +143,11 @@
   width: 40px;
   height: 50px;
   margin-left: 20px;
+}
+
+.nav__logo2 {
+  width: 35px;
+  height: 43.75px;
 }
 
 .navbar__avatar {

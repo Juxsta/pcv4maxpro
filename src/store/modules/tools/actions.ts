@@ -3,6 +3,7 @@ import { RootState } from '../../state';
 import toolState from './state';
 import { MutationTypes } from './mutations';
 
+// eslint-disable-next-line no-shadow
 export enum ActionTypes {
   setLinearLoader = 'setLinearLoader'
 }

@@ -2,7 +2,7 @@ import VueApollo from 'vue-apollo';
 import { useRealmAppState } from '@/store';
 import { setContext } from 'apollo-link-context';
 import { ApolloClient } from 'apollo-boost';
-
+import RealmWeb from 'realm-web';
 import { createHttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 
@@ -27,7 +27,7 @@ const authorizationHeaderLink = () =>
       await app.value.currentUser.refreshCustomData();
     } else {
       // If no user is logged in, log in an anonymous user
-      // await app.logIn(RealmWeb.Credentials.anonymous());
+      await app.value.logIn(RealmWeb.Credentials.anonymous());
     }
     // Get a valid access token for the current user
     const accessToken = app.value.currentUser?.accessToken;

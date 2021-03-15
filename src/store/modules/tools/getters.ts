@@ -2,6 +2,7 @@ import { GetterTree } from 'vuex';
 import { RootState } from '../../state';
 import toolState from './state';
 
+// eslint-disable-next-line no-shadow
 export const enum GetterTypes {
   getLinearLoading = 'linearLoading'
 }

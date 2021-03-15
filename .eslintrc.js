@@ -21,8 +21,15 @@ module.exports = {
     '@typescript-eslint/no-non-null-assertion': 'off',
     '@typescript-eslint/no-empty-function': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
-    camelcase: 'off',
-    'no-underscore-dangle': 'off'
+    'no-underscore-dangle': 'off',
+    'vue/no-unused=vars': 'off',
+    'vue/valid-v-slot': [
+      'error',
+      {
+        allowModifiers: true
+      }
+    ],
+    'vue/no-unused-vars': 'off'
   },
   overrides: [
     {

@@ -4,6 +4,7 @@ import { ObjectId } from 'bson';
 import { RootState } from '../../state';
 import authState from './state';
 
+// eslint-disable-next-line no-shadow
 export const enum GetterTypes {
   getUser = 'getUser',
   getId = 'getId',
