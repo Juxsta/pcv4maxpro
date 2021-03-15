@@ -74,7 +74,17 @@
     </div>
     <v-card class="program-card">
       <v-expand-x-transition>
-        <div v-show="!expand" class="guide-bar__container">
+        <div
+          v-show="!expand"
+          class="guide-bar__container"
+          :class="
+            userType === 'participant'
+              ? ['participantClass1', 'participantClass2']
+              : userType === 'employer'
+              ? ['employerClass1', 'employerClass2']
+              : ['studentClass1', 'studentClass2']
+          "
+        >
           <div><v-btn rounded disabled x-small outlined depressed>PilotCity Flagship</v-btn></div>
           <div class="guide-bar__title">{{ title }}</div>
 

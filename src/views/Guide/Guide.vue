@@ -13,7 +13,7 @@
           :title="programDoc.title"
           :user-type="userType"
         />
-        <guide-bar v-else v-model="currentPage" :timeline="timeline" />
+        <guide-bar v-else v-model="currentPage" :timeline="timeline" :user-type="userType" />
       </div>
 
       <div class="guide__page">
@@ -304,11 +304,11 @@ export default defineComponent({
     watch(user, () => {
       userDoc.value.data = user.value;
     });
-    let userType = 'stakeholder';
+    const userType = ref('stakeholder');
     if (programDoc.value.data.organizers?.includes(getObjectId.value)) {
-      userType = 'organizer';
+      userType.value = 'organizer';
     } else if (programDoc.value.data.participants?.includes(getObjectId.value))
-      userType = 'participant';
+      userType.value = 'participant';
     return {
       currentUnit,
       currentPage,
