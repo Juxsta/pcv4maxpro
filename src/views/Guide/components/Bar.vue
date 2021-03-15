@@ -3,7 +3,7 @@
     <div class="guide-bar__expand" @click="expand = !expand">
       <div>
         <v-tooltip right color="black">
-          <template v-slot:activator="{ on, attrs }"
+          <template #activator="{ on, attrs }"
             ><v-icon v-bind="attrs" color="#404142" class="guide-bar__sidebar-icon" v-on="on"
               >mdi-drag-vertical</v-icon
             >
@@ -50,7 +50,7 @@
       <v-divider />
       <div @click="activeStep = unlockedStep">
         <v-tooltip right color="black">
-          <template v-slot:activator="{ on, attrs }"
+          <template #activator="{ on, attrs }"
             ><v-icon v-bind="attrs" color="blue" class="guide-bar__sidebar-icon" v-on="on"
               >mdi-transit-connection-variant</v-icon
             >
@@ -63,7 +63,7 @@
 
       <router-link :to="{ name: 'portfolio' }">
         <v-tooltip right color="black">
-          <template v-slot:activator="{ on, attrs }"
+          <template #activator="{ on, attrs }"
             ><v-icon v-bind="attrs" color="#404142" class="guide-bar__sidebar-icon" v-on="on"
               >mdi-fingerprint</v-icon
             >
@@ -211,7 +211,7 @@
           </div>
           <div class="guide-bar__actions-share">
             <v-dialog v-model="dialog" persistent max-width="600px">
-              <template v-slot:activator="{ on, attrs }">
+              <template #activator="{ on, attrs }">
                 <v-btn
                   v-bind="attrs"
                   class="guide-bar__actions-share-btn"
@@ -248,7 +248,7 @@
 
                 <v-divider></v-divider>
 
-                <v-card-text>
+                <!-- <v-card-text>
                   <v-row
                     ><v-col cols="1" class="d-flex align-center"
                       ><v-avatar size="32">
@@ -314,7 +314,7 @@
                         outlined
                       ></v-select></v-col
                   ></v-row>
-                </v-card-text>
+                </v-card-text> -->
 
                 <v-divider></v-divider>
                 <!-- <v-card-text>

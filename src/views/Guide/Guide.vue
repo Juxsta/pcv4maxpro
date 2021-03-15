@@ -51,12 +51,13 @@
         <div class="guide__activities">
           <component
             :is="currentUnit"
-            v-if="programDoc.data.dateCreated"
+            v-if="programDoc && programDoc.data.dateCreated && userDoc.data"
             v-model="programDoc"
             :student-doc="studentDoc"
             :license-program="licenseProgram"
             :user-type="userType"
             :db="db"
+            :user-doc="userDoc"
             @inputStudentDoc="studentDoc = $event"
             @inputTeamDoc="teamDoc = $event"
             @inputUserDoc="userDoc = $event"
@@ -99,7 +100,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref, Ref, watchEffect } from '@vue/composition-api';
+import { computed, defineComponent, ref, Ref, watch, watchEffect } from '@vue/composition-api';
 import setup from 'developer-adk-setup/src/Module/Module.vue';
 import rfp from 'developer-adk-rfp/src/Module/Module.vue';
 import team from 'developer-adk-teamcommunity/src/Module/Module.vue';
@@ -297,11 +298,13 @@ export default defineComponent({
       data: user.value,
       update: () => {}
     });
-
+    watch(user, () => {
+      userDoc.value.data = user.value;
+    });
     let userType = 'stakeholder';
-    if (programDoc.value.data.organizers.includes(getObjectId.value)) {
+    if (programDoc.value.data.organizers?.includes(getObjectId.value)) {
       userType = 'organizer';
-    } else if (programDoc.value.data.participants.includes(getObjectId.value))
+    } else if (programDoc.value.data.participants?.includes(getObjectId.value))
       userType = 'participant';
     return {
       currentUnit,
