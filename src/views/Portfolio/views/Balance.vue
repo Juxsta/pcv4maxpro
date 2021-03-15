@@ -368,8 +368,8 @@
                   <div class="headline font-weight-bold">Uh-oh! The transfer failed.</div>
 
                   <v-card-text>
-                    Don't worry, your tokens weren't moved. <br />Please refresh the page and make
-                    sure you spelled your intended recipient's email correctly.
+                    Don't worry, your tokens weren't moved. <br />Please refresh the page and try
+                    again.
                   </v-card-text>
                 </div>
                 <div v-else>
@@ -542,6 +542,10 @@ export default {
     const processTransfer = async () => {
       loading.value = true;
       try {
+        if (transferQuantity.value > tokens.value.length) {
+          // TODO: display this error differently than others.
+          throw new Error('Trying to send more than account holds.');
+        }
         await mutate({
           mutation: gql`
             mutation transferTokens(
