@@ -13,8 +13,6 @@
       </div>
 
       <v-divider />
-
-      <v-divider />
       <div v-if="userType === 'participant'" @click="activeStep = unlockedStep">
         <v-tooltip right color="black">
           <template #activator="{ on, attrs }"
