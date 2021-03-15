@@ -6,7 +6,9 @@
           <div class="balance__main-left">
             <Profile :size="70" />
             <div class="balance__main-left-title">BALANCE</div>
-            <div class="balance__main-left-header">{{ tokens.length }} Tokens</div>
+            <div class="balance__main-left-header">
+              {{ tokens.length >= 100 ? '100+' : tokens.length }} Tokens
+            </div>
             <div>
               <v-icon class="balance__main-left-icon" color="grey" x-large>mdi-set-right</v-icon>
             </div>
