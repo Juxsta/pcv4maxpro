@@ -4,7 +4,7 @@
       <div class="balance__container">
         <div class="balance__main">
           <div class="balance__main-left">
-            <Profile size="70" />
+            <Profile :size="70" />
             <div class="balance__main-left-title">BALANCE</div>
             <div class="balance__main-left-header">{{ tokens.length }} Tokens</div>
             <div>
@@ -559,6 +559,7 @@ export default {
         }
       });
     };
+    const errors = '';
     return {
       sponsorshipLink,
       sponsorWelcomeMessage,
@@ -586,7 +587,8 @@ export default {
       transferQuantity,
       user: useDbState(['user']).user,
       sponsorId,
-      sponsorNameExamples: ['Arroyo High School', 'San Lorenzo Unified School District']
+      sponsorNameExamples: ['Arroyo High School', 'San Lorenzo Unified School District'],
+      errors
     };
   }
 };
